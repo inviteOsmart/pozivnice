@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <title>inviteOsmart – Smart digitalne pozivnice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#mainNavbar" data-bs-offset="90">
+
+    <!-- NAV -->
+    <nav id="mainNavbar" class="navbar navbar-expand-lg bg-white fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#hero">inviteO<span class="navbar-brand-logo-span">smart</span></a>
+
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div id="nav" class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#hero">Početna</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#ponuda">Ponuda</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#weddings">Venčanja</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#birthdays">Rođendani</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+        <div class="container">
+            <h1 data-aos="fade-up">
+                Digitalne smart pozivnice za posebne trenutke
+            </h1>
+
+            <p class="lead mt-3" data-aos="fade-up" data-aos-delay="150">
+                Elegantne online pozivnice za venčanja i rođendane – moderno, brzo i bez štampe.
+            </p>
+
+            <div class="btn-action-main mt-4" data-aos="fade-up" data-aos-delay="300">
+                <a href="#ponuda" class="btn btn-primary-hero btn-lg me-3">
+                    Pogledaj ponudu
+                </a>
+                <a href="#weddings" class="btn btn-secondary-hero btn-lg">
+                    Primeri pozivnica
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PONUDA -->
+    <section id="ponuda">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-3">Paketi</h2>
+            <p class="text-center text-muted mb-5">
+                Premium je najčešći izbor naših klijenata
+            </p>
+
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up">
+                    <div class="offer-card standard text-center">
+                        <div class="offer-badge discount violet">-20%</div>
+
+                        <h3>Standard</h3>
+
+                        <div class="offer-price">
+                            <span class="old-price">38 €</span>
+                            <span class="new-price">30 €</span>
+                        </div>
+
+                        <ul class="offer-list text-start">
+                            <li><span>✓</span> Interaktivni web sajt</li>
+                            <li><span>✓</span> Interaktivna mapa</li>
+                            <li><span>✓</span> Tajmer</li>
+                            <li><span>✓</span> Vreme i lokacija događaja</li>
+
+                            <li class="text-muted"><span>✕</span> Potvrda dolaska</li>
+                            <li class="text-muted"><span>✕</span> Galerija nakon događaja</li>
+                            <li class="text-muted"><span>✕</span> Muzički plejer</li>
+                            <li class="text-muted"><span>✕</span> Kalendar podsetnik</li>
+                        </ul>
+
+                        <div class="offer-timer" data-deadline="2026-03-01T23:59:59"></div>
+
+                        <a href="#birthday-standard" class="btn btn-secondary-hero mt-4">
+                            Izaberi Standard
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-6 most-used" data-aos="fade-up" data-aos-delay="150">
+                    <div class="offer-card premium text-center">
+                        <div class="offer-badge best">Najbolja ponuda</div>
+                        <div class="offer-badge discount rose">-40%</div>
+
+                        <h3>Premium</h3>
+
+                        <div class="offer-price">
+                            <span class="old-price">85 €</span>
+                            <span class="new-price">50 €</span>
+                        </div>
+
+                        <ul class="offer-list text-start">
+                            <li><span>✓</span> Interaktivni web sajt</li>
+                            <li><span>✓</span> Interaktivna mapa</li>
+                            <li><span>✓</span> Tajmer</li>
+                            <li><span>✓</span> Vreme i lokacija događaja</li>
+                            <li><span>✓</span> Potvrda dolaska (RSVP)</li>
+                            <li><span>✓</span> Galerija nakon događaja</li>
+                            <li><span>✓</span> Muzički plejer</li>
+                            <li><span>✓</span> Kalendar podsetnik</li>
+                        </ul>
+
+                        <div class="offer-timer" data-deadline="2026-03-01T23:59:59"></div>
+
+                        <a href="#weddings" class="btn btn-primary-hero mt-4">
+                            Izaberi Premium
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENT SECTIONS (kartice su spremne za dalje punjenje slikama) -->
+    <!-- VENČANJA -->
+    <section id="weddings">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Venčanja – Premium</h2>
+            <div class="row g-4">
+                <!-- 7 PREMIUM -->
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?1" alt="Wedding Premium 1">
+                            <h5>Wedding Premium 1</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?2" alt="Wedding Premium 2">
+                            <h5>Wedding Premium 2</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?3" alt="Wedding Premium 3">
+                            <h5>Wedding Premium 3</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?4" alt="Wedding Premium 4">
+                            <h5>Wedding Premium 4</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?5" alt="Wedding Premium 5">
+                            <h5>Wedding Premium 5</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?6" alt="Wedding Premium 6">
+                            <h5>Wedding Premium 6</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?7" alt="Wedding Premium 7">
+                            <h5>Wedding Premium 7</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <h2 class="text-center fw-bold mt-5 mb-5">Venčanja – Standard</h2>
+            <div class="row g-4">
+                <!-- 7 STANDARD -->
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <!-- <div class="badge best">Najbolja ponuda</div> -->
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?1" alt="Wedding Standard 1">
+                            <h5>Wedding Standard 1</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <!-- <div class="badge best">Najbolja ponuda</div> -->
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?2" alt="Wedding Standard 2">
+                            <h5>Wedding Standard 2</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <!-- <div class="badge best">Najbolja ponuda</div> -->
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?3" alt="Wedding Standard 3">
+                            <h5>Wedding Standard 3</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-standard-4" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <!-- <div class="badge best">Najbolja ponuda</div> -->
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?4" alt="Wedding Standard 4">
+                            <h5>Wedding Standard 4</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-standard-5" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <!-- <div class="badge best">Najbolja ponuda</div> -->
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?5" alt="Wedding Standard 5">
+                            <h5>Wedding Standard 5</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-standard-1" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <!-- <div class="badge best">Najbolja ponuda</div> -->
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?6" alt="Wedding Standard 6">
+                            <h5>Wedding Standard 6</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-standard-7" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <!-- <div class="badge best">Najbolja ponuda</div> -->
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?7" alt="Wedding Standard 7">
+                            <h5>Wedding Standard 7</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ROĐENDANI -->
+    <section id="birthdays">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5">Rođendani – Premium</h2>
+            <div class="row g-4">
+                <!-- 7 PREMIUM -->
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <!-- <div class="badge discount">-20%</div> -->
+
+                            <img src="https://picsum.photos/500/300?1" alt="Birthday Premium 1">
+                            <h5>Birthday Premium 1</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-premium-2" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <!-- <div class="badge discount">-20%</div> -->
+
+                            <img src="https://picsum.photos/500/300?2" alt="Birthday Premium 2">
+                            <h5>Birthday Premium 2</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-premium-3" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <!-- <div class="badge discount">-20%</div> -->
+
+                            <img src="https://picsum.photos/500/300?3" alt="Birthday Premium 3">
+                            <h5>Birthday Premium 3</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-premium-4" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <!-- <div class="badge discount">-20%</div> -->
+
+                            <img src="https://picsum.photos/500/300?4" alt="Birthday Premium 4">
+                            <h5>Birthday Premium 4</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-premium-5" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <!-- <div class="badge discount">-20%</div> -->
+
+                            <img src="https://picsum.photos/500/300?5" alt="Birthday Premium 5">
+                            <h5>Birthday Premium 5</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-premium-6" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <!-- <div class="badge discount">-20%</div> -->
+
+                            <img src="https://picsum.photos/500/300?6" alt="Birthday Premium 6">
+                            <h5>Birthday Premium 6</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-premium-7" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge best">Najbolja ponuda</div>
+                            <!-- ili -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?7" alt="Birthday Premium 7">
+                            <h5>Birthday Premium 7</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <!-- ... -->
+            </div>
+
+            <h2 id="birthday-standard" class="text-center fw-bold mt-5 mb-5">Rođendani – Standard</h2>
+            <div class="row g-4">
+                <!-- 7 STANDARD -->
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-standard-1" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?1" alt="Birthday Standard 1">
+                            <h5>Birthday Standard 1</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-standard-2" class="invitation-card standard">
+                        <div class="card-inner">
+
+         
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?2" alt="Birthday Standard 2">
+                            <h5>Birthday Standard 2</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-standard-3" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+           
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?3" alt="Birthday Standard 3">
+                            <h5>Birthday Standard 3</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-standard-4" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+        
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?4" alt="Birthday Standard 4">
+                            <h5>Birthday Standard 4</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/birthday-standard-1" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+     
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?5" alt="Birthday Standard 5">
+                            <h5>Birthday Standard 5</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card standard">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?6" alt="Birthday Standard 6">
+                            <h5>Birthday Standard 6</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-3 col-md-6" data-aos="zoom-in">
+                    <a href="/pozivnice/wedding-premium-1" class="invitation-card premium">
+                        <div class="card-inner">
+
+                            <!-- BADGE -->
+                            <div class="badge discount">-20%</div>
+
+                            <img src="https://picsum.photos/500/300?7" alt="Birthday Standard 7">
+                            <h5>Birthday Standard 7</h5>
+
+                            <div class="price-wrapper">
+                                <span class="old-price">65 €</span>
+                                <span class="price-tag">50 €</span>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+                <!-- ... -->
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-4 text-center">
+        <div>
+            <img src="assets/images/inviteosmartpnglogo.png" alt="inviteOsmart logo">
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="assets/js/main.js"></script>
+    </body>
+</html>

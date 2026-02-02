@@ -1,0 +1,605 @@
+/* SECTION TITLES */
+h2, h3 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+/* NAVIGATION */
+.navbar-brand {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-link {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+}
+
+/* BUTTONS */
+.btn {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* ================= GLOBAL ================= */
+body {
+    /* background: #fafafa; */
+    background:
+        radial-gradient(circle at top right, rgba(199,125,154,.18), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(111,66,193,.14), transparent 40%),
+        linear-gradient(180deg, #fffafa, #fdf3f7)!important;
+    background-attachment: fixed;
+    scroll-behavior: smooth;
+    color: #333;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.1px;
+}
+
+section {
+    padding: 90px 0;
+    scroll-margin-top: 90px;
+}
+
+.navbar {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+}
+
+.nav-link.active {
+    color: #c77d9a !important;
+    font-weight: 600;
+}
+
+/* ================= HERO ================= */
+.hero {
+    min-height: 75vh;
+    background:
+        radial-gradient(circle at center, rgba(255,255,255,.6), rgba(255,255,255,.15)),
+        radial-gradient(circle at top right, rgba(199,125,154,.25), transparent 45%),
+        radial-gradient(circle at bottom left, rgba(111,66,193,.22), transparent 45%);
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-weight: 800;
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.hero p {
+    max-width: 680px;
+    margin: auto;
+}
+
+.btn-primary-hero {
+    background: #c77d9a;
+    border: none;
+    color: #c77d9a;
+}
+
+.btn-primary-hero:hover {
+    background: #c77d9a;
+    color: #fff;
+}
+
+.btn-secondary-hero {
+    border: 2px solid #9d7bd8;
+    color: #6f42c1;
+}
+
+.btn-secondary-hero:hover {
+    background: #9d7bd8;
+    color: #fff;
+}
+
+/* ================= PONUDA ================= */
+#ponuda {
+    /* background:
+        radial-gradient(circle at top right, rgba(199,125,154,.18), transparent 40%),
+        radial-gradient(circle at bottom left, rgba(111,66,193,.14), transparent 40%),
+        linear-gradient(180deg, #fffafa, #fdf3f7); */
+}
+
+.offer-card {
+    background: #fff;
+    border-radius: 22px;
+    padding: 45px 35px;
+    height: 100%;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .08);
+    position: relative;
+}
+
+.offer-card.premium {
+    border: 3px solid #c77d9a;
+    /* transform: scale(1.05); */
+}
+
+.offer-badge {
+    position: absolute;
+    top: -19px;
+    left: 50%;
+    /* transform: translateX(-50%); */
+    background: #c77d9a;
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+.offer-price {
+    font-size: 2.4rem;
+    font-weight: 700;
+    margin: 20px 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+}
+
+.offer-list {
+    list-style: none;
+    padding: 0;
+}
+
+.offer-list li {
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.offer-list span {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: #c77d9a;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.standard .offer-list span {
+    background: #6f42c1;
+}
+
+/* ================= EVENT SECTIONS ================= */
+#weddings {
+    /* background: #fffafc; */
+}
+
+#birthdays {
+    /* background: #f3f6ff; */
+}
+
+/* ================= FLIP CARDS ================= */
+.flip-card {
+    height: 320px;
+    perspective: 1000px;
+}
+
+.flip-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform .7s;
+    transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    backface-visibility: hidden;
+    background: #fff;
+    box-shadow: 0 18px 35px rgba(0, 0, 0, .1);
+}
+
+.flip-card-front img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.flip-card-front h5 {
+    padding: 14px;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+
+.flip-card-back {
+    background: linear-gradient(135deg, #c77d9a, #9d7bd8);
+    color: #fff;
+    transform: rotateY(180deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.standard-card .flip-card-back {
+    background: linear-gradient(135deg, #6f42c1, #4dabf7);
+}
+
+/* kartica finalno */
+.invitation-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+/* PREMIUM CARD */
+.card-inner {
+    position: relative;
+    background: linear-gradient(
+        180deg,
+        rgba(255,255,255,0.95),
+        rgba(255,255,255,0.88)
+    );
+    backdrop-filter: blur(6px);
+    border-radius: 22px;
+    overflow: hidden;
+    height: 100%;
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.12),
+        inset 0 0 0 1px rgba(255,255,255,.4);
+    transition: all .4s ease;
+}
+
+/* IMAGE */
+.card-inner img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform .6s ease;
+}
+
+/* TITLE */
+.card-inner h5 {
+    padding: 16px 14px 8px;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: .3px;
+}
+
+/* PRICE */
+.price-wrapper {
+    text-align: center;
+    padding-bottom: 16px;
+}
+
+.old-price {
+    display: block;
+    font-size: .9rem;
+    text-decoration: line-through;
+    opacity: .5;
+}
+
+.price-tag {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #c77d9a;
+}
+
+/* BADGES */
+.badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    padding: 6px 14px;
+    font-size: .75rem;
+    font-weight: 700;
+    border-radius: 999px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    z-index: 2;
+    color: #fff;
+}
+
+/* Best offer */
+.badge.best {
+    background: linear-gradient(135deg, #d88ca8, #c77d9a);
+    box-shadow: 0 6px 18px rgba(199,125,154,.45);
+    right: 14px;
+    left: unset;
+}
+
+/* Discount */
+.badge.discount {
+    background: linear-gradient(135deg, #6a5acd, #836fff);
+    box-shadow: 0 6px 18px rgba(106,90,205,.45);
+}
+
+/* HOVER EFFECT */
+.invitation-card:hover .card-inner {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow:
+        0 30px 65px rgba(0,0,0,.18),
+        0 0 0 1px rgba(199,125,154,.25);
+}
+
+.invitation-card:hover img {
+    transform: scale(1.08);
+}
+
+footer {
+    /* background: #222; */
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.4px;
+}
+/* ================= COLOR SYSTEM ================= */
+
+:root {
+    --rose-main: #c77d9a;
+    --rose-light: #f6d1dc;
+    --violet-main: #6f42c1;
+    --violet-light: #e8ddfb;
+    --text-dark: #3a3a3a;
+    --text-muted: #6f6f6f;
+}
+
+/* GLOBAL TEXT COLORS */
+body {
+    color: var(--text-dark);
+}
+
+p,
+.lead {
+    color: var(--text-muted);
+}
+
+/* SECTION TITLES */
+h2 {
+    background: linear-gradient(135deg, var(--rose-main), var(--violet-main));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#weddings h2 {
+    background: linear-gradient(135deg, #c77d9a, #f1a7c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+#birthdays h2 {
+    background: linear-gradient(135deg, #6f42c1, #9d7bd8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* HERO TEXT */
+.hero h1 {
+    background: linear-gradient(135deg, #8b3d63, #6f42c1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero p {
+    color: #5c4a56;
+}
+
+/* NAV LINKS */
+.nav-link {
+    color: #5c5c5c;
+}
+
+.nav-link:hover {
+    color: var(--rose-main);
+}
+
+.navbar-brand-logo-span{
+    color: #ef1f53;
+}
+/* OFFER CARDS */
+.offer-card.standard {
+    background: linear-gradient(180deg, #ffffff, var(--violet-light));
+}
+
+.offer-card.premium {
+    background: linear-gradient(180deg, #ffffff, var(--rose-light));
+}
+
+/* OFFER TITLES */
+.offer-card h3 {
+    color: var(--rose-main);
+}
+
+.offer-card.standard h3 {
+    color: var(--violet-main);
+}
+
+/* OFFER LIST ICONS */
+.offer-card.standard .offer-list span {
+    background: var(--violet-main);
+}
+
+.offer-card.premium .offer-list span {
+    background: var(--rose-main);
+}
+
+.offer-price {
+    margin: 16px 0 24px;
+}
+
+.old-price {
+    display: block;
+    font-size: 1rem;
+    text-decoration: line-through;
+    opacity: .45;
+}
+
+.new-price {
+    font-size: 2.4rem;
+    font-weight: 800;
+}
+
+/* COLOR PRICE */
+.offer-card.standard .new-price {
+    color: var(--violet-main);
+}
+
+.offer-card.premium .new-price {
+    color: var(--rose-main);
+}
+
+/* BADGES */
+.offer-badge {
+    position: absolute;
+    /* top: 16px; */
+    padding: 6px 14px;
+    border-radius: 999px;
+    font-size: 1rem;
+    font-weight: 800;
+    letter-spacing: .6px;
+    color: #fff;
+}
+
+.offer-badge.discount {
+    right: 30px;
+    left: unset;
+}
+
+.offer-badge.discount.violet {
+    background: linear-gradient(135deg, var(--violet-main), #8e6ce3);
+}
+
+.offer-badge.discount.rose {
+    background: linear-gradient(135deg, var(--rose-main), #e1a1ba);
+}
+
+.offer-badge.best {
+    left: 30px;
+    background: linear-gradient(
+        135deg,
+        #d94b4b,
+        #c72c2c
+    );
+    box-shadow:
+        0 6px 18px rgba(215,60,60,.45),
+        0 0 14px rgba(215,60,60,.35);
+}
+
+/* TIMER */
+.offer-timer {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 14px;
+    font-size: .95rem;
+    font-weight: 600;
+    background: rgba(255,255,255,.6);
+    backdrop-filter: blur(6px);
+    color: var(--text-dark);
+}
+
+/* BUTTONS – PREMIUM */
+.btn-primary-hero {
+    /* background: linear-gradient(135deg, #c77d9a, #b06786); */
+    background: linear-gradient(87deg, #ffe4fa, var(--rose-light));
+    box-shadow: 0 12px 25px rgba(199,125,154,0.35);
+}
+
+.btn-primary-hero:hover {
+    background: linear-gradient(135deg, #e5a3bf, #b5748e);;
+}
+
+/* BUTTONS – STANDARD */
+.btn-secondary-hero {
+    background: linear-gradient(135deg, #e8ddfb, #d2c4f0);
+    border: none;
+    color: #6f42c1;
+    box-shadow: 0 10px 22px rgba(111,66,193,0.25);
+}
+
+.btn-secondary-hero:hover {
+    background: linear-gradient(135deg, #6f42c1, #9d7bd8);
+    color: #fff;
+}
+
+/* FLIP CARD TITLES */
+.flip-card-front h5 {
+    color: #4a4a4a;
+}
+
+/* PRICE TEXT */
+.price {
+    background: linear-gradient(135deg, #ffffff, #f8e7ee);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* FOOTER TEXT */
+footer {
+    /* background: linear-gradient(135deg, #2b2b2b, #1f1f1f); */
+    /* background: #f3f6ff; */
+    color: #d8d8d8;
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+footer img {
+    height: 400px;              /* manji nego u navbaru */
+    width: auto;
+    opacity: 0.75;             /* diskretno */
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+#birthdays{
+    padding: 90px 0 45px;
+}
+
+footer img:hover {
+    opacity: 1;
+    transform: scale(1.03);
+}
+
+/* tekst u footeru */
+footer {
+    font-size: 0.9rem;
+    color: #cfcfcf;
+}
+
+@media (width < 768px) {
+    .most-used {
+        margin-top: 50px !important;
+    }
+}
+
+@media (width < 600px) {
+    footer img{
+        width: 100%;
+        height: auto;
+    }
+
+}
+@media (width < 449px) {
+    .btn-action-main {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .btn-primary-hero{
+        margin-right: 0 !important;
+    }
+}
