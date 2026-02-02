@@ -1,0 +1,841 @@
+@import url(https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&family=Pinyon+Script&display=swap);* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+html,body {
+    height: 100%;
+    font-family: "Baskervville",serif;
+    color: #957039
+}
+
+ul {
+    list-style-type: none
+}
+
+body {
+    background-color: #fff;
+    background: url(../images/pozadina.webp)
+}
+
+p,h1,h2 {
+    text-shadow: 1px 1px 0 white,-1px 1px 0 white,1px -1px 0 white,-1px -1px 0 #fff
+}
+
+#prviDeo {
+    width: 100%;
+    text-align: center
+}
+
+#hederSlika {
+    position: relative;
+    width: 800px;
+    aspect-ratio: 1 / 1;
+    margin: auto;
+}
+
+/* RAM – u pseudo elementu */
+#hederSlika::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("../images/ram.webp");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    z-index: 2;                  /* RAM JE IZNAD */
+    pointer-events: none;
+}
+
+/* PROZOR RAMA */
+.prozor {
+    position: absolute;
+    top: 16%;
+    left: 27%;
+    width: 46%;
+    height: 63%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+/* SLIKA */
+.slikaUnutra {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+#naslovVeliki {
+    width: 700px;
+    height: 275px;
+    margin: auto;
+    position: relative
+}
+
+.prvoSlovo {
+    font-size: 120px;
+    font-family: "Pinyon Script",cursive;
+    margin-right: 12px
+}
+
+.zaneskiH {
+    font-size: 70px;
+    color: #957039;
+    font-weight: 500;
+    position: absolute;
+    top: 0;
+    left: 0
+}
+
+.muskiH {
+    font-size: 70px;
+    font-weight: 500;
+    color: #957039;
+    position: absolute;
+    bottom: 0;
+    right: 0
+}
+
+.i {
+    color: #957039;
+    position: absolute;
+    top: 145px;
+    font-size: 50px;
+    font-weight: 400;
+    text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: "Pinyon Script",cursive
+}
+
+#tekstIzmedju {
+    text-align: center;
+    font-size: 50px;
+    margin: 100px 0 140px 0;
+    font-family: "Pinyon Script",cursive
+}
+
+#lokacijaTekst {
+    width: 49%;
+    display: flex;
+    justify-content: space-between;
+    margin: auto
+}
+
+.element {
+    width: 49%;
+    text-transform: uppercase
+}
+
+.element h1 {
+    font-size: 22px
+}
+
+.element p {
+    font-size: 16px
+}
+
+.element img {
+    width: 100px;
+    margin-bottom: 10px
+}
+
+.linijaIzmedju {
+    width: 3px;
+    background: linear-gradient(#dbc199,#957039);
+}
+
+#mapa {
+    width: 500px;
+    margin: 140px auto
+}
+
+#mapa img {
+    width: 100%;
+    margin-bottom: 10px
+}
+
+#mapa a {
+    font-size: 17px;
+    font-weight: 600;
+    color: #957039;
+    letter-spacing: 2px
+}
+
+.elementVreme p {
+    margin-bottom: 5px
+}
+
+.elementVreme {
+    margin: 100px auto;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 2px;
+    position: relative;
+    z-index: 99
+}
+
+.elementVreme h1 {
+    font-size: 30px
+}
+
+.elementVreme p {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 10px
+}
+
+.elementVreme img {
+    width: 150px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border-radius: 50%
+}
+
+.elementVreme a {
+    color: #957039;
+    font-size: 16px;
+    letter-spacing: 2px
+}
+
+.elementVreme a:hover {
+    color: #be7735;
+    transition: 0.3s
+}
+
+#vremeDatum {
+    position: relative;
+    width: 100%
+}
+
+.slikaGore,.slikaDole {
+    position: absolute;
+    width: 400px
+}
+
+.slikaGore {
+    top: 300px;
+    left: 0
+}
+
+.slikaDole {
+    bottom: 0;
+    right: 0
+}
+
+.sati {
+    color: #ab926c;
+    font-size: 40px!important;
+    font-weight: 100
+}
+
+#tajmer {
+    width: 100%;
+    text-align: center;
+    margin-top: 130px;
+    margin-bottom: 100px
+}
+
+#tajmer h1,#galerija h1 {
+    font-family: "Pinyon Script",cursive;
+    font-size: 120px;
+    color: #957039;
+    margin: 50px auto;
+    font-weight: 400
+}
+
+.tajmerDiv {
+    width: 70%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    font-size: 80px;
+    font-family: "Pinyon Script",cursive
+}
+
+.box {
+    width: 100%
+}
+
+.transparenti {
+    font-size: 30px;
+    font-weight: 500;
+    font-family: "Baskervville",serif;
+    margin-bottom: 60px
+}
+
+.transparenti .box {
+    border: none
+}
+
+.sat .box {
+    border-bottom: 4px solid;
+    border-image: linear-gradient(to right,#dbc199,#957039);
+    border-image-slice: 1;
+    margin: 20px
+}
+
+add-to-calendar-button#css-part-example::part(atcb-button) {
+    background-color: #957039;
+    color: #fff
+}
+
+#galerija {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    padding: 100px 0
+}
+
+#dugmeGalerija {
+    margin: 80px auto 30px auto;
+    position: relative;
+    z-index: 99
+}
+
+#dostupno,#nedostupno {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: green;
+    margin: 4.5px
+}
+
+#nedostupno {
+    background-color: #be0a0a!important
+}
+
+#dugmeGalerija p {
+    margin-top: 20px;
+    font-size: 14px;
+    display: flex;
+    justify-content: center
+}
+
+#dugmeGalerija a {
+    font-size: 15px;
+    padding: .8em;
+    border-radius: 6px;
+    font-family: "Montserrat",sans-serif;
+    background-color: #957039;
+    color: #fff;
+    text-decoration: none;
+    letter-spacing: .5px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: rgba(0 0 0 / 10%) 0 4px 10px -2px,rgba(0 0 0 / 15%) 0 2px 2px -1px;
+    border: 1px solid #d2d2d2
+}
+
+#dugmeGalerija a:hover {
+    box-shadow: rgba(0 0 0 / 25%) 0 5px 12px -2px,rgba(0 0 0 / 25%) 0 3px 5px -2px
+}
+
+#dugmeGalerija i {
+    margin-right: 5px;
+    color: #fff
+}
+
+#potvrdaTimer {
+    text-align: center;
+    font-size: 15px;
+    margin-top: 10px
+}
+
+#potvrda {
+    margin: 150px 0;
+    position: relative
+}
+
+#ram {
+    position: absolute;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    top: 35px
+}
+
+#potvrda h1 {
+    text-align: center
+}
+
+form {
+    width: 40%;
+    margin: auto;
+    position: relative;
+    z-index: 99;
+    margin-top: 150px
+}
+
+ul {
+    list-style-type: none
+}
+
+form input,textarea,select {
+    width: 100%;
+    margin-top: 5px;
+    padding: 7px;
+    background-color: #efd4b9;
+    border: 1px solid #63462e9f;
+    color: #000
+}
+
+form ul li {
+    width: 100%;
+    margin-bottom: 30px
+}
+
+#potvrda .tekstPisan {
+    font-size: 80px;
+    margin-bottom: 25px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    font-family: "Pinyon Script",cursive
+}
+
+.dugme {
+    padding: 10px 30px;
+    background-color: #f3f2ee;
+    border: 1px solid #63462e9f;
+    cursor: pointer;
+    font-size: 20px;
+    color: #63462e9f
+}
+
+.dugme:hover {
+    background-color: #63462e9f;
+    color: #f3f2ee;
+    transition: 0.3s
+}
+
+.radioDugme {
+    width: auto
+}
+
+.radioRed {
+    display: block
+}
+
+form span {
+    font-size: 17px;
+    font-weight: 400
+}
+
+input[type="radio"] {
+    background-color: #f3f2ee;
+    border: 1px solid #63462e9f;
+    padding: 5px;
+    width: auto
+}
+
+.greska {
+    font-size: 13px;
+    color: #be0a0a
+}
+
+.buttonDisable {
+    cursor: not-allowed
+}
+
+.maliSpan {
+    margin-top: 2px;
+    font-size: 12px
+}
+
+#demo {
+    font-size: 65px;
+    margin: 5px 0 20px 0
+}
+
+footer {
+    width: 100%;
+    background-color: #ccae92;
+    padding: 60px 0;
+    display: flex;
+    justify-content: center
+}
+
+footer a img {
+    width: 250px
+}
+
+.footerLink {
+    font-size: 13px;
+    color: #fff
+}
+
+footer ul li {
+    text-align: center
+}
+
+.player {
+    width: 90%;
+    max-width: 300px;
+    height: 448px;
+    overflow: hidden;
+    border-radius: 30px;
+    padding: 20px;
+    box-shadow: 10px 10px 10px rgb(0 0 0 / .05);
+    position: relative;
+    background: rgb(255 255 255 / .1);
+    box-shadow: 0 8px 32px 0 rgb(31 38 135 / .37);
+    backdrop-filter: blur(8.5px);
+    -webkit-backdrop-filter: blur(8.5px);
+    border-radius: 10px;
+    border: 1px solid rgb(255 255 255 / .18);
+    margin: 100px auto 150px auto
+}
+
+.header {
+    text-align: center;
+    margin: 0 auto;
+    padding: 5px;
+    border-bottom: 1px solid #f5f5f5;
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff
+}
+
+.header span {
+    color: #63462e
+}
+
+.img {
+    width: 160px;
+    height: 160px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: linear-gradient(120deg,#ffa17f,#63462e);
+    overflow: hidden;
+    margin-top: 15px
+}
+
+.img img {
+    width: 150px;
+    height: 150px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 50%;
+    object-fit: cover;
+    z-index: 9999
+}
+
+.img img.play {
+    animation: 15s rotate linear infinite
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.details {
+    text-align: center
+}
+
+.details p {
+    color: #777;
+    font-size: 15px;
+    margin-top: 5px
+}
+
+.action {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.action button {
+    background: #fff;
+    box-shadow: 5px 5px 10px 5px rgb(0 0 0 / .028);
+    border-radius: 50%;
+    padding: 10px;
+    font-size: 28px;
+    width: 60px;
+    height: 60px;
+    border: none;
+    outline: none;
+    margin: 10px;
+    border: 2px solid #f8f8f8;
+    cursor: pointer;
+    color: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.action button.play {
+    background: linear-gradient(135deg,#ffa17f,#63462e);
+    color: #fff
+}
+
+.time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px auto 10px auto;
+    width: 90%;
+    color: #777
+}
+
+#progress {
+    margin: 0 auto;
+    display: block;
+    width: 90%;
+    -webkit-appearance: none;
+    height: 6px;
+    background: #f7f7f7
+}
+
+#progress::-webkit-slider-thumb {
+    background: #63462e;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 3px;
+    background: linear-gradient(135deg,#d4c2b3,#63462e);
+    transition: 0.2s ease-in-out
+}
+
+#potvrdaTekst {
+    margin: 60px auto 0 auto;
+    text-align: center;
+    width: 300px;
+    color: #be7735;
+    font-size: 25px
+}
+
+#podsetnik {
+    margin: auto;
+    margin-top: 50px
+}
+
+.message {
+    padding: 10px;
+    margin: 50px 0;
+    border: 1px solid #fff0;
+    border-radius: 4px
+}
+
+.message.success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6
+}
+
+.message.error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1
+}
+
+@media (max-width: 1000px) {
+    #potvrda .tekstPisan {
+        font-size:60px
+    }
+}
+
+@media (max-width: 900px) {
+    #hederSlika {
+        width:100%
+    }
+
+    form {
+        width: 60%
+    }
+
+    #lokacijaTekst {
+        width: 70%
+    }
+}
+
+@media (max-width: 900px) {
+    #naslovVeliki {
+        width:90%
+    }
+
+    .i {
+        left: 10%
+    }
+
+    #tajmer h1,#galerija h1 {
+        font-size: 90px
+    }
+
+    .tajmerDiv {
+        width: 80%
+    }
+
+    #lokacijaTekst {
+        flex-wrap: wrap
+    }
+
+    .element {
+        width: 100%
+    }
+
+    .linijaIzmedju {
+        width: 80%;
+        margin: 50px auto;
+        height: 3px
+    }
+
+    .slikaGore,.slikaDole {
+        width: 300px
+    }
+
+    #ram {
+        width: 95%
+    }
+}
+
+@media (max-width: 700px) {
+    #tajmer h1,#galerija h1 {
+        font-size:75px
+    }
+
+    .tajmerDiv {
+        width: 85%;
+        font-size: 65px
+    }
+
+    .transparenti {
+        font-size: 18px
+    }
+
+    .box {
+        font-size: 45px
+    }
+
+    .boxtekst {
+        font-size: 16px
+    }
+
+    .sat .box {
+        margin: 10px
+    }
+
+    form {
+        width: 80%
+    }
+
+    #lokacijaTekst {
+        width: 80%
+    }
+
+    #mapa {
+        width: 90%
+    }
+
+    .slikaGore,.slikaDole {
+        width: 250px
+    }
+
+    form {
+        width: 80%
+    }
+
+    #potvrda .tekstPisan {
+        font-size: 45px
+    }
+
+    #ram {
+        top: 25px
+    }
+}
+
+@media (max-width: 600px) {
+    #potvrda .tekstPisan {
+        font-size:35px
+    }
+
+    #ram {
+        top: 20px
+    }
+
+    footer a img {
+        width: 200px
+    }
+
+    #potvrdaTekst {
+        font-size: 18px;
+        width: 200px
+    }
+
+    #galerija {
+        padding: 20px 0
+    }
+}
+
+@media (max-width: 500px) {
+    .tajmerDiv {
+        width:95%;
+        font-size: 65px
+    }
+
+    .sat .box {
+        margin: 10px 5px
+    }
+
+    .prvoSlovo {
+        font-size: 100px
+    }
+
+    .zaneskiH,.muskiH {
+        font-size: 50px
+    }
+
+    #naslovVeliki {
+        height: 230px
+    }
+
+    #tekstIzmedju {
+        font-size: 45px
+    }
+
+    #lokacijaTekst {
+        width: 95%
+    }
+
+    .slikaGore,.slikaDole {
+        width: 200px
+    }
+
+    #potvrda .tekstPisan {
+        font-size: 30px
+    }
+
+    #ram {
+        top: 15px
+    }
+}
+
+@media (max-width: 400px) {
+    .box {
+        font-size:40px
+    }
+
+    .boxtekst {
+        font-size: 15px
+    }
+
+    #potvrda .tekstPisan {
+        font-size: 25px
+    }
+
+    #ram {
+        top: 10px
+    }
+}

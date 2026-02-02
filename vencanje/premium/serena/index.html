@@ -1,0 +1,248 @@
+
+<!DOCTYPE html>
+<html lang="sr-Latn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pozivamo Vas na naše venčanje.</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://smartpozivnice.com/images/ikonica.ico" rel="icon">
+    <!-- <link href="https://smartpozivnice.com/css/vencanja/prva.css" rel="stylesheet"> -->
+    <link rel="stylesheet" href="assets/css/style.css" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <meta property="og:title" content="Pozivamo Vas na naše venčanje.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://smartpozivnice.com/vencanja/roma" />
+    <meta property="og:image" content="assets/images/og.webp">
+    <meta property="og:description" content="Zajedno u ljubavi, delimo sreću! Neka naš dan bude ispunjen smehom, radosti i neizmernim veseljem. Radujemo se što ćete biti deo naše ljubavne priče i stvoriti nezaboravne trenutke s nama!">
+    <meta property="og:site_name" content="Venčanje">
+    <meta property="og:locale" content="sr_RS">
+
+    <!-- Specifični Tagovi za Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@korisnickoime">
+    <meta name="twitter:title" content="Pozivamo Vas na naše venčanje.">
+    <meta name="twitter:description" content="Zajedno u ljubavi, delimo sreću! Neka naš dan bude ispunjen smehom, radosti i neizmernim veseljem. Radujemo se što ćete biti deo naše ljubavne priče i stvoriti nezaboravne trenutke s nama!">
+    <meta name="twitter:image" content="assets/images/og.webp">
+    <meta name="twitter:image:alt" content="Venčanje">
+
+    <meta property="og:image:secure_url" content="assets/images/og.webp">
+
+
+</head>
+<body>
+
+
+
+    <div id="prviDeo">
+        <img class="prviUkras" src="assets/images/pattern 02.webp" alt="" />
+        <img class="glavnaSlika" src="assets/images/img.webp" alt="" />
+        <img class="buketPrvi" src="assets/images/buket01.webp" alt=""/>
+    </div>
+
+    <div id="prviTekst">
+        <p class="tekstPrvi">The wedding of</p>
+        <h1 class="tekstPisan">Kristina & Miloš</h1>
+        <p class="tekstIspod">Zajedno u ljubavi, delimo sreću! Neka naš dan bude ispunjen smehom, radosti i neizmernim veseljem. Radujemo se što ćete biti deo naše ljubavne priče i stvoriti nezaboravne trenutke s nama!</p>
+    </div>
+
+
+    <div id="drugiDeo">
+        <img class="drugiListovi" src="assets/images/pattern 01.webp" alt="" />
+        <img class="drugiGlavnaSlika" src="assets/images/Image2.webp" alt="" />
+        <img class="drugiBuket" src="assets/images/buket 02.webp" alt="" />
+    </div>
+
+
+
+    <div id="treciDeo">
+        <img class="treciCvet" src="assets/images/cvet 01.webp" alt="" />
+        <p class="tekstIspod">Naša ljubav je poput nežne pesme, ispunjena toplinom i radosti. U njenom zagrljaju, osećamo se potpuno i slobodno. Neka naša ljubav bude svetionik kroz tamu, osnažujući nas u svim izazovima. Zajedno gradimo mostove od ljubavi koji spajaju naša srca u beskrajnom plesu života.</p>
+        <img class="treciListManji" src="assets/images/pattern 02.webp" alt="" />
+        <img class="treciList" src="assets/images/cveceDesno.webp" alt="" />
+        <h1 class="tekstPisan">Kristina & Miloš</h1>
+        <p class="treciDatum">05.12.2025.</p>
+    </div>
+
+    <div class="player">
+
+        <div class="header">
+            <span>Pesma za prvi ples</span>
+        </div>
+
+        <div class="img">
+          <img src="" id="thumb">
+        </div>
+        <div class="details">
+          <h3 id="title"></h3>
+          <p id="musician"></p>
+        </div>
+        <audio id="song">
+          <source src="" type="audio/mp3">
+          </source>
+        </audio>
+
+        <div class="time">
+          <span id="start">2:28</span>
+          <span id="end">4:33</span>
+        </div>
+        <input type="range" id="progress" value="0">
+
+        <div class="action">
+
+          <button onclick="prevPlay()">
+            <i class="bx bx-skip-previous"></i>
+          </button>
+
+          <button onclick="playPause()" class="play" id="play">
+            <i class="bx bx-play"></i>
+          </button>
+
+          <button onclick="nextPlay()">
+            <i class="bx bx-skip-next"></i>
+          </button>
+
+        </div>
+    </div>
+
+
+    <div id="tajmer">
+        <img class="drugiListovi" src="assets/images/pattern 01.webp" alt="" />
+        <h1 class="tekstPisan">Brojimo zajedno</h1>
+        <div id="demo"></div>
+            <add-to-calendar-button
+            id="css-part-example"
+            name="Venčanje Kristine i Miloša"
+            description="Radujemo se što ćete biti deo naše ljubavne priče i stvoriti nezaboravne trenutke s nama!"
+            startDate="2025-05-12"
+            startTime="09:00"
+            endTime="23:59"
+            timeZone="Europe/Belgrade"
+            location="Crowne Plaza Beograd"
+            options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+            buttonStyle="3d"
+            inline
+            trigger="click"
+            size="5"
+            label="Postavi podsetnik"
+            ></add-to-calendar-button>
+            <div id="ukras">
+                <img src="assets/images/ukras.webp" alt="" />
+            </div>
+    </div>
+
+    <div class="delovi" id="svatovi">
+        <img src="assets/images/ikonica_buket.webp" alt=""/>
+        <h1>Okupljanje svatova</h1>
+        <p class="sati">09:00 h</p>
+        <p>Bulevar Zorana Đinđića 128</p>
+        <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/SWS31FGkJnBhuzA3A">Pogledaj na mapi</a>
+    </div>
+
+    <div class="delovi" id="crkva">
+        <img src="assets/images/ikonica_crkva.webp" alt=""/>
+        <h1>Crkveno venčanje</h1>
+        <p class="sati">13:00 h</p>
+        <p>Crkva Svetog Simeona Mirotočivog</p>
+        <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/iUSXwmXH5qgqYcUX7">Pogledaj na mapi</a>
+    </div>
+
+    <div class="delovi" id="gradjansko">
+        <img src="assets/images/ikonica_vencanje.webp" alt=""/>
+        <h1>Građansko venčanje</h1>
+        <p class="sati">14:00 h</p>
+        <p>Gradska opština "Novi Beograd"</p>
+        <a target="_blank" rel="noopener" href="https://maps.app.goo.gl/arXxxDYELrHwTgGL6">Pogledaj na mapi</a>
+    </div>
+
+    <div class="delovi" id="proslava">
+        <img src="assets/images/ikonica_proslava.webp" alt=""/>
+        <h1>Svečana proslava</h1>
+        <p class="sati">15:00 h</p>
+        <p>Crowne Plaza Beograd</p>
+        <a target="_blank" rel="noopener"  href="https://maps.app.goo.gl/nD49gFp94Y2FpZPd7">Pogledaj na mapi</a>
+    </div>
+
+    <div id="galerija">
+        <img class="drugiListovi" src="assets/images/pattern 01.webp" alt="" />
+        <h1 class="tekstPisan">Galerija fotografija</h1>
+        <div id="dugmeGalerija">
+            <a target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/1YmiHPA26C3duW39FNRbRDczb4-51cmDD?usp=sharing"><i class="fa fa-camera"></i> Pogledaj galeriju</a>
+            <p>fotografije su dostupne<span id="dostupno"></span></p> 
+        </div>
+
+        <img id="ukras" src="assets/images/ukras.webp" alt="" />
+    </div>
+
+
+    <div id="potvrda">
+        <p id="potvrdaTekst">Potvrdite nam vaš dolazak najkasnije do 20.11.2025.</p>
+        <p id="potvrdaTimer"></p>
+        <h1 class="tekstPisan">Potvrda dolaska</h1>
+        <form id="form">
+            <ul>
+                <li>
+                    <span>Ime i prezime*</span> <span id="greskaIme" class="greska"></span>
+                    <input type="text" name="ime" id="imePrezime" />
+
+                </li>
+                <li class="radioRed">
+                    <span>Potvrđujem dolazak*</span> <span id="greskaRadio" class="greska"></span>
+                    <div><input class="daNe" type="radio" value=1 name="potvrda"/> <span>Da</span></div>
+                    <div><input class="daNe" type="radio" value=0 name="potvrda"/> <span>Ne</span></div>
+                </li>
+                <li>
+                    <span>Broj gostiju koji dolaze sa mnom*</span><span id="greskaLista" class="greska"></span>
+                    <select name="broj" id="broj">
+                        <option value="1">Samo ja</option>
+                        <option value="2">+1</option>
+                        <option value="3">+2</option>
+                        <option value="4">+3</option>
+                        <option value="5">+4</option>
+                        <option value="3">+5</option>
+                        <option value="4">+6</option>
+                        <option value="5">+7</option>
+                        <option value="3">+8</option>
+                        <option value="4">+9</option>
+                    </select>
+                    <span class="maliSpan">Izaberite u padajucem meniju odgovarajuci broj</span>
+                </li>
+                <li>
+                    <span>Imena i prezimena gostiju koji dolaze sa mnom</span><span id="greskaGosti" class="greska"></span>
+                    <textarea name="" id="gosti" cols="20" rows="10"></textarea>
+                </li>
+                <li>
+                    <span>Poruka:</span>
+                    <textarea name="" id="poruka" cols="20" rows="10"></textarea>
+                </li>
+                <li>
+                    <button type="button" disabled id="sendMessage" class="dugme">Potvrdi</button>
+                </li>
+            </ul>
+        </form>
+    </div>
+
+    <footer>
+        <!-- <ul>
+            <li>
+                <a target="_blank" rel="noopener" href="https://smartpozivnice.com">
+                    <img src="assets/images/logo.webp" alt="" />
+                </a>
+            </li>
+            <li><a target="_blank" rel="noopener" class="footerLink" href="https://smartpozivnice.com">smartpozivnice.com</a></li>
+        </ul> -->
+
+
+
+    </footer>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
+
