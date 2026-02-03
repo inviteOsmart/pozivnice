@@ -264,6 +264,7 @@ section {
     height: 220px;
     object-fit: cover;
     transition: transform .6s ease;
+    object-position: top;
 }
 
 /* TITLE */
