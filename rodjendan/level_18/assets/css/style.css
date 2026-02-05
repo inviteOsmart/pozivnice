@@ -1,0 +1,551 @@
+:root{
+  --bg:#070b16;
+  --line:rgba(255,255,255,.08);
+  --accent:#37d6ff;
+  --accent2:#6b5cff;
+  --gold:#c9a15a;
+}
+
+/* ===== BASE ===== */
+body{
+  margin:0;
+  font-family:Inter,sans-serif;
+  color:#fff;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(55,214,255,.14), transparent 35%),
+    radial-gradient(circle at 80% 30%, rgba(107,92,255,.14), transparent 40%),
+    url("https://www.transparenttextures.com/patterns/hexellence.png"),
+    var(--bg);
+  overflow-x:hidden;
+}
+
+/* ===== HERO ===== */
+.hero{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position:relative;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    to bottom,
+    rgba(7,11,22,.35),
+    rgba(7,11,22,.9)
+  );
+  z-index:1;
+}
+.hero-content{position:relative;z-index:2}
+
+.hero h1{
+  font-family:'Exo 2',sans-serif;
+  font-size:clamp(3rem,6vw,4.6rem);
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 45px rgba(55,214,255,.6);
+  min-height:1.3em;
+}
+
+.hero-subtitle{
+  font-size:1.05rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.8);
+  margin-bottom:2rem;
+}
+.hero-subtitle::after{
+  content:"";
+  display:block;
+  width:60px;height:2px;margin:14px auto 0;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  opacity:.9;
+}
+
+/* ===== CENTER INFO (DATE / LOCATION) ===== */
+.info-center{
+  padding:48px 24px;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+/* ICON */
+.info-icon i{
+  font-size:3.2rem;
+  color:var(--accent);
+  filter:drop-shadow(0 0 12px rgba(55,214,255,.55));
+}
+
+/* DATE */
+.info-day{
+  font-family:'Exo 2',sans-serif;
+  font-size:1.2rem;
+  letter-spacing:.25em;
+  text-transform:uppercase;
+  opacity:.75;
+  margin-bottom:6px;
+}
+
+.info-date{
+  font-family:'Exo 2',sans-serif;
+  font-size:2.6rem;
+  font-weight:700;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  margin-bottom:4px;
+}
+
+.info-year{
+  font-size:1.1rem;
+  letter-spacing:.2em;
+  opacity:.6;
+}
+
+/* LOCATION */
+.info-location{
+  font-family:'Exo 2',sans-serif;
+  font-size:2.2rem;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.info-city{
+  font-size:1.2rem;
+  letter-spacing:.18em;
+  opacity:.65;
+  text-transform:uppercase;
+}
+
+
+/* ===== COUNTDOWN ===== */
+.countdown div{
+  background:rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  min-width:90px;
+  transition:.35s ease;
+}
+.countdown div:hover{
+  transform:translateY(-6px);
+  box-shadow:0 12px 30px rgba(0,0,0,.35);
+}
+
+/* ===== CARD ===== */
+.card-lux{
+  background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+  border:1px solid var(--line);
+  border-radius:22px;
+  padding:24px;
+  backdrop-filter:blur(2px);
+  position:relative;
+  /* transition:.4s ease; */
+}
+.card-lux:hover{
+  /* transform:translateY(-8px); */
+  /* box-shadow:0 22px 50px rgba(0,0,0,.45); */
+}
+.card-lux::after{
+  content:"";
+  position:absolute;inset:0;
+  background:url("https://www.transparenttextures.com/patterns/noise-pattern-with-subtle-cross-lines.png");
+  opacity:.06;pointer-events:none;
+}
+
+/* ===== BUTTON (NEON SWEEP) ===== */
+.btn-neon{
+  position:relative;
+  display:inline-block;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border:none;color:#000;font-weight:600;
+  border-radius:999px;
+  padding:.7rem 1.8rem;
+  text-decoration:none;overflow:hidden;
+  box-shadow:0 0 30px rgba(55,214,255,.45);
+  transition:transform .35s ease, box-shadow .35s ease!important;
+}
+.btn-neon::before{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.35),transparent 70%);
+  transform:translateX(-120%);transition:.6s ease;
+}
+.btn-neon:hover{
+  transform:translateY(-4px)!important;
+  box-shadow:0 12px 35px rgba(55,214,255,.6),0 0 45px rgba(107,92,255,.6);
+}
+.btn-neon:hover::before{transform:translateX(120%)}
+.btn-neon:active{transform:translateY(-1px) scale(.98)}
+
+/* ===== MAPA ===== */
+.map-wrapper{
+  width:100%;
+  height:240px;
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.2),
+    0 18px 40px rgba(0,0,0,.35);
+}
+
+.map-wrapper iframe{
+  width:100%;
+  height:100%;
+  border:0;
+  filter:grayscale(1) contrast(1.05) brightness(.9);
+}
+
+/* ===== MUSIC PLAYER – NEON GLASS ===== */
+.music-ui{
+    max-width:520px;
+    margin:auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, .02));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 24px;
+    backdrop-filter: blur(2px);
+    position: relative;
+}
+
+/* title */
+.music-title{
+  font-size:.7rem;
+  letter-spacing:.28em;
+  text-transform:uppercase;
+  color:var(--accent);
+  margin-bottom:18px;
+  text-align:center;
+  opacity:.85;
+}
+
+/* rotating neon ring */
+.cover-ring{
+  width:150px;
+  height:150px;
+  margin:0 auto 18px;
+  border-radius:50%;
+  padding:6px;
+  background:
+    conic-gradient(
+      from 0deg,
+      var(--accent),
+      var(--accent2),
+      var(--accent)
+    );
+  animation:spin 12s linear infinite;
+}
+
+.cover-ring img{
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid rgba(10,14,30,.9);
+}
+
+/* stop rotation when paused */
+.music-ui.paused .cover-ring{
+  animation-play-state:paused;
+}
+
+/* song info */
+.song-name{
+  font-weight:600;
+  text-align:center;
+  font-size:1.05rem;
+}
+
+.song-artist{
+  text-align:center;
+  font-size:.85rem;
+  color:rgba(255,255,255,.65);
+  margin-bottom:18px;
+}
+
+/* timeline */
+.timeline{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-size:.75rem;
+  margin-bottom:24px;
+  color:rgba(255,255,255,.75);
+}
+
+.timeline input{
+  flex:1;
+  height:4px;
+  appearance:none;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  border-radius:99px;
+  cursor:pointer;
+}
+
+.timeline input::-webkit-slider-thumb{
+  appearance:none;
+  width:14px;
+  height:14px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 12px rgba(55,214,255,.8);
+}
+
+/* controls */
+.controls{
+  display:flex;
+  justify-content:center;
+  gap:22px;
+}
+
+.ctrl{
+  width:50px;
+  height:50px;
+  border-radius:50%;
+  border:none;
+  cursor:pointer;
+  font-size:1.1rem;
+  color:#fff;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.2),
+      rgba(255,255,255,.05)
+    );
+
+  backdrop-filter:blur(10px);
+  transition:all .3s ease;
+}
+
+.ctrl:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 20px rgba(55,214,255,.4);
+}
+
+/* play button */
+.ctrl.play{
+  width:64px;
+  height:64px;
+  font-size:1.5rem;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#000;
+  box-shadow:
+    0 0 30px rgba(55,214,255,.7),
+    0 0 60px rgba(124,77,255,.35);
+}
+
+/* subtle glow pulse */
+@keyframes spin{
+  to{transform:rotate(360deg)}
+}
+
+
+/* ===== RSVP FORM ===== */
+.rsvp-card{
+  max-width:520px;
+  margin:auto;
+}
+
+.rsvp-form{
+  max-width:380px;
+  margin:auto;
+}
+
+/* FORM GROUP */
+.form-group{
+  position:relative;
+  margin-bottom:26px;
+}
+
+/* INPUT + SELECT */
+.form-group input,
+.form-group select{
+  width:100%;
+  padding:18px 14px 14px;
+  font-size:.95rem;
+  color:#fff;
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:14px;
+  outline:none;
+  appearance:none;
+  backdrop-filter:blur(18px);
+  transition:all .35s ease;
+}
+
+/* HOVER */
+.form-group input:hover,
+.form-group select:hover{
+  background:rgba(255,255,255,.12);
+}
+
+/* FOCUS */
+.form-group input:focus,
+.form-group select:focus{
+  border-color:var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(55,214,255,.4),
+    0 0 18px rgba(55,214,255,.35);
+}
+
+/* LABEL */
+.form-group label{
+  position:absolute;
+  top:50%;
+  left:14px;
+  transform:translateY(-50%);
+  font-size:.72rem;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,.65);
+  pointer-events:none;
+  transition:.3s ease;
+  padding:0 6px;
+  background:transparent;
+  z-index:1;
+}
+
+/* FLOATING STATE – INPUT */
+.form-group input:focus + label,
+.form-group input:not(:placeholder-shown) + label{
+  top:-8px;
+  background:rgba(7,11,22,.85);
+  color:var(--accent);
+  border-radius:6px;
+}
+
+/* FLOATING STATE – SELECT */
+.form-group select:focus + label,
+.form-group select:valid + label{
+  top:-8px;
+  background:rgba(7,11,22,.85);
+  color:var(--accent);
+  border-radius:6px;
+}
+
+/* NOTE */
+.rsvp-note{
+  font-size:.75rem;
+  opacity:.6;
+}
+
+/* ===== SELECT GROUP ===== */
+.select-group{
+  position:relative;
+}
+
+/* SELECT FIELD */
+.select-group select{
+  width:100%;
+  padding:18px 44px 14px 14px;
+  font-size:.95rem;
+  color:#fff;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.18),
+      rgba(255,255,255,.05)
+    );
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:14px;
+  outline:none;
+  appearance:none;
+  -webkit-appearance:none;
+  backdrop-filter:blur(18px) saturate(160%);
+  transition:all .35s ease;
+}
+
+/* PLACEHOLDER STATE */
+.select-group select:has(option:checked[value=""]){
+  color:rgba(255,255,255,.55);
+}
+
+/* HOVER */
+.select-group select:hover{
+  background:rgba(255,255,255,.14);
+}
+
+/* FOCUS */
+.select-group select:focus{
+  border-color:var(--accent);
+  box-shadow:
+    0 0 0 1px rgba(55,214,255,.4),
+    0 0 20px rgba(55,214,255,.35);
+}
+
+/* DROPDOWN ICON */
+.select-group .select-icon{
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  pointer-events:none;
+  color:rgba(255,255,255,.7);
+  font-size:1rem;
+  transition:transform .35s ease, color .35s ease;
+}
+
+/* ICON ROTATE ON OPEN (FOCUS) */
+.select-group select:focus + label + .select-icon{
+  transform:translateY(-50%) rotate(180deg);
+  color:var(--accent);
+}
+
+/* OPTION LIST – DARK THEME */
+.select-group select option{
+  background:#0b0f1a;
+  color:#fff;
+}
+
+
+/* ===== QR ===== */
+.qr img{max-width:200px;border-radius:16px;transition:.4s ease}
+.qr img:hover{transform:scale(1.06);box-shadow:0 0 30px rgba(55,214,255,.6)}
+
+/* ===== NEON MUTE BUTTON ===== */
+#muteToggle{
+  position:fixed;
+  bottom:22px;
+  right:22px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.25);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.18),
+      rgba(255,255,255,.05)
+    );
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  color:#fff;
+  font-size:1.35rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  cursor:pointer;
+  z-index:9999;
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.45),
+    inset 0 1px 0 rgba(255,255,255,.35);
+
+  transition:
+    transform .35s cubic-bezier(.16,1,.3,1),
+    box-shadow .35s ease,
+    border-color .35s ease;
+}
+
+/* HOVER */
+#muteToggle:hover{
+  transform:scale(1.08);
+  border-color:var(--accent);
+  box-shadow:
+    0 0 22px rgba(55,214,255,.6),
+    0 0 40px rgba(107,92,255,.45);
+}
