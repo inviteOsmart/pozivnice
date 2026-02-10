@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Milica & Marko — Pozivnica za vjenčanje</title>
+
+  <!-- SEO / Social (opciono) -->
+  <meta name="description" content="Smart pozivnica za vjenčanje — Milica & Marko." />
+  <meta property="og:title" content="Milica & Marko — Pozivnica za vjenčanje" />
+  <meta property="og:description" content="Klikni na pečat i otvori pozivnicu." />
+  <meta property="og:type" content="website" />
+  <!-- <meta property="og:image" content="assets/og.jpg" /> -->
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #0b0b10;
+      --ink: #171720;
+      --muted: rgba(23,23,32,.66);
+
+      /* Gold */
+      --gold1: #e1c07a;
+      --gold2: #b98b3d;
+      --accent: #cfa75a;
+
+      /* Cards theme (Champagne / Ivory) */
+      --paper: rgba(255, 250, 242, .96);
+      --paper2: rgba(252, 244, 232, .92);
+      --card-border: rgba(185, 139, 61, .22);
+      --card-border-soft: rgba(185, 139, 61, .14);
+
+      --line: rgba(255,255,255,.18);
+      --shadow: 0 26px 80px rgba(0,0,0,.30);
+      --radius: 22px;
+      --radius2: 18px;
+      --max: 980px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+        margin:0;
+        background:
+            radial-gradient(1200px 800px at 20% 10%, rgba(207,167,90,.18), transparent 55%),
+            radial-gradient(900px 650px at 80% 30%, rgba(225,192,122,.14), transparent 60%),
+            radial-gradient(1100px 900px at 50% 100%, rgba(255,255,255,.06), transparent 55%),
+            var(--bg);
+        color:#fff;
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        overflow-x:hidden;
+        background-attachment: fixed;
+    }
+
+    /* ===== GOLD PATTERN LAYERS (background overlays) ===== */
+    .bg-pattern,
+    .bg-dots{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+      opacity:.32;
+    }
+    .bg-pattern{
+      background:
+        repeating-linear-gradient(135deg,
+          rgba(225,192,122,.10) 0px,
+          rgba(225,192,122,.10) 1px,
+          transparent 1px,
+          transparent 18px),
+        repeating-linear-gradient(45deg,
+          rgba(185,139,61,.08) 0px,
+          rgba(185,139,61,.08) 1px,
+          transparent 1px,
+          transparent 22px);
+      mix-blend-mode: screen;
+      filter: blur(.2px);
+      opacity:.22;
+    }
+    .bg-dots{
+      background:
+        radial-gradient(circle at 20% 25%, rgba(225,192,122,.22), transparent 24%),
+        radial-gradient(circle at 80% 30%, rgba(185,139,61,.18), transparent 22%),
+        radial-gradient(circle at 30% 80%, rgba(225,192,122,.16), transparent 25%),
+        radial-gradient(circle at 70% 78%, rgba(185,139,61,.14), transparent 24%);
+      opacity:.16;
+      filter: blur(1px);
+    }
+
+    /* Gold dust particles */
+    .gold-dust{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:1;
+      overflow:hidden;
+    }
+    .gold-dust span{
+      position:absolute;
+      left: var(--x);
+      top:  var(--y);
+      width: var(--s);
+      height: var(--s);
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%,
+        rgba(255,255,255,.45),
+        rgba(225,192,122,.32) 45%,
+        rgba(185,139,61,.18) 65%,
+        rgba(185,139,61,0) 72%);
+      filter: blur(.2px);
+      opacity: var(--o);
+      transform: translate3d(0,0,0);
+      animation: floatDust var(--d) ease-in-out var(--delay) infinite;
+    }
+    @keyframes floatDust{
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      50%  { transform: translate3d(var(--dx), var(--dy), 0) scale(1.05); }
+      100% { transform: translate3d(0,0,0) scale(1); }
+    }
+
+    /* Subtle animated sheen */
+    .sheen{
+      position:fixed; inset:-20%;
+      background: conic-gradient(from 180deg, transparent, rgba(255,255,255,.06), transparent);
+      filter: blur(14px);
+      opacity:.35;
+      animation: spin 16s linear infinite;
+      pointer-events:none;
+      z-index:2;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+
+    /* ========== Gate (Envelope intro) ========== */
+    #gate{
+      position:fixed; inset:0;
+      display:grid; place-items:center;
+      padding:24px;
+      z-index:9999;
+      background:
+        radial-gradient(900px 650px at 50% 10%, rgba(225,192,122,.16), transparent 60%),
+        radial-gradient(900px 650px at 20% 80%, rgba(207,167,90,.12), transparent 55%),
+        radial-gradient(1200px 900px at 80% 60%, rgba(255,255,255,.06), transparent 55%),
+        #07070b;
+      transition: opacity .55s ease, visibility .55s ease;
+    }
+    #gate.gone{opacity:0; visibility:hidden}
+
+    .gate-wrap{
+      width:min(720px, 100%);
+      perspective: 1300px;
+      position:relative;
+      text-align:center;
+    }
+
+    .envelope{
+      position:relative;
+      width:100%;
+      aspect-ratio: 16/10.5;
+      border-radius: 28px;
+      overflow: visible;
+      transform: translateZ(0);
+      filter: drop-shadow(0 35px 85px rgba(0,0,0,.55));
+    }
+
+    .env-shadow{
+      position:absolute;
+      left:10%; right:10%;
+      bottom:-18px; height:34px;
+      background: radial-gradient(closest-side, rgba(0,0,0,.55), transparent 70%);
+      filter: blur(10px);
+      opacity:.55;
+      transform: translateZ(-1px);
+      z-index:0;
+    }
+
+    .env-back{
+      position:absolute; inset:0;
+      border-radius: 28px;
+      overflow:hidden;
+      background:
+        radial-gradient(900px 520px at 25% 25%, rgba(225,192,122,.10), transparent 60%),
+        radial-gradient(900px 620px at 85% 80%, rgba(207,167,90,.08), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: 0 30px 90px rgba(0,0,0,.45);
+      z-index:1;
+    }
+
+    /* Pocket (front) */
+    .env-pocket{
+      position:absolute; left:0; right:0; bottom:0;
+      height:62%;
+      border-radius: 0 0 28px 28px;
+      background:
+        radial-gradient(1100px 420px at 50% 0%, rgba(225,192,122,.10), transparent 55%),
+        linear-gradient(135deg, rgba(38, 35, 34, .88), rgba(26, 26, 28, .92));
+      border: 1px solid rgba(255,255,255,.10);
+      border-top: 0;
+      clip-path: polygon(0 0, 50% 40%, 100% 0, 100% 100%, 0 100%);
+      z-index: 6;
+      overflow:hidden;
+    }
+    .env-pocket::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.22), transparent 45%),
+        repeating-linear-gradient(135deg, rgba(225,192,122,.06) 0 1px, transparent 1px 18px);
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    /* Flap */
+    .env-flap{
+      position:absolute; left:0; right:0; top:0;
+      height:62%;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      background:
+        radial-gradient(900px 420px at 50% 0%, rgba(225,192,122,.12), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
+      clip-path: polygon(0 0, 100% 0, 50% 78%);
+      border-radius: 28px 28px 0 0;
+      border: 1px solid rgba(255,255,255,.12);
+      border-bottom: 0;
+      z-index: 8;
+      will-change: transform;
+      overflow:hidden;
+    }
+    .env-flap::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(800px 420px at 50% 10%, rgba(255,255,255,.12), transparent 60%),
+        repeating-linear-gradient(45deg, rgba(225,192,122,.05) 0 1px, transparent 1px 22px);
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    /* Letter (START: fully inside, invisible) */
+    .env-letter{
+      position:absolute;
+      left:7%; right:7%;
+      bottom:10%;
+      height:78%;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.84));
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 14px 34px rgba(0,0,0,.22);
+      transform: translateY(95%) rotate(-.5deg);
+      opacity: 0;
+      z-index: 1; /* iza pocket-a */
+      overflow:hidden;
+      will-change: transform, opacity;
+    }
+    .env-letter::before{
+      content:"";
+      position:absolute; inset:-40px;
+      background:
+        radial-gradient(900px 420px at 15% 20%, rgba(207,167,90,.16), transparent 60%),
+        radial-gradient(900px 520px at 85% 90%, rgba(225,192,122,.12), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .letter-inner{
+      position:absolute; inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:22px 18px 16px;
+      color:#1b1b22;
+    }
+    .letter-top{ text-align:center; }
+    .mono{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius: 999px;
+      border: 1px dashed rgba(0,0,0,.18);
+      background: rgba(255,255,255,.65);
+      font-weight:700;
+      letter-spacing:.12em;
+      font-size:.85rem;
+    }
+    .ltitle{
+      margin-top:12px;
+      font-family:"Playfair Display",serif;
+      font-weight:700;
+      letter-spacing:.02em;
+      font-size:1.15rem;
+    }
+    .letter-mid{
+      text-align:center;
+      padding:10px 0;
+    }
+    .names-mini{
+      font-family:"Playfair Display",serif;
+      font-weight:700;
+      font-size:1.45rem;
+    }
+    .date-mini{
+      margin-top:6px;
+      color: rgba(23,23,32,.70);
+      font-weight:600;
+    }
+    .letter-bottom{
+      text-align:center;
+      font-size:.92rem;
+      color: rgba(23,23,32,.62);
+      border-top: 1px solid rgba(0,0,0,.06);
+      padding-top:12px;
+    }
+
+    /* Seal button (on flap) */
+    .seal{
+      position:absolute;
+      left:50%; top:66%;
+      transform: translate(-50%, -50%);
+      width:118px; height:118px;
+      border-radius: 999px;
+      border:0;
+      cursor:pointer;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 45%),
+        linear-gradient(135deg, var(--gold1), var(--gold2));
+      box-shadow: 0 18px 45px rgba(0,0,0,.35);
+      display:grid; place-items:center;
+      transition: transform .18s ease, filter .18s ease;
+      outline:none;
+      z-index: 10;
+    }
+    .seal:hover{transform:translate(-50%,-50%) scale(1.03)}
+    .seal:active{transform:translate(-50%,-50%) scale(.99)}
+    .seal-topshine{
+      position:absolute; inset:0;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.28), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .seal .mark{
+      width:72px; height:72px;
+      border-radius: 999px;
+      border: 1px dashed rgba(255,255,255,.75);
+      display:grid; place-items:center;
+      color: rgba(255,255,255,.92);
+      font-weight: 800;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      font-size:.88rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,.35);
+    }
+
+    /* Crack effect */
+    .crack{
+      position:absolute; inset:0;
+      pointer-events:none;
+      opacity:0;
+    }
+    .crack::before, .crack::after{
+      content:"";
+      position:absolute; left:50%; top:18%;
+      width:2px; height:68%;
+      background: rgba(255,255,255,.65);
+      transform: translateX(-50%) rotate(12deg);
+    }
+    .crack::after{
+      top:28%;
+      height:58%;
+      transform: translateX(-50%) rotate(-10deg);
+      opacity:.75;
+    }
+
+    /* Split pieces (seal) */
+    .seal::before, .seal::after{
+      content:"";
+      position:absolute; inset:0;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.18), transparent 45%),
+        linear-gradient(135deg, var(--gold1), var(--gold2));
+      box-shadow: inherit;
+      opacity:0;
+      pointer-events:none;
+    }
+    .seal::before{clip-path: polygon(0 0, 55% 0, 45% 100%, 0 100%);}
+    .seal::after{clip-path: polygon(55% 0, 100% 0, 100% 100%, 45% 100%);}
+
+    /* Gate text */
+    .gate-title{
+      margin:18px 0 0;
+      color: rgba(255,255,255,.82);
+      font-size: .95rem;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+    }
+    .gate-sub{
+      margin:10px 0 0;
+      color: rgba(255,255,255,.55);
+      font-size: .95rem;
+    }
+
+    /* ===== Opening sequence ===== */
+    #gate.opening .seal{ animation: sealPop 320ms ease forwards; }
+    @keyframes sealPop{
+      0%{transform:translate(-50%,-50%) scale(1)}
+      65%{transform:translate(-50%,-50%) scale(1.12) rotate(2deg)}
+      100%{transform:translate(-50%,-50%) scale(1.02)}
+    }
+    #gate.opening .crack{opacity:1; animation: crackFlash 520ms ease forwards}
+    @keyframes crackFlash{
+      0%{opacity:0}
+      30%{opacity:1}
+      100%{opacity:0}
+    }
+    #gate.opening .seal .mark{opacity:0; transition:opacity .12s ease}
+    #gate.opening .seal::before,
+    #gate.opening .seal::after{opacity:1}
+    #gate.opening .seal::before{ animation: pieceLeft 680ms cubic-bezier(.2,.9,.2,1) forwards; }
+    #gate.opening .seal::after{ animation: pieceRight 680ms cubic-bezier(.2,.9,.2,1) forwards; }
+
+    @keyframes pieceLeft{
+      0%{transform:translate(0,0) rotate(0); opacity:1}
+      100%{transform:translate(-38px, 12px) rotate(-10deg); opacity:0}
+    }
+    @keyframes pieceRight{
+      0%{transform:translate(0,0) rotate(0); opacity:1}
+      100%{transform:translate(38px, 12px) rotate(10deg); opacity:0}
+    }
+
+    /* flap opens after a tiny delay */
+    #gate.opening .env-flap{
+      animation: flapOpen 900ms cubic-bezier(.2,.9,.2,1) 140ms forwards;
+    }
+    @keyframes flapOpen{
+      0%{transform: rotateX(0deg)}
+      100%{transform: rotateX(178deg)}
+    }
+
+    /* letter slides out (opacity kicks mid animation + z-index jumps late) */
+    #gate.opening .env-letter{
+      animation: letterOut 1100ms cubic-bezier(.15,.95,.15,1) 320ms forwards;
+    }
+    @keyframes letterOut{
+      0%{
+        transform: translateY(95%) rotate(-0.5deg);
+        opacity: 0;
+        z-index: 1;
+      }
+      49%{
+        opacity: 0;
+        z-index: 1;
+      }
+      55%{
+        opacity: 1;
+        z-index: 1; /* još uvijek ispod pocket-a */
+      }
+      80%{
+        transform: translateY(-16%) rotate(0.2deg);
+        opacity: 1;
+        z-index: 1;
+      }
+      100%{
+        transform: translateY(-24%) rotate(0deg);
+        opacity: 1;
+        z-index: 9; /* tek na kraju iznad pocket-a */
+      }
+    }
+
+    /* subtle lift of envelope */
+    #gate.opening .envelope{
+      animation: envLift 1100ms cubic-bezier(.2,.9,.2,1) 160ms forwards;
+    }
+    @keyframes envLift{
+      0%{transform:translateY(0) scale(1)}
+      70%{transform:translateY(-10px) scale(1.015)}
+      100%{transform:translateY(-6px) scale(1.015)}
+    }
+
+    /* App */
+    #app{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease;
+      position:relative;
+      z-index:3; /* above background overlays */
+    }
+    #app.ready{opacity:1; transform:none}
+
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    /* Top nav */
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(7,7,11,.78), rgba(7,7,11,.40));
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      color:#fff; text-decoration:none;
+    }
+    .brand .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg,var(--gold1),var(--gold2));
+      box-shadow: 0 0 0 6px rgba(207,167,90,.14);
+    }
+    .brand b{font-family:"Playfair Display",serif; font-weight:700; letter-spacing:.02em}
+    .navlinks{
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .navlinks a{
+      color: rgba(255,255,255,.78);
+      text-decoration:none;
+      font-size:.92rem;
+      padding:8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.04);
+      transition: transform .15s ease, background .15s ease;
+    }
+    .navlinks a:hover{background: rgba(255,255,255,.07); transform: translateY(-1px);}
+
+    /* Hero */
+    .hero{
+      padding:70px 0 36px;
+      position:relative;
+    }
+    .hero-card{
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(1200px 600px at 20% 20%, rgba(225,192,122,.12), transparent 55%),
+        radial-gradient(900px 520px at 80% 80%, rgba(207,167,90,.11), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.04));
+    }
+    .hero-inner{
+      display:grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap:0;
+    }
+    @media (max-width: 860px){
+      .hero-inner{grid-template-columns: 1fr}
+    }
+
+    .hero-left{
+      padding:38px 34px;
+    }
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      color: rgba(255,255,255,.78);
+      font-size:.95rem;
+      letter-spacing:.12em;
+      text-transform: uppercase;
+    }
+    .kicker .line{
+      width:44px;height:1px;background: rgba(255,255,255,.28);
+    }
+    .names{
+      font-family:"Playfair Display",serif;
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      margin:16px 0 10px;
+      line-height:1.05;
+      letter-spacing:.01em;
+    }
+    .subtitle{
+      margin:0 0 22px;
+      color: rgba(255,255,255,.70);
+      font-size: 1.02rem;
+      line-height:1.55;
+    }
+
+    .hero-meta{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:20px;
+    }
+    @media (max-width: 560px){
+      .hero-meta{grid-template-columns:1fr}
+    }
+    .pill{
+      border-radius: 18px;
+      padding:14px 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+    }
+    .pill .t{font-size:.78rem; text-transform:uppercase; letter-spacing:.12em; color: rgba(255,255,255,.64)}
+    .pill .v{margin-top:8px; font-weight:600}
+
+    .hero-right{
+      min-height: 360px;
+      position:relative;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55)),
+        url("assets/couple.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-right::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(900px 520px at 50% 10%, rgba(225,192,122,.18), transparent 55%);
+      pointer-events:none;
+    }
+    .hero-badge{
+      position:absolute; left:18px; bottom:18px;
+      border-radius: 18px;
+      padding:14px 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.28);
+      backdrop-filter: blur(8px);
+      color:#fff;
+      max-width: 260px;
+    }
+    .hero-badge b{display:block; font-family:"Playfair Display",serif; font-size:1.15rem}
+    .hero-badge span{color: rgba(255,255,255,.76); font-size:.95rem}
+
+    /* Sections */
+    section{ padding: 44px 0; }
+
+    .section-card{
+        background: linear-gradient(180deg, rgba(250, 242, 230, .96), rgba(245, 233, 214, .92));
+        color: var(--ink);
+        border-radius: var(--radius);
+        box-shadow: 0 26px 70px rgba(0, 0, 0, .30);
+        border: 1px solid var(--card-border);
+        overflow: hidden;
+        position: relative;
+    }
+    /* tiny gold accent in the corner */
+    .section-card::before{
+      content:"";
+      position:absolute;
+      right:-120px; top:-120px;
+      width:280px; height:280px;
+      background: radial-gradient(circle at 30% 30%, rgba(225,192,122,.22), transparent 62%);
+      opacity:.75;
+      pointer-events:none;
+    }
+
+    .section-head{ padding:26px 26px 0; }
+    .section-head h2{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-size: 1.9rem;
+      letter-spacing:.01em;
+      position:relative;
+    }
+    .section-head h2::after{
+      content:"";
+      display:block;
+      width:72px;
+      height:2px;
+      margin-top:10px;
+      background: linear-gradient(90deg, var(--gold1), var(--gold2));
+      opacity:.85;
+      border-radius: 999px;
+    }
+    .section-head p{
+      margin:10px 0 0;
+      color: rgba(23,23,32,.70);
+      line-height:1.6;
+    }
+    .section-body{ padding:22px 26px 26px; }
+
+    .grid2{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+    }
+    @media (max-width: 860px){
+      .grid2{grid-template-columns:1fr}
+    }
+
+    .info{
+      border-radius: var(--radius2);
+      border: 1px solid var(--card-border-soft);
+      background: rgba(255, 252, 246, .88);
+      padding:16px 16px;
+    }
+    .info .k{
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: rgba(23,23,32,.62);
+    }
+    .info .v{
+      margin-top:8px;
+      font-weight: 600;
+      line-height:1.45;
+    }
+    .info .s{
+      margin-top:10px;
+      color: rgba(23,23,32,.68);
+      line-height:1.5;
+      font-size:.98rem;
+    }
+
+    /* Timeline */
+    .timeline{ display:grid; gap:10px; }
+    .slot{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:14px 14px;
+      border-radius: 18px;
+      border: 1px solid var(--card-border-soft);
+      background: rgba(255, 252, 246, .88);
+    }
+    .slot .time{
+      min-width: 78px;
+      font-weight:700;
+      color: rgba(23,23,32,.88);
+    }
+    .slot .text b{display:block}
+    .slot .text span{display:block; color: rgba(23,23,32,.64); margin-top:3px}
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      border: 0;
+      padding: 12px 16px;
+      border-radius: 14px;
+      cursor:pointer;
+      text-decoration:none;
+      font-weight:600;
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px) scale(.99)}
+    .btn-gold{
+      color:#1b1b22;
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      box-shadow: 0 16px 30px rgba(185,139,61,.28);
+    }
+    .btn-ghost{
+      color:#fff;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+    }
+
+    /* RSVP */
+    .rsvp-wrap{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:16px;
+      align-items:stretch;
+    }
+    @media (max-width: 860px){
+      .rsvp-wrap{grid-template-columns:1fr}
+    }
+    .form{
+      border-radius: var(--radius2);
+      border: 1px solid var(--card-border-soft);
+      background: rgba(255, 252, 246, .88);
+      padding:16px;
+    }
+    .field{display:grid; gap:8px; margin-bottom:12px}
+    .field label{font-size:.88rem; color: rgba(23,23,32,.70); font-weight:600}
+    .field input,.field select,.field textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.12);
+      outline:none;
+      font: inherit;
+      background: rgba(255,255,255,.92);
+    }
+    .field textarea{min-height: 96px; resize: vertical}
+    .msg{
+      margin-top:12px;
+      font-weight:600;
+      color: rgba(23,23,32,.72);
+    }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 40px;
+      color: rgba(255,255,255,.62);
+      text-align:center;
+      font-size:.95rem;
+      position:relative;
+      z-index:3;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .sheen{animation:none}
+      .gold-dust span{animation:none}
+      #gate, #app, .env-flap, .env-letter, .envelope, .seal{transition:none !important; animation:none !important}
+    }
+
+    /* ===== GALLERY: Elegant grid ===== */
+    .gallery-wrap{
+        display:grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:18px;
+    }
+
+    .g-item{
+        position:relative;
+        border:0;
+        padding:0;
+        cursor:pointer;
+        border-radius: 20px;
+        overflow:hidden;
+        background:#000;
+        box-shadow: 0 20px 50px rgba(0,0,0,.28);
+        border: 1px solid rgba(185,139,61,.20);
+        transform: rotate(var(--r, -1deg)) translateZ(0);
+        transition: transform .35s ease, box-shadow .35s ease;
+    }
+
+    /* suptilna razlika po slici */
+    .g-item:nth-child(odd){ --r: -1.2deg; }
+    .g-item:nth-child(even){ --r: 1.1deg; }
+    .g-item:nth-child(3n){ --r: 0.6deg; }
+
+    .g-item:hover{
+        transform: rotate(0deg) scale(1.035);
+        box-shadow: 0 30px 80px rgba(0,0,0,.45);
+    }
+
+    .g-item::after{
+        content:"";
+        position:absolute; inset:0;
+        background:
+            radial-gradient(800px 400px at 30% 20%, rgba(225,192,122,.22), transparent 60%),
+            linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.35));
+        opacity:.6;
+        transition: opacity .25s ease;
+        pointer-events:none;
+    }
+    .g-item:hover::after{opacity:.35}
+
+    .g-item img{
+        width:100%;
+        height:260px;               /* sve ISTE visine */
+        object-fit:cover;
+        display:block;
+        transition: transform .4s ease;
+    }
+    .g-item:hover img{transform: scale(1.08)}
+
+    .g-badge{
+        position:absolute;
+        left:14px; bottom:14px;
+        padding:8px 12px;
+        border-radius:999px;
+        font-size:.78rem;
+        letter-spacing:.08em;
+        color:#fff;
+        background: rgba(0,0,0,.32);
+        border:1px solid rgba(255,255,255,.16);
+        backdrop-filter: blur(8px);
+    }
+
+    /* responsive */
+    @media (max-width: 900px){
+    .gallery-wrap{grid-template-columns: repeat(2,1fr)}
+    }
+    @media (max-width: 560px){
+    .gallery-wrap{grid-template-columns: 1fr}
+    .g-item{transform:none}
+    }
+
+    /* ===== LIGHTBOX ===== */
+    .lightbox{
+        position:fixed; inset:0;
+        display:none;
+        place-items:center;
+        padding:18px;
+        z-index:9998;
+        background: rgba(0,0,0,.72);
+        backdrop-filter: blur(10px);
+    }
+    .lightbox.open{display:grid}
+
+    .lb-card{
+        width:min(980px, 100%);
+        border-radius: 18px;
+        overflow:hidden;
+        box-shadow: 0 30px 90px rgba(0,0,0,.55);
+        border:1px solid rgba(255,255,255,.14);
+        background: rgba(20,20,26,.75);
+        position:relative;
+    }
+    .lb-img{
+        width:100%;
+        height:min(72vh, 680px);
+        object-fit:contain;
+        display:block;
+        background: rgba(0,0,0,.35);
+    }
+    .lb-cap{
+        padding:12px 14px;
+        color: rgba(255,255,255,.78);
+        font-size:.95rem;
+        border-top:1px solid rgba(255,255,255,.10);
+    }
+
+    .lb-close, .lb-prev, .lb-next{
+        position:absolute;
+        top:12px;
+        width:44px;height:44px;
+        border-radius: 12px;
+        border:1px solid rgba(255,255,255,.16);
+        background: rgba(0,0,0,.30);
+        color:#fff;
+        cursor:pointer;
+        display:grid;place-items:center;
+        font-size:20px;
+        backdrop-filter: blur(8px);
+    }
+    .lb-close{right:12px}
+    .lb-prev{left:12px; top:50%; transform: translateY(-50%)}
+    .lb-next{right:12px; top:50%; transform: translateY(-50%)}
+
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover{
+        background: rgba(0,0,0,.45);
+    }
+
+  </style>
+</head>
+
+<body>
+  <!-- background overlays -->
+  <div class="bg-pattern" aria-hidden="true"></div>
+  <div class="bg-dots" aria-hidden="true"></div>
+  <div class="gold-dust" id="goldDust" aria-hidden="true"></div>
+  <div class="sheen" aria-hidden="true"></div>
+
+  <!-- ========== ENVELOPE GATE ========== -->
+  <div id="gate" role="dialog" aria-label="Uvod — koverta">
+    <div class="gate-wrap">
+      <div class="envelope" aria-hidden="true">
+        <div class="env-back"></div>
+
+        <!-- Letter -->
+        <div class="env-letter" aria-hidden="true">
+          <div class="letter-inner">
+            <div class="letter-top">
+              <div class="mono">M&nbsp;♡&nbsp;M</div>
+              <div class="ltitle">Pozivnica za vjenčanje</div>
+            </div>
+            <div class="letter-mid">
+              <div class="names-mini">Milica &amp; Marko</div>
+              <div class="date-mini">14.06.2026. • 17:00</div>
+            </div>
+            <div class="letter-bottom">Klik • Otvori • Uživaj</div>
+          </div>
+        </div>
+
+        <!-- Pocket -->
+        <div class="env-pocket"></div>
+
+        <!-- Flap + seal -->
+        <div class="env-flap">
+          <button class="seal" id="sealBtn" type="button" aria-label="Otvori pozivnicu">
+            <span class="seal-topshine" aria-hidden="true"></span>
+            <span class="mark">OPEN</span>
+            <span class="crack" aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <div class="env-shadow" aria-hidden="true"></div>
+      </div>
+
+      <p class="gate-title">POZIVNICA ZA VENČANJE</p>
+      <p class="gate-sub">Tap/click pečat u sredini</p>
+    </div>
+  </div>
+
+  <!-- ========== INVITATION APP ========== -->
+  <div id="app">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#top">
+          <span class="dot"></span>
+          <b>Milica & Marko</b>
+        </a>
+        <nav class="navlinks" aria-label="Navigacija">
+          <a href="#program">Program</a>
+          <a href="#lokacija">Lokacija</a>
+          <a href="#rsvp">Forma</a>
+          <a href="#galerija">Naši trenuci</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-card" data-aos="fade-up">
+            <div class="hero-inner">
+              <div class="hero-left">
+                <div class="kicker">
+                  <span class="line"></span>
+                  <span>Sa radošću vas pozivamo</span>
+                </div>
+
+                <h1 class="names">Milica & Marko</h1>
+                <p class="subtitle">
+                  Da uveličate naš poseban dan i proslavite ljubav, osmeh i početak zajedničkog puta.
+                </p>
+
+                <div class="hero-meta">
+                  <div class="pill" data-aos="fade-up" data-aos-delay="50">
+                    <div class="t">Datum</div>
+                    <div class="v">14.06.2026.</div>
+                  </div>
+                  <div class="pill" data-aos="fade-up" data-aos-delay="100">
+                    <div class="t">Vreme</div>
+                    <div class="v">17:00</div>
+                  </div>
+                  <div class="pill" data-aos="fade-up" data-aos-delay="150">
+                    <div class="t">Mesto</div>
+                    <div class="v">Sala “Aurora”, Beograd</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:22px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <a class="btn btn-gold" href="#rsvp">Potvrdi dolazak</a>
+                  <a class="btn btn-ghost" href="#lokacija">Kako doći</a>
+                  <button class="btn btn-ghost" id="replayBtn" type="button" title="Ponovo prikaži kovertu">
+                    Replay ✨
+                  </button>
+                </div>
+              </div>
+
+              <div class="hero-right" aria-label="Fotografija para">
+                <!-- Zamijeni sliku: assets/couple.jpg -->
+                <div class="hero-badge" data-aos="zoom-in" data-aos-delay="150">
+                  <b>14.06.2026.</b>
+                  <span>Jedan klik — sve informacije na jednom mestu.</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+        <!-- PROGRAM -->
+        <section id="program">
+            <div class="container">
+                <div class="section-card" data-aos="fade-up">
+                    <div class="section-head">
+                        <h2>Program</h2>
+                        <p>Okvirna satnica i lokacije.</p>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="timeline">
+
+                        <div class="slot" data-aos="fade-up" data-aos-delay="50">
+                            <div class="time">12:00</div>
+                            <div class="text">
+                                <b>Dolazak svatova</b>
+                                <span>Okupljanje i polazak (po dogovoru).</span>
+                            </div>
+                        </div>
+
+                        <div class="slot" data-aos="fade-up" data-aos-delay="100">
+                            <div class="time">12:30</div>
+                            <div class="text">
+                                <b>Adresa okupljanja</b>
+                                <span>Ulica i broj, Grad (upišite tačnu adresu).</span>
+                            </div>
+                        </div>
+
+                        <div class="slot" data-aos="fade-up" data-aos-delay="150">
+                            <div class="time">14:00</div>
+                            <div class="text">
+                                <b>Crkveno venčanje</b>
+                                <span>Naziv crkve, adresa (upišite tačno).</span>
+                            </div>
+                        </div>
+
+                        <div class="slot" data-aos="fade-up" data-aos-delay="200">
+                            <div class="time">15:30</div>
+                            <div class="text">
+                                <b>Opštinsko venčanje</b>
+                                <span>Opština, adresa (upišite tačno).</span>
+                            </div>
+                        </div>
+
+                        <div class="slot" data-aos="fade-up" data-aos-delay="250">
+                            <div class="time">17:00</div>
+                            <div class="text">
+                                <b>Odlazak u salu</b>
+                                <span>Sala “Aurora”, Beograd (upišite tačnu adresu).</span>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      <!-- LOCATION -->
+      <section id="lokacija">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Lokacija</h2>
+              <p>Jednim klikom otvorite navigaciju.</p>
+            </div>
+            <div class="section-body">
+              <div class="grid2">
+                <div class="info" data-aos="fade-up" data-aos-delay="50">
+                  <div class="k">Adresa</div>
+                  <div class="v">Sala “Aurora”, Primjer 12, Beograd</div>
+                  <div class="s">
+                    <a class="btn btn-gold" style="margin-top:10px" target="_blank" rel="noopener"
+                      href="https://www.google.com/maps?q=Beograd">
+                      Otvori Google Maps
+                    </a>
+                  </div>
+                </div>
+
+                <div class="info" data-aos="fade-up" data-aos-delay="100">
+                  <div class="k">Napomena</div>
+                  <div class="v">Molimo potvrdite dolazak</div>
+                  <div class="s">RSVP nam pomaže zbog rasporeda sjedenja i organizacije.</div>
+                </div>
+              </div>
+
+              <div style="margin-top:16px;border-radius:18px;overflow:hidden;border:1px solid rgba(0,0,0,.08);" data-aos="fade-up" data-aos-delay="150">
+                <iframe
+                  title="Mapa"
+                  src="https://www.google.com/maps?q=Beograd&output=embed"
+                  width="100%" height="320" style="border:0;display:block;"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP -->
+      <section id="rsvp">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>RSVP</h2>
+              <p>Potvrdite dolazak — stiže nam poruka odmah.</p>
+            </div>
+            <div class="section-body">
+              <div class="rsvp-wrap">
+                <div class="form" data-aos="fade-up" data-aos-delay="50">
+                  <form id="rsvpForm" autocomplete="on">
+                    <div class="field">
+                      <label for="name">Ime i prezime</label>
+                      <input id="name" name="name" required placeholder="Upišite ime i prezime">
+                    </div>
+
+                    <div class="field">
+                      <label>Da li dolazite?</label>
+                      <select name="attendance" required>
+                        <option value="Dolazim 🎉">Dolazim 🎉</option>
+                        <option value="Ne mogu 😢">Ne mogu 😢</option>
+                      </select>
+                    </div>
+
+                    <div class="field">
+                      <label>Koliko osoba dolazi?</label>
+                      <select name="guests" required>
+                        <option value="Ja">Ja</option>
+                        <option value="Ja +1">Ja +1</option>
+                        <option value="Ja +2">Ja +2</option>
+                        <option value="Ja +3">Ja +3</option>
+                      </select>
+                    </div>
+
+                    <div class="field">
+                      <label>Imena i prezimena gostiju (ako dolazite sa nekim)</label>
+                      <textarea name="guest_names" placeholder="Npr: Ana Petrović, Nikola Petrović"></textarea>
+                    </div>
+
+                    <button class="btn btn-gold" type="submit">Pošalji potvrdu</button>
+                    <div class="msg" id="rsvpMsg" aria-live="polite"></div>
+                  </form>
+                </div>
+
+                <div class="info" data-aos="fade-up" data-aos-delay="100">
+                  <div class="k">Rok za potvrdu</div>
+                  <div class="v">Najkasnije do 01.06.2026.</div>
+                  <div class="s">
+                    Hvala vam! Vidimo se na proslavi. <br><br>
+                    <b>Kontakt:</b> +381 60 123 456 <br>
+                    <b>Email:</b> invite@example.com
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:14px;color:rgba(23,23,32,.70);font-size:.95rem">
+                Tip: Ovo je statički sajt — RSVP možeš slati preko EmailJS (bez servera). Ako želiš, ubaciću ti gotovu EmailJS integraciju u ovaj fajl.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+        <!-- GALLERY -->
+        <section id="galerija">
+            <div class="container">
+                <div class="section-card" data-aos="fade-up">
+                    <div class="section-head">
+                        <h2>Naši trenuci</h2>
+                        <p>Mali album uspomena prije velikog dana.</p>
+                    </div>
+
+                    <div class="section-body">
+                        <div class="gallery-wrap">
+
+                            <button class="g-item" type="button"
+                                data-full="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=1600&auto=format&fit=crop"
+                                data-cap="Naš prvi put 🥂">
+                                <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=800&auto=format&fit=crop">
+                                <span class="g-badge">01</span>
+                            </button>
+
+                            <button class="g-item" type="button"
+                                data-full="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"
+                                data-cap="Zajedno">
+                                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop">
+                                <span class="g-badge">02</span>
+                            </button>
+
+                            <button class="g-item" type="button"
+                                data-full="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=1600&auto=format&fit=crop"
+                                data-cap="Putovanja ✈️">
+                                <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800&auto=format&fit=crop">
+                                <span class="g-badge">03</span>
+                            </button>
+
+                            <button class="g-item" type="button"
+                                data-full="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
+                                data-cap="Osmijeh">
+                                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop">
+                                <span class="g-badge">04</span>
+                            </button>
+
+                            <button class="g-item" type="button"
+                                data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop"
+                                data-cap="Najljepši trenuci">
+                                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop">
+                                <span class="g-badge">05</span>
+                            </button>
+
+                            <button class="g-item" type="button"
+                                data-full="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1600&auto=format&fit=crop"
+                                data-cap="Mi ❤️">
+                                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=800&auto=format&fit=crop">
+                                <span class="g-badge">06</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+      <footer>
+        <div class="container">
+          <div>Sa ljubavlju — <b>Milica & Marko</b> 💛</div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lb-card" role="dialog" aria-label="Galerija">
+    <button class="lb-close" id="lbClose" type="button" aria-label="Zatvori">✕</button>
+    <button class="lb-prev" id="lbPrev" type="button" aria-label="Prethodna">‹</button>
+    <button class="lb-next" id="lbNext" type="button" aria-label="Sledeća">›</button>
+
+    <img class="lb-img" id="lbImg" alt="Galerija">
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+</div>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <script>
+    // ---------- Gold dust generator (lightweight) ----------
+    // (function initDust(){
+    //   const wrap = document.getElementById('goldDust');
+    //   if(!wrap) return;
+
+    //   const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    //   if(prefersReduced) return;
+
+    //   const N = 36; // number of particles
+    //   for(let i=0;i<N;i++){
+    //     const p = document.createElement('span');
+
+    //     const x = (Math.random()*100).toFixed(2) + 'vw';
+    //     const y = (Math.random()*100).toFixed(2) + 'vh';
+    //     const s = (2 + Math.random()*4).toFixed(2) + 'px';
+    //     const o = (0.18 + Math.random()*0.35).toFixed(2);
+
+    //     const d = (6 + Math.random()*10).toFixed(2) + 's';
+    //     const delay = (-Math.random()*10).toFixed(2) + 's';
+
+    //     const dx = ((Math.random()*2-1)*18).toFixed(2) + 'px';
+    //     const dy = ((Math.random()*2-1)*22).toFixed(2) + 'px';
+
+    //     p.style.setProperty('--x', x);
+    //     p.style.setProperty('--y', y);
+    //     p.style.setProperty('--s', s);
+    //     p.style.setProperty('--o', o);
+    //     p.style.setProperty('--d', d);
+    //     p.style.setProperty('--delay', delay);
+    //     p.style.setProperty('--dx', dx);
+    //     p.style.setProperty('--dy', dy);
+
+    //     wrap.appendChild(p);
+    //   }
+    // })();
+
+    // ---------- Gate open ----------
+    const gate = document.getElementById('gate');
+    const app  = document.getElementById('app');
+    const seal = document.getElementById('sealBtn');
+    const replayBtn = document.getElementById('replayBtn');
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function openInvite(){
+      if (gate.classList.contains('opening')) return;
+
+      if (prefersReduced){
+        gate.classList.add('gone');
+        app.classList.add('ready');
+        return;
+      }
+
+      gate.classList.add('opening');
+
+      // trajanje: flap (900 + 140), letter (1100 + 320) => ~1420ms, dodamo malo rezerve
+      setTimeout(() => {
+        gate.classList.add('gone');
+        app.classList.add('ready');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        AOS.refreshHard();
+      }, 1550);
+    }
+
+    seal.addEventListener('click', openInvite);
+
+    replayBtn?.addEventListener('click', () => {
+      gate.classList.remove('gone','opening');
+      app.classList.remove('ready');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+
+    // ---------- AOS init ----------
+    AOS.init({
+      duration: 700,
+      once: true,
+      offset: 60
+    });
+
+    // ---------- Smooth scroll ----------
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id.length < 2) return;
+        const el = document.querySelector(id);
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // ---------- RSVP (placeholder) ----------
+    const rsvpForm = document.getElementById('rsvpForm');
+    const rsvpMsg  = document.getElementById('rsvpMsg');
+
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const guests = rsvpForm.querySelector('[name="guests"]').value;
+      const guestNames = rsvpForm.querySelector('[name="guest_names"]');
+      if (guests === "Ja") guestNames.value = ""; // ako je 1 osoba, ne šalji goste
+
+      rsvpMsg.textContent = "Potvrda je zabilježena (demo). Poveži EmailJS da stigne i email. ✅";
+      setTimeout(() => rsvpMsg.textContent = "", 5500);
+      rsvpForm.reset();
+    });
+
+    // ---------- Gallery Lightbox ----------
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCap = document.getElementById('lbCap');
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-wrap .g-item'));
+    let lbIndex = 0;
+
+    function openLightbox(i){
+        lbIndex = i;
+        const el = galleryItems[lbIndex];
+        lbImg.src = el.dataset.full || el.querySelector('img')?.src;
+        lbCap.textContent = el.dataset.cap || '';
+        lb.classList.add('open');
+        lb.setAttribute('aria-hidden','false');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox(){
+    lb.classList.remove('open');
+    lb.setAttribute('aria-hidden','true');
+    document.body.style.overflow = '';
+    // oslobodi src (manje memorije na mob)
+    setTimeout(()=>{ lbImg.src = ''; }, 150);
+    }
+
+    function navLightbox(dir){
+    if(!galleryItems.length) return;
+    lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
+    openLightbox(lbIndex);
+    }
+
+    galleryItems.forEach((btn, i)=>{
+    btn.addEventListener('click', ()=>openLightbox(i));
+    });
+
+    lbClose?.addEventListener('click', closeLightbox);
+    lb?.addEventListener('click', (e)=>{
+    if(e.target === lb) closeLightbox();
+    });
+    lbPrev?.addEventListener('click', ()=>navLightbox(-1));
+    lbNext?.addEventListener('click', ()=>navLightbox(1));
+
+    document.addEventListener('keydown', (e)=>{
+    if(!lb.classList.contains('open')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') navLightbox(-1);
+    if(e.key === 'ArrowRight') navLightbox(1);
+    });
+
+  </script>
+</body>
+</html>
