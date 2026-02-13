@@ -162,7 +162,7 @@
       position:relative;
       width:100%;
       aspect-ratio: 16/10.5;
-      border-radius: 28px;
+      border-radius: 2px;
       overflow: visible;
       transform: translateZ(0);
       filter: drop-shadow(0 35px 85px rgba(0,0,0,.55));
@@ -181,7 +181,7 @@
 
     .env-back{
       position:absolute; inset:0;
-      border-radius: 28px;
+      border-radius: 2px;
       overflow:hidden;
       background:
         radial-gradient(900px 520px at 25% 25%, rgba(225,192,122,.10), transparent 60%),
@@ -196,10 +196,10 @@
     .env-pocket{
       position:absolute; left:0; right:0; bottom:0;
       height:62%;
-      border-radius: 0 0 28px 28px;
+      border-radius: 0 0 2px 2px;
       background:
-        radial-gradient(1100px 420px at 50% 0%, rgba(225,192,122,.10), transparent 55%),
-        linear-gradient(135deg, rgba(38, 35, 34, .88), rgba(26, 26, 28, .92));
+        radial-gradient(1100px 420px at 50% 0%, rgb(66 60 50), transparent 55%), 
+        linear-gradient(135deg, rgba(38, 35, 34, 1), rgba(26, 26, 28, 1));
       border: 1px solid rgba(255,255,255,.10);
       border-top: 0;
       clip-path: polygon(0 0, 50% 40%, 100% 0, 100% 100%, 0 100%);
@@ -226,7 +226,7 @@
         radial-gradient(900px 420px at 50% 0%, rgba(225,192,122,.12), transparent 60%),
         linear-gradient(135deg, rgba(255,255,255,.10), rgba(255,255,255,.02));
       clip-path: polygon(0 0, 100% 0, 50% 78%);
-      border-radius: 28px 28px 0 0;
+      border-radius: 2px 2px 0 0;
       border: 1px solid rgba(255,255,255,.12);
       border-bottom: 0;
       z-index: 8;
@@ -253,7 +253,7 @@
       background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.84));
       border: 1px solid rgba(0,0,0,.06);
       box-shadow: 0 14px 34px rgba(0,0,0,.22);
-      transform: translateY(95%) rotate(-.5deg);
+      transform: translateY(0%) rotate(-.5deg);
       opacity: 0;
       z-index: 1; /* iza pocket-a */
       overflow:hidden;
@@ -275,7 +275,7 @@
       flex-direction:column;
       justify-content:space-between;
       padding:22px 18px 16px;
-      color:#1b1b22;
+      color:#caa35b;
     }
     .letter-top{ text-align:center; }
     .mono{
@@ -306,7 +306,7 @@
     }
     .date-mini{
       margin-top:6px;
-      color: rgba(23,23,32,.70);
+      color: rgba(202,162,90,.70);
       font-weight:600;
     }
     .letter-bottom{
@@ -320,12 +320,14 @@
     /* Seal button (on flap) */
     .seal{
       position:absolute;
-      left:50%; top:66%;
+      left:50%;
+      top:41%;              /* bilo je 66% (to je bilo u flap-u), ovde treba oko 41% */
       transform: translate(-50%, -50%);
       width:118px; height:118px;
-      border-radius: 999px;
+      border-radius:999px;
       border:0;
       cursor:pointer;
+      z-index: 30;          /* obavezno ispred flap/pocket */
       background:
         radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 45%),
         linear-gradient(135deg, var(--gold1), var(--gold2));
@@ -333,7 +335,6 @@
       display:grid; place-items:center;
       transition: transform .18s ease, filter .18s ease;
       outline:none;
-      z-index: 10;
     }
     .seal:hover{transform:translate(-50%,-50%) scale(1.03)}
     .seal:active{transform:translate(-50%,-50%) scale(.99)}
@@ -407,12 +408,31 @@
     }
 
     /* ===== Opening sequence ===== */
-    #gate.opening .seal{ animation: sealPop 320ms ease forwards; }
+    #gate.opening .seal{
+      pointer-events:none;
+      animation:
+        sealPop 320ms ease forwards,
+        sealHide 40ms ease 220ms forwards; /* nakon pucanja -> nestane */
+    }
+
     @keyframes sealPop{
       0%{transform:translate(-50%,-50%) scale(1)}
       65%{transform:translate(-50%,-50%) scale(1.12) rotate(2deg)}
       100%{transform:translate(-50%,-50%) scale(1.02)}
     }
+    @keyframes sealHide{
+      0%{
+        opacity:1;
+        transform: translate(-50%,-50%) scale(1.02);
+        filter: blur(0);
+      }
+      100%{
+        opacity:0;
+        transform: translate(-50%,-50%) scale(.82);
+        filter: blur(1px);
+      }
+    }
+
     #gate.opening .crack{opacity:1; animation: crackFlash 520ms ease forwards}
     @keyframes crackFlash{
       0%{opacity:0}
@@ -449,25 +469,35 @@
     }
     @keyframes letterOut{
       0%{
-        transform: translateY(95%) rotate(-0.5deg);
-        opacity: 0;
+        transform: translateY(0%) rotate(-0.5deg);
+        opacity: 1;
         z-index: 1;
       }
       49%{
-        opacity: 0;
+        opacity: 1;
         z-index: 1;
       }
       55%{
         opacity: 1;
         z-index: 1; /* još uvijek ispod pocket-a */
       }
+      70%{
+        transform: translateY(-8%) rotate(0.2deg);
+        opacity: 1;
+        z-index: 1;
+      }
       80%{
         transform: translateY(-16%) rotate(0.2deg);
         opacity: 1;
         z-index: 1;
       }
+      90%{
+        transform: translateY(-50%) rotate(0.2deg);
+        opacity: 1;
+        z-index: 1;
+      }
       100%{
-        transform: translateY(-24%) rotate(0deg);
+        transform: translateY(-32%) rotate(0deg);
         opacity: 1;
         z-index: 9; /* tek na kraju iznad pocket-a */
       }
@@ -971,15 +1001,15 @@
         <!-- Pocket -->
         <div class="env-pocket"></div>
 
-        <!-- Flap + seal -->
-        <div class="env-flap">
-          <button class="seal" id="sealBtn" type="button" aria-label="Otvori pozivnicu">
-            <span class="seal-topshine" aria-hidden="true"></span>
-            <span class="mark">OPEN</span>
-            <span class="crack" aria-hidden="true"></span>
-          </button>
-        </div>
+        <!-- Flap -->
+        <div class="env-flap"></div>
 
+        <!-- Seal (iznad svega) -->
+        <button class="seal" id="sealBtn" type="button" aria-label="Otvori pozivnicu">
+          <span class="seal-topshine" aria-hidden="true"></span>
+          <span class="mark">OPEN</span>
+          <span class="crack" aria-hidden="true"></span>
+        </button>
         <div class="env-shadow" aria-hidden="true"></div>
       </div>
 
@@ -1367,7 +1397,7 @@
         app.classList.add('ready');
         window.scrollTo({ top: 0, behavior: 'instant' });
         AOS.refreshHard();
-      }, 1550);
+      }, 1850);
     }
 
     seal.addEventListener('click', openInvite);
