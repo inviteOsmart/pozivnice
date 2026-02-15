@@ -11,6 +11,9 @@
   <meta property="og:description" content="Klikni na pečat i otvori pozivnicu." />
   <meta property="og:type" content="website" />
 
+
+  <link rel="icon" type="image/x-icon" href="../../../assets/images/inviteosmartpnglogo.ico">
+
   <!-- AOS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
 
@@ -1157,6 +1160,24 @@
       z-index:3;
     }
 
+    footer img {
+      height: 400px;              /* manji nego u navbaru */
+      width: auto;
+      opacity: 0.75;             /* diskretno */
+      transition: opacity .25s ease, transform .25s ease;
+    }
+
+    footer img:hover {
+      opacity: 1;
+      transform: scale(1.03);
+    }
+
+    @media (width < 600px) {
+      footer img{
+          width: 100%;
+          height: auto;
+      }
+    }
     /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       .sheen{animation:none}
@@ -1173,7 +1194,7 @@
 
   <!-- Hidden audio (online link) -->
   <audio id="bgAudio" preload="auto" playsinline loop>
-    <source src="https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp3" type="audio/mpeg">
+    <source src="assets/music/wedding.mp3" type="audio/mpeg">
   </audio>
 
   <!-- Fixed buttons -->
@@ -1575,6 +1596,9 @@
 
       <footer>
         <div class="container">
+          <div>
+            <img src="../../../assets/images/inviteosmartpnglogo.png" alt="inviteOsmart logo">
+          </div>
           <div>Sa ljubavlju — <b>Milica & Marko</b> 💛</div>
         </div>
       </footer>
