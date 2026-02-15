@@ -3,17 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Milica & Marko — Pozivnica za vjenčanje</title>
+  <title>Milica & Marko — Pozivnica za venčanje</title>
 
   <!-- SEO / Social (opciono) -->
-  <meta name="description" content="Smart pozivnica za vjenčanje — Milica & Marko." />
-  <meta property="og:title" content="Milica & Marko — Pozivnica za vjenčanje" />
+  <meta name="description" content="Smart pozivnica za venčanje — Milica & Marko." />
+  <meta property="og:title" content="Milica & Marko — Pozivnica za venčanje" />
   <meta property="og:description" content="Klikni na pečat i otvori pozivnicu." />
   <meta property="og:type" content="website" />
-  <!-- <meta property="og:image" content="assets/og.jpg" /> -->
 
   <!-- AOS -->
   <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- Icons (Bootstrap Icons) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -94,36 +96,6 @@
       filter: blur(1px);
     }
 
-    /* Gold dust particles */
-    .gold-dust{
-      position:fixed; inset:0;
-      pointer-events:none;
-      z-index:1;
-      overflow:hidden;
-    }
-    .gold-dust span{
-      position:absolute;
-      left: var(--x);
-      top:  var(--y);
-      width: var(--s);
-      height: var(--s);
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 30%,
-        rgba(255,255,255,.45),
-        rgba(225,192,122,.32) 45%,
-        rgba(185,139,61,.18) 65%,
-        rgba(185,139,61,0) 72%);
-      filter: blur(.2px);
-      opacity: var(--o);
-      transform: translate3d(0,0,0);
-      animation: floatDust var(--d) ease-in-out var(--delay) infinite;
-    }
-    @keyframes floatDust{
-      0%   { transform: translate3d(0,0,0) scale(1); }
-      50%  { transform: translate3d(var(--dx), var(--dy), 0) scale(1.05); }
-      100% { transform: translate3d(0,0,0) scale(1); }
-    }
-
     /* Subtle animated sheen */
     .sheen{
       position:fixed; inset:-20%;
@@ -198,7 +170,7 @@
       height:62%;
       border-radius: 0 0 2px 2px;
       background:
-        radial-gradient(1100px 420px at 50% 0%, rgb(66 60 50), transparent 55%), 
+        radial-gradient(1100px 420px at 50% 0%, rgb(66 60 50), transparent 55%),
         linear-gradient(135deg, rgba(38, 35, 34, 1), rgba(26, 26, 28, 1));
       border: 1px solid rgba(255,255,255,.10);
       border-top: 0;
@@ -321,13 +293,13 @@
     .seal{
       position:absolute;
       left:50%;
-      top:41%;              /* bilo je 66% (to je bilo u flap-u), ovde treba oko 41% */
+      top:41%;
       transform: translate(-50%, -50%);
       width:118px; height:118px;
       border-radius:999px;
       border:0;
       cursor:pointer;
-      z-index: 30;          /* obavezno ispred flap/pocket */
+      z-index: 30;
       background:
         radial-gradient(circle at 30% 30%, rgba(255,255,255,.25), transparent 45%),
         linear-gradient(135deg, var(--gold1), var(--gold2));
@@ -412,7 +384,7 @@
       pointer-events:none;
       animation:
         sealPop 320ms ease forwards,
-        sealHide 40ms ease 220ms forwards; /* nakon pucanja -> nestane */
+        sealHide 40ms ease 220ms forwards;
     }
 
     @keyframes sealPop{
@@ -463,7 +435,7 @@
       100%{transform: rotateX(178deg)}
     }
 
-    /* letter slides out (opacity kicks mid animation + z-index jumps late) */
+    /* letter slides out */
     #gate.opening .env-letter{
       animation: letterOut 1100ms cubic-bezier(.15,.95,.15,1) 320ms forwards;
     }
@@ -473,21 +445,8 @@
         opacity: 1;
         z-index: 1;
       }
-      49%{
-        opacity: 1;
-        z-index: 1;
-      }
-      55%{
-        opacity: 1;
-        z-index: 1; /* još uvijek ispod pocket-a */
-      }
       70%{
         transform: translateY(-8%) rotate(0.2deg);
-        opacity: 1;
-        z-index: 1;
-      }
-      80%{
-        transform: translateY(-16%) rotate(0.2deg);
         opacity: 1;
         z-index: 1;
       }
@@ -499,7 +458,7 @@
       100%{
         transform: translateY(-32%) rotate(0deg);
         opacity: 1;
-        z-index: 9; /* tek na kraju iznad pocket-a */
+        z-index: 9;
       }
     }
 
@@ -519,7 +478,7 @@
       transform: translateY(10px);
       transition: opacity .6s ease, transform .6s ease;
       position:relative;
-      z-index:3; /* above background overlays */
+      z-index:3;
     }
     #app.ready{opacity:1; transform:none}
 
@@ -539,6 +498,7 @@
       display:flex; align-items:center; justify-content:space-between;
       gap:14px;
       padding:14px 0;
+      position:relative;
     }
     .brand{
       display:flex; align-items:center; gap:12px;
@@ -550,8 +510,10 @@
       box-shadow: 0 0 0 6px rgba(207,167,90,.14);
     }
     .brand b{font-family:"Playfair Display",serif; font-weight:700; letter-spacing:.02em}
+
     .navlinks{
       display:flex; gap:10px; flex-wrap:wrap;
+      align-items:center;
     }
     .navlinks a{
       color: rgba(255,255,255,.78);
@@ -564,6 +526,38 @@
       transition: transform .15s ease, background .15s ease;
     }
     .navlinks a:hover{background: rgba(255,255,255,.07); transform: translateY(-1px);}
+
+    /* Hamburger ( < 576px ) */
+    .nav-toggle{
+      display:none;
+      width:44px;height:44px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.06);
+      color:#fff;
+      cursor:pointer;
+      place-items:center;
+    }
+    .nav-toggle i{font-size:22px; line-height:1}
+    @media (max-width: 575.98px){
+      .nav-toggle{display:grid;}
+      .navlinks{
+        display:none;
+        position:absolute;
+        left:0; right:0;
+        top: calc(100% + 10px);
+        padding:12px;
+        border-radius: 16px;
+        border: 1px solid rgba(255,255,255,.10);
+        background: rgba(10,10,14,.92);
+        backdrop-filter: blur(10px);
+        flex-direction:column;
+        align-items:stretch;
+        gap:10px;
+      }
+      .topbar.nav-open .navlinks{display:flex;}
+      .navlinks a{width:100%;}
+    }
 
     /* Hero */
     .hero{
@@ -639,7 +633,7 @@
       position:relative;
       background:
         linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.55)),
-        url("assets/couple.jpg");
+        url("https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=1400&auto=format&fit=crop");
       background-size: cover;
       background-position: center;
     }
@@ -674,7 +668,6 @@
         overflow: hidden;
         position: relative;
     }
-    /* tiny gold accent in the corner */
     .section-card::before{
       content:"";
       position:absolute;
@@ -820,21 +813,160 @@
       color: rgba(23,23,32,.72);
     }
 
-    /* Footer */
-    footer{
-      padding: 26px 0 40px;
-      color: rgba(255,255,255,.62);
-      text-align:center;
-      font-size:.95rem;
-      position:relative;
-      z-index:3;
+    /* ===== MUSIC PLAYER (separate block) ===== */
+    .music-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap:16px;
+    }
+    .music-player-wrap{
+      display:grid;
+      place-items:center;
+      padding: 10px 0 6px;
     }
 
-    /* Reduced motion */
-    @media (prefers-reduced-motion: reduce){
-      .sheen{animation:none}
-      .gold-dust span{animation:none}
-      #gate, #app, .env-flap, .env-letter, .envelope, .seal{transition:none !important; animation:none !important}
+    .music-card{
+      width:min(520px, 100%);
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,.08);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.86));
+      box-shadow: 0 26px 70px rgba(0,0,0,.18);
+      padding: 18px 18px 16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .music-card::before{
+      content:"";
+      position:absolute; inset:-60px;
+      background:
+        radial-gradient(600px 260px at 25% 20%, rgba(207,167,90,.18), transparent 60%),
+        radial-gradient(620px 320px at 80% 75%, rgba(225,192,122,.12), transparent 62%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .music-card > *{position:relative; z-index:1;}
+
+    .music-kicker{
+      text-align:center;
+      font-family:"Playfair Display",serif;
+      color: rgba(185,139,61,.95);
+      font-size: 1.15rem;
+      margin: 0;
+    }
+    .music-divider{
+      height:1px;
+      background: rgba(185,139,61,.22);
+      margin: 10px auto 16px;
+      width: 80%;
+      border-radius:999px;
+    }
+
+    .cover-ring{
+      width:110px;height:110px;
+      border-radius: 999px;
+      padding:6px;
+      margin: 0 auto 14px;
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      box-shadow: 0 18px 40px rgba(0,0,0,.14);
+    }
+    .cover-ring img{
+      width:100%; height:100%;
+      border-radius: 999px;
+      object-fit:cover;
+      display:block;
+      background:#fff;
+    }
+
+    .track-title{
+      text-align:center;
+      font-weight: 800;
+      color: rgba(185,139,61,.95);
+      font-size: 1.25rem;
+      margin: 0;
+    }
+    .track-artist{
+      text-align:center;
+      color: rgba(23,23,32,.40);
+      font-size: .98rem;
+      margin: 6px 0 14px;
+    }
+
+    .timeline-row{
+      display:grid;
+      grid-template-columns: 54px 1fr 54px;
+      gap:10px;
+      align-items:center;
+      color: rgba(185,139,61,.92);
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: 14px;
+    }
+    .seek{
+      width:100%;
+      -webkit-appearance:none;
+      appearance:none;
+      height:4px;
+      border-radius: 999px;
+      background: rgba(185,139,61,.22);
+      outline:none;
+      cursor:pointer;
+    }
+    .seek::-webkit-slider-thumb{
+      -webkit-appearance:none;
+      appearance:none;
+      width:14px;height:14px;border-radius:999px;
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      border:2px solid rgba(255,255,255,.95);
+      box-shadow: 0 10px 18px rgba(0,0,0,.15);
+    }
+    .seek::-moz-range-thumb{
+      width:14px;height:14px;border-radius:999px;
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      border:2px solid rgba(255,255,255,.95);
+      box-shadow: 0 10px 18px rgba(0,0,0,.15);
+    }
+
+    .controls{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:18px;
+      padding: 6px 0 4px;
+    }
+    .cbtn{
+      width:56px;height:56px;
+      border-radius: 999px;
+      border: 0;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      background: rgba(0,0,0,.06);
+      color: rgba(23,23,32,.55);
+      transition: transform .12s ease, filter .12s ease, background .12s ease;
+    }
+    .cbtn i{font-size:22px; line-height:1}
+    .cbtn:hover{transform: translateY(-1px); background: rgba(0,0,0,.08);}
+    .cbtn:active{transform: translateY(0px) scale(.99);}
+
+    .cbtn.primary{
+      width:64px;height:64px;
+      background: linear-gradient(135deg, var(--gold1), var(--gold2));
+      color: #fff;
+      box-shadow: 0 18px 40px rgba(185,139,61,.25);
+    }
+    .cbtn.primary i{font-size:28px}
+
+    .cbtn.disabled{
+      opacity:.35;
+      pointer-events:none;
+    }
+
+    .player-note{
+      text-align:center;
+      margin-top: 12px;
+      color: rgba(23,23,32,.55);
+      font-size: .95rem;
+      line-height: 1.5;
     }
 
     /* ===== GALLERY: Elegant grid ===== */
@@ -858,7 +990,6 @@
         transition: transform .35s ease, box-shadow .35s ease;
     }
 
-    /* suptilna razlika po slici */
     .g-item:nth-child(odd){ --r: -1.2deg; }
     .g-item:nth-child(even){ --r: 1.1deg; }
     .g-item:nth-child(3n){ --r: 0.6deg; }
@@ -882,7 +1013,7 @@
 
     .g-item img{
         width:100%;
-        height:260px;               /* sve ISTE visine */
+        height:260px;
         object-fit:cover;
         display:block;
         transition: transform .4s ease;
@@ -902,13 +1033,12 @@
         backdrop-filter: blur(8px);
     }
 
-    /* responsive */
     @media (max-width: 900px){
-    .gallery-wrap{grid-template-columns: repeat(2,1fr)}
+      .gallery-wrap{grid-template-columns: repeat(2,1fr)}
     }
     @media (max-width: 560px){
-    .gallery-wrap{grid-template-columns: 1fr}
-    .g-item{transform:none}
+      .gallery-wrap{grid-template-columns: 1fr}
+      .g-item{transform:none}
     }
 
     /* ===== LIGHTBOX ===== */
@@ -967,6 +1097,71 @@
         background: rgba(0,0,0,.45);
     }
 
+    /* Fixed action buttons */
+    .fixed-btn{
+      position:fixed;
+      bottom: 22px;
+      width:52px;height:52px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.26);
+      color:#fff;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      z-index: 9997;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 22px 55px rgba(0,0,0,.28);
+      transition: transform .12s ease, background .12s ease, opacity .2s ease;
+    }
+    .fixed-btn:hover{transform: translateY(-1px); background: rgba(0,0,0,.34);}
+    .fixed-btn:active{transform: translateY(0px) scale(.99);}
+    .fixed-btn i{font-size:22px; line-height:1}
+
+    #muteBtn{left: 18px;}
+    #toTopBtn{right: 18px; opacity:0; pointer-events:none;}
+    #toTopBtn.show{opacity:1; pointer-events:auto;}
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,.62);
+      color: rgba(255,255,255,.92);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      padding: 10px 14px;
+      font-weight: 600;
+      font-size: .95rem;
+      z-index: 9996;
+      box-shadow: 0 18px 50px rgba(0,0,0,.35);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s ease, transform .2s ease;
+    }
+    .toast.show{
+      opacity: 1;
+      transform: translateX(-50%) translateY(-2px);
+    }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 40px;
+      color: rgba(255,255,255,.62);
+      text-align:center;
+      font-size:.95rem;
+      position:relative;
+      z-index:3;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      .sheen{animation:none}
+      #gate, #app, .env-flap, .env-letter, .envelope, .seal{transition:none !important; animation:none !important}
+    }
   </style>
 </head>
 
@@ -974,8 +1169,23 @@
   <!-- background overlays -->
   <div class="bg-pattern" aria-hidden="true"></div>
   <div class="bg-dots" aria-hidden="true"></div>
-  <div class="gold-dust" id="goldDust" aria-hidden="true"></div>
   <div class="sheen" aria-hidden="true"></div>
+
+  <!-- Hidden audio (online link) -->
+  <audio id="bgAudio" preload="auto" playsinline loop>
+    <source src="https://github.com/rafaelreis-hotmart/Audio-Sample-files/raw/master/sample.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- Fixed buttons -->
+  <button class="fixed-btn" id="muteBtn" type="button" aria-label="Mute/Unmute">
+    <i class="bi bi-volume-up"></i>
+  </button>
+
+  <button class="fixed-btn" id="toTopBtn" type="button" aria-label="Back to top">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <!-- ========== ENVELOPE GATE ========== -->
   <div id="gate" role="dialog" aria-label="Uvod — koverta">
@@ -1004,7 +1214,7 @@
         <!-- Flap -->
         <div class="env-flap"></div>
 
-        <!-- Seal (iznad svega) -->
+        <!-- Seal -->
         <button class="seal" id="sealBtn" type="button" aria-label="Otvori pozivnicu">
           <span class="seal-topshine" aria-hidden="true"></span>
           <span class="mark">OPEN</span>
@@ -1026,10 +1236,16 @@
           <span class="dot"></span>
           <b>Milica & Marko</b>
         </a>
-        <nav class="navlinks" aria-label="Navigacija">
+
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Otvori meni" aria-expanded="false">
+          <i class="bi bi-list"></i>
+        </button>
+
+        <nav class="navlinks" aria-label="Navigacija" id="navLinks">
           <a href="#program">Program</a>
           <a href="#lokacija">Lokacija</a>
           <a href="#rsvp">Forma</a>
+          <a href="#muzika">Muzika</a>
           <a href="#galerija">Naši trenuci</a>
         </nav>
       </div>
@@ -1077,7 +1293,6 @@
               </div>
 
               <div class="hero-right" aria-label="Fotografija para">
-                <!-- Zamijeni sliku: assets/couple.jpg -->
                 <div class="hero-badge" data-aos="zoom-in" data-aos-delay="150">
                   <b>14.06.2026.</b>
                   <span>Jedan klik — sve informacije na jednom mestu.</span>
@@ -1089,63 +1304,63 @@
         </div>
       </section>
 
-        <!-- PROGRAM -->
-        <section id="program">
-            <div class="container">
-                <div class="section-card" data-aos="fade-up">
-                    <div class="section-head">
-                        <h2>Program</h2>
-                        <p>Okvirna satnica i lokacije.</p>
-                    </div>
-
-                    <div class="section-body">
-                        <div class="timeline">
-
-                        <div class="slot" data-aos="fade-up" data-aos-delay="50">
-                            <div class="time">12:00</div>
-                            <div class="text">
-                                <b>Dolazak svatova</b>
-                                <span>Okupljanje i polazak (po dogovoru).</span>
-                            </div>
-                        </div>
-
-                        <div class="slot" data-aos="fade-up" data-aos-delay="100">
-                            <div class="time">12:30</div>
-                            <div class="text">
-                                <b>Adresa okupljanja</b>
-                                <span>Ulica i broj, Grad (upišite tačnu adresu).</span>
-                            </div>
-                        </div>
-
-                        <div class="slot" data-aos="fade-up" data-aos-delay="150">
-                            <div class="time">14:00</div>
-                            <div class="text">
-                                <b>Crkveno venčanje</b>
-                                <span>Naziv crkve, adresa (upišite tačno).</span>
-                            </div>
-                        </div>
-
-                        <div class="slot" data-aos="fade-up" data-aos-delay="200">
-                            <div class="time">15:30</div>
-                            <div class="text">
-                                <b>Opštinsko venčanje</b>
-                                <span>Opština, adresa (upišite tačno).</span>
-                            </div>
-                        </div>
-
-                        <div class="slot" data-aos="fade-up" data-aos-delay="250">
-                            <div class="time">17:00</div>
-                            <div class="text">
-                                <b>Odlazak u salu</b>
-                                <span>Sala “Aurora”, Beograd (upišite tačnu adresu).</span>
-                            </div>
-                        </div>
-
-                        </div>
-                    </div>
-                </div>
+      <!-- PROGRAM -->
+      <section id="program">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Program</h2>
+              <p>Okvirna satnica i lokacije.</p>
             </div>
-        </section>
+
+            <div class="section-body">
+              <div class="timeline">
+
+                <div class="slot" data-aos="fade-up" data-aos-delay="50">
+                  <div class="time">12:00</div>
+                  <div class="text">
+                    <b>Dolazak svatova</b>
+                    <span>Okupljanje i polazak (po dogovoru).</span>
+                  </div>
+                </div>
+
+                <div class="slot" data-aos="fade-up" data-aos-delay="100">
+                  <div class="time">12:30</div>
+                  <div class="text">
+                    <b>Adresa okupljanja</b>
+                    <span>Ulica i broj, Grad (upišite tačnu adresu).</span>
+                  </div>
+                </div>
+
+                <div class="slot" data-aos="fade-up" data-aos-delay="150">
+                  <div class="time">14:00</div>
+                  <div class="text">
+                    <b>Crkveno venčanje</b>
+                    <span>Naziv crkve, adresa (upišite tačno).</span>
+                  </div>
+                </div>
+
+                <div class="slot" data-aos="fade-up" data-aos-delay="200">
+                  <div class="time">15:30</div>
+                  <div class="text">
+                    <b>Opštinsko venčanje</b>
+                    <span>Opština, adresa (upišite tačno).</span>
+                  </div>
+                </div>
+
+                <div class="slot" data-aos="fade-up" data-aos-delay="250">
+                  <div class="time">17:00</div>
+                  <div class="text">
+                    <b>Odlazak u salu</b>
+                    <span>Sala “Aurora”, Beograd (upišite tačnu adresu).</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <!-- LOCATION -->
       <section id="lokacija">
@@ -1171,7 +1386,7 @@
                 <div class="info" data-aos="fade-up" data-aos-delay="100">
                   <div class="k">Napomena</div>
                   <div class="v">Molimo potvrdite dolazak</div>
-                  <div class="s">RSVP nam pomaže zbog rasporeda sjedenja i organizacije.</div>
+                  <div class="s">Potvrda dolaska nam pomaže zbog rasporeda sedenja i organizacije.</div>
                 </div>
               </div>
 
@@ -1193,7 +1408,7 @@
         <div class="container">
           <div class="section-card" data-aos="fade-up">
             <div class="section-head">
-              <h2>RSVP</h2>
+              <h2>Potvrda dolaska</h2>
               <p>Potvrdite dolazak — stiže nam poruka odmah.</p>
             </div>
             <div class="section-body">
@@ -1238,79 +1453,125 @@
                   <div class="v">Najkasnije do 01.06.2026.</div>
                   <div class="s">
                     Hvala vam! Vidimo se na proslavi. <br><br>
-                    <b>Kontakt:</b> +381 60 123 456 <br>
-                    <b>Email:</b> invite@example.com
+                    
                   </div>
                 </div>
-              </div>
-
-              <div style="margin-top:14px;color:rgba(23,23,32,.70);font-size:.95rem">
-                Tip: Ovo je statički sajt — RSVP možeš slati preko EmailJS (bez servera). Ako želiš, ubaciću ti gotovu EmailJS integraciju u ovaj fajl.
               </div>
             </div>
           </div>
         </div>
       </section>
 
-        <!-- GALLERY -->
-        <section id="galerija">
-            <div class="container">
-                <div class="section-card" data-aos="fade-up">
-                    <div class="section-head">
-                        <h2>Naši trenuci</h2>
-                        <p>Mali album uspomena prije velikog dana.</p>
-                    </div>
-
-                    <div class="section-body">
-                        <div class="gallery-wrap">
-
-                            <button class="g-item" type="button"
-                                data-full="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=1600&auto=format&fit=crop"
-                                data-cap="Naš prvi put 🥂">
-                                <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=800&auto=format&fit=crop">
-                                <span class="g-badge">01</span>
-                            </button>
-
-                            <button class="g-item" type="button"
-                                data-full="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"
-                                data-cap="Zajedno">
-                                <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop">
-                                <span class="g-badge">02</span>
-                            </button>
-
-                            <button class="g-item" type="button"
-                                data-full="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=1600&auto=format&fit=crop"
-                                data-cap="Putovanja ✈️">
-                                <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800&auto=format&fit=crop">
-                                <span class="g-badge">03</span>
-                            </button>
-
-                            <button class="g-item" type="button"
-                                data-full="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
-                                data-cap="Osmijeh">
-                                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop">
-                                <span class="g-badge">04</span>
-                            </button>
-
-                            <button class="g-item" type="button"
-                                data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop"
-                                data-cap="Najljepši trenuci">
-                                <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop">
-                                <span class="g-badge">05</span>
-                            </button>
-
-                            <button class="g-item" type="button"
-                                data-full="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1600&auto=format&fit=crop"
-                                data-cap="Mi ❤️">
-                                <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=800&auto=format&fit=crop">
-                                <span class="g-badge">06</span>
-                            </button>
-
-                        </div>
-                    </div>
-                </div>
+      <!-- MUSIC (SEPARATE BLOCK) -->
+      <section id="muzika">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Muzika</h2>
+              <p>Pesma za prvi ples — plejer je kao poseban blok.</p>
             </div>
-        </section>
+
+            <div class="section-body">
+              <div class="music-player-wrap">
+                <div class="music-card" aria-label="Muzicki plejer">
+                  <h3 class="music-kicker">Pesma za prvi ples</h3>
+                  <div class="music-divider"></div>
+
+                  <div class="cover-ring">
+                    <img id="coverImg"
+                      src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=500&auto=format&fit=crop"
+                      alt="Cover">
+                  </div>
+
+                  <p class="track-title" id="trackTitle">Endless Love</p>
+                  <p class="track-artist" id="trackArtist">Diana Ross & Lionel Richie</p>
+
+                  <div class="timeline-row">
+                    <div id="curTime">00:00</div>
+                    <input class="seek" id="seekBar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+                    <div id="durTime">00:00</div>
+                  </div>
+
+                  <div class="controls">
+                    <button class="cbtn disabled" type="button" aria-label="Prethodna">
+                      <i class="bi bi-skip-backward-fill"></i>
+                    </button>
+
+                    <button class="cbtn primary" id="playBtn" type="button" aria-label="Play/Pause">
+                      <i class="bi bi-play-fill" id="playIcon"></i>
+                    </button>
+
+                    <button class="cbtn disabled" type="button" aria-label="Sledeća">
+                      <i class="bi bi-skip-forward-fill"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="galerija">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Naši trenuci</h2>
+              <p>Mali album uspomena prije velikog dana.</p>
+            </div>
+
+            <div class="section-body">
+              <div class="gallery-wrap">
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Naš prvi put 🥂">
+                  <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=800&auto=format&fit=crop" alt="Galerija 01">
+                  <span class="g-badge">01</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Zajedno">
+                  <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop" alt="Galerija 02">
+                  <span class="g-badge">02</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Putovanja ✈️">
+                  <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800&auto=format&fit=crop" alt="Galerija 03">
+                  <span class="g-badge">03</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Osmijeh">
+                  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop" alt="Galerija 04">
+                  <span class="g-badge">04</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Najljepši trenuci">
+                  <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop" alt="Galerija 05">
+                  <span class="g-badge">05</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Mi ❤️">
+                  <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=800&auto=format&fit=crop" alt="Galerija 06">
+                  <span class="g-badge">06</span>
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <footer>
         <div class="container">
@@ -1321,56 +1582,130 @@
   </div>
 
   <!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" aria-hidden="true">
-  <div class="lb-card" role="dialog" aria-label="Galerija">
-    <button class="lb-close" id="lbClose" type="button" aria-label="Zatvori">✕</button>
-    <button class="lb-prev" id="lbPrev" type="button" aria-label="Prethodna">‹</button>
-    <button class="lb-next" id="lbNext" type="button" aria-label="Sledeća">›</button>
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lb-card" role="dialog" aria-label="Galerija">
+      <button class="lb-close" id="lbClose" type="button" aria-label="Zatvori">✕</button>
+      <button class="lb-prev" id="lbPrev" type="button" aria-label="Prethodna">‹</button>
+      <button class="lb-next" id="lbNext" type="button" aria-label="Sledeća">›</button>
 
-    <img class="lb-img" id="lbImg" alt="Galerija">
-    <div class="lb-cap" id="lbCap"></div>
+      <img class="lb-img" id="lbImg" alt="Galerija">
+      <div class="lb-cap" id="lbCap"></div>
+    </div>
   </div>
-</div>
 
   <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
   <script>
-    // ---------- Gold dust generator (lightweight) ----------
-    // (function initDust(){
-    //   const wrap = document.getElementById('goldDust');
-    //   if(!wrap) return;
+    // ---------- Helpers ----------
+    function fmtTime(sec){
+      if(!isFinite(sec) || sec < 0) return "00:00";
+      sec = Math.floor(sec);
+      const m = Math.floor(sec/60);
+      const s = sec % 60;
+      return String(m).padStart(2,'0') + ":" + String(s).padStart(2,'0');
+    }
 
-    //   const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    //   if(prefersReduced) return;
+    const toastEl = document.getElementById('toast');
+    let toastT = null;
+    function toast(msg){
+      if(!toastEl) return;
+      toastEl.textContent = msg;
+      toastEl.classList.add('show');
+      clearTimeout(toastT);
+      toastT = setTimeout(()=> toastEl.classList.remove('show'), 2600);
+    }
 
-    //   const N = 36; // number of particles
-    //   for(let i=0;i<N;i++){
-    //     const p = document.createElement('span');
+    // ---------- Audio / Player ----------
+    const audio = document.getElementById('bgAudio');
 
-    //     const x = (Math.random()*100).toFixed(2) + 'vw';
-    //     const y = (Math.random()*100).toFixed(2) + 'vh';
-    //     const s = (2 + Math.random()*4).toFixed(2) + 'px';
-    //     const o = (0.18 + Math.random()*0.35).toFixed(2);
+    const playBtn = document.getElementById('playBtn');
+    const playIcon = document.getElementById('playIcon');
+    const seekBar = document.getElementById('seekBar');
+    const curTimeEl = document.getElementById('curTime');
+    const durTimeEl = document.getElementById('durTime');
+    const muteBtn = document.getElementById('muteBtn');
 
-    //     const d = (6 + Math.random()*10).toFixed(2) + 's';
-    //     const delay = (-Math.random()*10).toFixed(2) + 's';
+    function syncPlayUI(){
+      const playing = audio && !audio.paused && !audio.ended;
+      if(playIcon){
+        playIcon.className = playing ? "bi bi-pause-fill" : "bi bi-play-fill";
+      }
+    }
 
-    //     const dx = ((Math.random()*2-1)*18).toFixed(2) + 'px';
-    //     const dy = ((Math.random()*2-1)*22).toFixed(2) + 'px';
+    function syncMuteUI(){
+      if(!muteBtn || !audio) return;
+      const i = muteBtn.querySelector('i');
+      const muted = audio.muted || audio.volume === 0;
+      if(i) i.className = muted ? "bi bi-volume-mute" : "bi bi-volume-up";
+      muteBtn.setAttribute('aria-label', muted ? "Unmute" : "Mute");
+    }
 
-    //     p.style.setProperty('--x', x);
-    //     p.style.setProperty('--y', y);
-    //     p.style.setProperty('--s', s);
-    //     p.style.setProperty('--o', o);
-    //     p.style.setProperty('--d', d);
-    //     p.style.setProperty('--delay', delay);
-    //     p.style.setProperty('--dx', dx);
-    //     p.style.setProperty('--dy', dy);
+    // NOTE: najbitnije — START PLAY mora biti u ISTOM KLIKU (user gesture), inače browser blokira.
+    function startMusicFromUserGesture(){
+      if(!audio) return;
 
-    //     wrap.appendChild(p);
-    //   }
-    // })();
+      audio.volume = 0.85;
+      audio.muted = false;
+
+      const p = audio.play();
+      if(p && typeof p.catch === "function"){
+        p.catch(() => {
+          // Ako je ipak blokirano, korisnik može kliknuti ▶ u plejeru ili mute dugme.
+          toast("Klikni ▶ u plejeru (browser blokira autoplay zvuka).");
+        });
+      }
+      syncPlayUI();
+      syncMuteUI();
+    }
+
+    function togglePlay(){
+      if(!audio) return;
+      if(audio.paused){
+        const p = audio.play();
+        if(p && typeof p.catch === "function"){
+          p.catch(()=> toast("Ne mogu da pustim audio — proveri link ili browser restrikcije."));
+        }
+      }else{
+        audio.pause();
+      }
+      syncPlayUI();
+    }
+
+    playBtn?.addEventListener('click', togglePlay);
+
+    audio?.addEventListener('loadedmetadata', () => {
+      durTimeEl.textContent = fmtTime(audio.duration);
+      syncPlayUI();
+    });
+
+    audio?.addEventListener('timeupdate', () => {
+      if(!isFinite(audio.duration) || audio.duration <= 0) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      seekBar.value = String(pct);
+      curTimeEl.textContent = fmtTime(audio.currentTime);
+      durTimeEl.textContent = fmtTime(audio.duration);
+    });
+
+    seekBar?.addEventListener('input', () => {
+      if(!audio || !isFinite(audio.duration) || audio.duration <= 0) return;
+      const pct = parseFloat(seekBar.value || "0");
+      audio.currentTime = (pct/100) * audio.duration;
+    });
+
+    muteBtn?.addEventListener('click', () => {
+      if(!audio) return;
+      audio.muted = !audio.muted;
+      syncMuteUI();
+      // ako user klikne unmute, probaj i play (user gesture)
+      if(!audio.muted && audio.paused){
+        const p = audio.play();
+        if(p && typeof p.catch === "function"){
+          p.catch(()=> {});
+        }
+      }
+      syncPlayUI();
+    });
 
     // ---------- Gate open ----------
     const gate = document.getElementById('gate');
@@ -1383,19 +1718,22 @@
     function openInvite(){
       if (gate.classList.contains('opening')) return;
 
+      // START AUDIO NOW (must be same click)
+      startMusicFromUserGesture();
+
       if (prefersReduced){
         gate.classList.add('gone');
         app.classList.add('ready');
+        window.scrollTo({ top: 0, behavior: 'auto' });
         return;
       }
 
       gate.classList.add('opening');
 
-      // trajanje: flap (900 + 140), letter (1100 + 320) => ~1420ms, dodamo malo rezerve
       setTimeout(() => {
         gate.classList.add('gone');
         app.classList.add('ready');
-        window.scrollTo({ top: 0, behavior: 'instant' });
+        window.scrollTo({ top: 0, behavior: 'auto' });
         AOS.refreshHard();
       }, 1850);
     }
@@ -1405,7 +1743,12 @@
     replayBtn?.addEventListener('click', () => {
       gate.classList.remove('gone','opening');
       app.classList.remove('ready');
-      window.scrollTo({ top: 0, behavior: 'instant' });
+      window.scrollTo({ top: 0, behavior: 'auto' });
+      // opciono: reset pesme
+      if(audio){
+        audio.currentTime = 0;
+        syncPlayUI();
+      }
     });
 
     // ---------- AOS init ----------
@@ -1416,6 +1759,14 @@
     });
 
     // ---------- Smooth scroll ----------
+    function closeNav(){
+      const topbar = document.querySelector('.topbar');
+      const navToggle = document.getElementById('navToggle');
+      if(!topbar || !navToggle) return;
+      topbar.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+
     document.querySelectorAll('a[href^="#"]').forEach(a=>{
       a.addEventListener('click', (e)=>{
         const id = a.getAttribute('href');
@@ -1423,8 +1774,27 @@
         const el = document.querySelector(id);
         if(!el) return;
         e.preventDefault();
+        closeNav();
         el.scrollIntoView({behavior:'smooth', block:'start'});
       });
+    });
+
+    // ---------- Hamburger toggle ----------
+    const topbar = document.querySelector('.topbar');
+    const navToggle = document.getElementById('navToggle');
+    navToggle?.addEventListener('click', (e) => {
+      e.preventDefault();
+      const open = topbar.classList.toggle('nav-open');
+      navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+
+    // close nav on outside click (mobile)
+    document.addEventListener('click', (e) => {
+      if(!topbar?.classList.contains('nav-open')) return;
+      const inner = document.querySelector('.topbar-inner');
+      if(inner && !inner.contains(e.target)){
+        closeNav();
+      }
     });
 
     // ---------- RSVP (placeholder) ----------
@@ -1436,9 +1806,9 @@
 
       const guests = rsvpForm.querySelector('[name="guests"]').value;
       const guestNames = rsvpForm.querySelector('[name="guest_names"]');
-      if (guests === "Ja") guestNames.value = ""; // ako je 1 osoba, ne šalji goste
+      if (guests === "Ja") guestNames.value = "";
 
-      rsvpMsg.textContent = "Potvrda je zabilježena (demo). Poveži EmailJS da stigne i email. ✅";
+      rsvpMsg.textContent = "Potvrda je zabilježena (demo). ✅";
       setTimeout(() => rsvpMsg.textContent = "", 5500);
       rsvpForm.reset();
     });
@@ -1455,47 +1825,63 @@
     let lbIndex = 0;
 
     function openLightbox(i){
-        lbIndex = i;
-        const el = galleryItems[lbIndex];
-        lbImg.src = el.dataset.full || el.querySelector('img')?.src;
-        lbCap.textContent = el.dataset.cap || '';
-        lb.classList.add('open');
-        lb.setAttribute('aria-hidden','false');
-        document.body.style.overflow = 'hidden';
+      lbIndex = i;
+      const el = galleryItems[lbIndex];
+      lbImg.src = el.dataset.full || el.querySelector('img')?.src;
+      lbCap.textContent = el.dataset.cap || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
     }
 
     function closeLightbox(){
-    lb.classList.remove('open');
-    lb.setAttribute('aria-hidden','true');
-    document.body.style.overflow = '';
-    // oslobodi src (manje memorije na mob)
-    setTimeout(()=>{ lbImg.src = ''; }, 150);
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      setTimeout(()=>{ lbImg.src = ''; }, 150);
     }
 
     function navLightbox(dir){
-    if(!galleryItems.length) return;
-    lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
-    openLightbox(lbIndex);
+      if(!galleryItems.length) return;
+      lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
+      openLightbox(lbIndex);
     }
 
     galleryItems.forEach((btn, i)=>{
-    btn.addEventListener('click', ()=>openLightbox(i));
+      btn.addEventListener('click', ()=>openLightbox(i));
     });
 
     lbClose?.addEventListener('click', closeLightbox);
     lb?.addEventListener('click', (e)=>{
-    if(e.target === lb) closeLightbox();
+      if(e.target === lb) closeLightbox();
     });
     lbPrev?.addEventListener('click', ()=>navLightbox(-1));
     lbNext?.addEventListener('click', ()=>navLightbox(1));
 
     document.addEventListener('keydown', (e)=>{
-    if(!lb.classList.contains('open')) return;
-    if(e.key === 'Escape') closeLightbox();
-    if(e.key === 'ArrowLeft') navLightbox(-1);
-    if(e.key === 'ArrowRight') navLightbox(1);
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') closeLightbox();
+      if(e.key === 'ArrowLeft') navLightbox(-1);
+      if(e.key === 'ArrowRight') navLightbox(1);
     });
 
+    // ---------- Back to top ----------
+    const toTopBtn = document.getElementById('toTopBtn');
+    function onScroll(){
+      if(!toTopBtn) return;
+      if(window.scrollY > 240) toTopBtn.classList.add('show');
+      else toTopBtn.classList.remove('show');
+    }
+    window.addEventListener('scroll', onScroll, {passive:true});
+    onScroll();
+
+    toTopBtn?.addEventListener('click', () => {
+      window.scrollTo({top:0, behavior:'smooth'});
+    });
+
+    // Initial UI state
+    syncMuteUI();
+    syncPlayUI();
   </script>
 </body>
 </html>
