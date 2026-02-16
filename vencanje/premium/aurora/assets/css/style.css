@@ -469,8 +469,24 @@ footer {
     justify-content: center
 }
 
-footer a img {
-    width: 250px
+footer img {
+    height: 400px;              /* manji nego u navbaru */
+    width: auto;
+    opacity: 0.75;             /* diskretno */
+    transition: opacity .25s ease, transform .25s ease;
+}
+
+footer img:hover {
+    opacity: 1;
+    transform: scale(1.03);
+}
+
+@media (width < 600px) {
+    footer img{
+        width: 100%;
+        height: auto;
+    }
+
 }
 
 .footerLink {
