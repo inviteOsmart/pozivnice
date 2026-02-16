@@ -1277,6 +1277,18 @@
             font-size: 16px;
         }
     }
+    .cal-only{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      margin-top: 12px;
+    }
+
+    add-to-calendar-button#css-part-example::part(atcb-button) {
+      background-color: #c4995f;
+      color: #fff;
+    }
+
   </style>
 </head>
 
@@ -1555,6 +1567,45 @@
         </div>
       </section>
 
+      <!-- REMINDER / CALENDAR -->
+      <div class="cal-only">
+        <add-to-calendar-button
+          id="css-part-example"
+          name="Milica & Marko — Venčanje"
+          description="Smart pozivnica — svi detalji na stranici pozivnice."
+          startDate="2026-06-14"
+          startTime="17:00"
+          endDate="2026-06-15"
+          endTime="02:00"
+          timeZone="Europe/Belgrade"
+          location="Sala “Aurora”, Beograd"
+          options="'Apple','Google','iCal','Outlook.com','Yahoo'"
+          buttonStyle="3d"
+          trigger="click"
+          inline
+          size="5"
+          label="Postavi podsjetnik"
+          styleLight="
+            --btn-background: linear-gradient(135deg, var(--gold1), var(--gold2));
+            --btn-hover-background: linear-gradient(135deg, #f0d08a, #c79745);
+            --btn-text: #1b1b22;
+            --btn-border: 1px solid rgba(0,0,0,.10);
+            --btn-shadow: 0 16px 30px rgba(185,139,61,.28);
+            --btn-radius: 14px;
+            --font: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+          "
+          styleDark="
+            --btn-background: linear-gradient(135deg, var(--gold1), var(--gold2));
+            --btn-hover-background: linear-gradient(135deg, #f0d08a, #c79745);
+            --btn-text: #1b1b22;
+            --btn-border: 1px solid rgba(255,255,255,.14);
+            --btn-shadow: 0 16px 30px rgba(185,139,61,.25);
+            --btn-radius: 14px;
+            --font: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+          "
+        ></add-to-calendar-button>
+      </div>
+
       <!-- QR UPLOAD -->
       <section id="fotke">
         <div class="container">
@@ -1587,59 +1638,6 @@
                 </div>
 
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- REMINDER / CALENDAR -->
-      <section id="podsjetnik">
-        <div class="container">
-          <div class="section-card" data-aos="fade-up">
-            <div class="section-head">
-              <h2>Podsjetnik</h2>
-              <p>Dodajte događaj u kalendar (uključuje podsjetnike 24h i 2h ranije).</p>
-            </div>
-
-            <div class="section-body">
-              <div class="rem-grid">
-                <div class="rem-card" data-aos="fade-up" data-aos-delay="50">
-                  <p class="tt">Dodaj u kalendar (.ics)</p>
-                  <p class="dd">
-                    Radi na iPhone/Android/Outlook/Apple Calendar (download i import).
-                  </p>
-                  <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-                    <button class="btn btn-gold" id="icsBtn" type="button">
-                      Preuzmi .ics
-                    </button>
-                    <button class="btn btn-soft" id="icsCopyBtn" type="button">
-                      Kopiraj detalje
-                    </button>
-                  </div>
-                </div>
-
-                <div class="rem-card" data-aos="fade-up" data-aos-delay="100">
-                  <p class="tt">Google Calendar</p>
-                  <p class="dd">
-                    Otvorite unaprijed popunjen događaj u Google kalendaru.
-                  </p>
-                  <div style="margin-top:12px; display:flex; gap:10px; flex-wrap:wrap;">
-                    <a class="btn btn-gold" id="gcalLink" href="#" target="_blank" rel="noopener">
-                      Otvori Google Calendar
-                    </a>
-                    <a class="btn btn-soft" id="gcalLinkCopy" href="#" role="button">
-                      Kopiraj Google link
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              <div class="info" style="margin-top:16px" data-aos="fade-up" data-aos-delay="150">
-                <div class="k">Detalji</div>
-                <div class="v" id="eventLine">—</div>
-                <div class="s" id="eventLine2">—</div>
-              </div>
-
             </div>
           </div>
         </div>
@@ -1836,6 +1834,8 @@
       <div class="lb-cap" id="lbCap"></div>
     </div>
   </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
 
   <!-- AOS -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
