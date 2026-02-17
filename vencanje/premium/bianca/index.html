@@ -7,8 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pozivamo Vas na naše venčanje.</title>
     <meta name="robots" content="noindex, nofollow">
-    <link href="https://smartpozivnice.com/images/ikonica.ico" rel="icon">
-    <!-- <link href="https://smartpozivnice.com/css/vencanja/sesta.css" rel="stylesheet"> -->
+    <link href="../../../assets/images/inviteosmartpnglogo.ico" rel="icon">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <script src="https://cdn.jsdelivr.net/npm/add-to-calendar-button@2" async defer></script>
@@ -22,21 +21,18 @@
     <meta property="og:site_name" content="Venčanje">
     <meta property="og:locale" content="sr_RS">
 
-    <!-- Specifični Tagovi za Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@korisnickoime">
-    <meta name="twitter:title" content="Pozivamo Vas na naše venčanje.">
-    <meta name="twitter:description" content="Zajedno u ljubavi, delimo sreću! Neka naš dan bude ispunjen smehom, radosti i neizmernim veseljem. Radujemo se što ćete biti deo naše ljubavne priče i stvoriti nezaboravne trenutke s nama!">
-    <meta name="twitter:image" content="assets/images/og.webp">
-    <meta name="twitter:image:alt" content="Venčanje">
-    <meta property="og:image:secure_url"  content="assets/images/og.webp">
+    
 </head>
 <body>
 
     <img class="gornjiPatern" src="assets/images/gornjiUkras.webp" alt="" />
 
     <div id="prviDeo">
-        <img id="save" src="assets/images/saveTheDate.webp" alt="" />
+        <div class="titleName">
+            <span class="name">Aleksa</span>
+            <span class="amp">&amp;</span>
+            <span class="name">Marija</span>
+        </div>
         <div id="datum">
             <div id="danDatum"><p>09</p></div>
             <div id="godinaDatum">
@@ -46,10 +42,44 @@
         </div>
 
         <div id="hederSlika">
-            <div class="prozor">
-                <img class="slikaUnutra" src="assets/images/photo.webp" alt="">
+            <!-- data-count: 4 / 6 / 8  (default 8) -->
+            <div class="photo-stack" data-count="8" aria-label="Galerija fotografija">
+                
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed1/900/700" alt="Fotografija 1">
+                </button>
+
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed2/900/700" alt="Fotografija 2">
+                </button>
+
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed3/900/700" alt="Fotografija 3">
+                </button>
+
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed4/900/700" alt="Fotografija 4">
+                </button>
+
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed5/900/700" alt="Fotografija 5">
+                </button>
+
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed6/900/700" alt="Fotografija 6">
+                </button>
+
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed7/900/700" alt="Fotografija 7">
+                </button>
+
+                <button class="ps-item" type="button">
+                <img src="https://picsum.photos/seed/wed8/900/700" alt="Fotografija 8">
+                </button>
+
             </div>
-        </div>
+            </div>
+
         
     </div>
 
@@ -92,25 +122,49 @@
     <div id="drugiDeo">
         <img class="separatorCvet" src="assets/images/separatorCvet.webp" alt="" />
 
-        <h1>Ana i Darko</h1>
+        <div id="prica" class="timeline-section">
+            <h2 class="timeline-title">Naša priča</h2>
+            <div class="timeline-ornament" aria-hidden="true"></div>
 
-        <div id="prica">
-            <img src="assets/images/fotkaTekst.webp" alt=""/>
-            <div id="pricaTekst">
-                <h2>Naša priča</h2>
+            <div class="timeline">
+                <article class="t-item left">
+                    <div class="t-content">
+                        <div class="t-year">2019</div>
+                        <h3 class="t-heading">Prvi susret</h3>
+                        <p class="t-text">Sudbina nas je spojila jednog lepog prolećnog dana. Od prvog pogleda znali smo da je to nešto posebno.</p>
+                    </div>
+                    <div class="t-dot"><i class="fa fa-heart"></i></div>
+                </article>
 
-                <p>Jos na prvi pogled mogli smo oboje naslutiti da nesto postoji medu nama.</p>
-                <p>U pocetku to je bilo uzajamno nerviranje,
-                (slatko, ne preterano) provociranje, dok ne bi ispitali jedno drugo.
-                Na nasu srecu, uspeli smo da se makar dogovorimo i organizujemo nas prvi sastanak. Nismo ni slutili da de nam taj momenat promeniti zivot, zajedno nas upotpuniti
-                I tako, nakon 7 godina provedenih zajedno, odlucili smo da to krunisemo ovom svecanoscu.
-                </p>
-                <p>Ne postoji nikakva nasa druga polovina:
-                Jednostavno postoje vremenski periodi u kojima nam je sa nekim dobro. Tri minuta. Dva dana. Pet godina. Ceo zivot.
-                </p>
+                <article class="t-item right">
+                    <div class="t-content">
+                        <div class="t-year">2020</div>
+                        <h3 class="t-heading">Prva godina zajedno</h3>
+                        <p class="t-text">Svaki zajednički trenutak učvrstio je našu vezu. Zajedno smo prošli kroz sve izazove i radosti.</p>
+                    </div>
+                    <div class="t-dot"><i class="fa fa-heart"></i></div>
+                </article>
 
+                <article class="t-item left">
+                    <div class="t-content">
+                        <div class="t-year">2023</div>
+                        <h3 class="t-heading">Veridba</h3>
+                        <p class="t-text">Na magičnom mestu, pod zvezdanim nebom, izgovorili smo “Da” i odlučili da zauvek budemo jedno.</p>
+                    </div>
+                    <div class="t-dot"><i class="fa fa-heart"></i></div>
+                </article>
+
+                <article class="t-item right">
+                    <div class="t-content">
+                        <div class="t-year">2025</div>
+                        <h3 class="t-heading">Venčanje</h3>
+                        <p class="t-text">Krunisanje naše priče — dan kada slavimo ljubav sa porodicom i prijateljima.</p>
+                    </div>
+                    <div class="t-dot"><i class="fa fa-heart"></i></div>
+                </article>
             </div>
         </div>
+
     </div>
 
     <div id="vremeDatum">

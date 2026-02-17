@@ -1,7 +1,7 @@
 @import url(https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&display=swap);* {
     margin: 0;
     padding: 0;
-    color: #000;
+    color: #705a48;
     box-sizing: border-box
 }
 
@@ -30,6 +30,69 @@ ul {
     padding-top: 300px
 }
 
+.titleName{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  text-align:center;
+  margin: 40px auto 18px;
+  padding: 0 12px;
+}
+
+.titleName .name{
+  font-family: "Italianno", cursive;
+  font-weight: 400;
+  font-size: 120px;
+  line-height: 0.9;
+  color: #705a48;
+  text-shadow: 1px 1px 1px rgba(255,255,255,.65);
+  letter-spacing: 1px;
+}
+
+.titleName .amp{
+  font-family: "Playfair Display", serif;
+  font-weight: 400;
+  font-size: 44px;
+  line-height: 1;
+  color: #ab926c;
+  margin: 6px 0 10px;
+  letter-spacing: 3px;
+  position: relative;
+}
+
+/* mali ukras iznad i ispod & */
+.titleName .amp::before,
+.titleName .amp::after{
+  content:"";
+  display:block;
+  width: 160px;
+  height: 1px;
+  margin: 10px auto;
+  background: linear-gradient(to right, transparent, rgba(171,146,108,.75), transparent);
+}
+
+/* responsive */
+@media (max-width: 900px){
+  .titleName .name{ font-size: 105px; }
+  .titleName .amp{ font-size: 40px; }
+}
+
+@media (max-width: 600px){
+  .titleName{ margin: 26px auto 12px; }
+  .titleName .name{ font-size: 88px; }
+  .titleName .amp{
+    font-size: 34px;
+    margin: 4px 0 8px;
+  }
+  .titleName .amp::before,
+  .titleName .amp::after{ width: 120px; }
+}
+
+@media (max-width: 420px){
+  .titleName .name{ font-size: 76px; }
+}
+
 #save {
     width: 280px
 }
@@ -43,7 +106,7 @@ ul {
 
 #datum p {
     font-family: "Old Standard TT",serif;
-    color: #000;
+    color: #705a48;
     font-weight: 600
 }
 
@@ -60,20 +123,294 @@ ul {
 #hederSlika {
     position: relative;
     width: 800px;
-    aspect-ratio: 1 / 1;
-    margin: auto;
+    margin: 40px auto;
 }
-#hederSlika::after {
-    content: "";
+
+/* =========================
+   HEADER: RESPONSIVE STACK (2xN) + OVERLAP + HOVER POP
+   ========================= */
+.photo-stack{
+  /* Podešavanja (lako menjaš) */
+  --overlapY: 95px;   /* koliko redovi ulaze jedni u druge */
+  --overlapX: 18px;   /* blago preklapanje kolona */
+  --scale: 1.06;      /* hover uvećanje */
+
+  width: min(980px, 92%);
+  margin: 40px auto 0;
+  padding: 12px;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 28px;
+  row-gap: 28px;
+
+  /* da hover “iskoči” lepše */
+  position: relative;
+  z-index: 5;
+}
+
+/* “polaroid” kartica */
+.photo-stack .ps-item{
+  appearance: none;
+  border: 0;
+  background: #fff;
+  padding: 14px 14px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  box-shadow: 0 22px 55px rgba(0,0,0,.22);
+  border: 1px solid rgba(0,0,0,.08);
+
+  position: relative;
+  z-index: 1;
+
+  transform-origin: center;
+  transition: transform .18s ease, box-shadow .18s ease, z-index 0s;
+}
+
+/* slika unutra */
+.photo-stack .ps-item img{
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+  object-fit: cover;
+  aspect-ratio: 4 / 3;
+}
+
+/* preklapanje redova: sve od 3. elementa nadalje (pošto su prva 2 u prvom redu) */
+.photo-stack .ps-item:nth-child(n+3){
+  margin-top: calc(-1 * var(--overlapY));
+}
+
+/* blago preklapanje kolona */
+.photo-stack .ps-item:nth-child(2n){
+  margin-left: calc(-1 * var(--overlapX));
+  transform: rotate(4deg);
+}
+.photo-stack .ps-item:nth-child(2n+1){
+  margin-right: calc(-1 * var(--overlapX));
+  transform: rotate(-4deg);
+}
+
+/* HOVER / FOCUS: slika ide napred + scale */
+.photo-stack .ps-item:hover,
+.photo-stack .ps-item:focus{
+  z-index: 999;
+  transform: translateY(-6px) scale(var(--scale)) rotate(0deg);
+  box-shadow: 0 32px 80px rgba(0,0,0,.35);
+  outline: none;
+}
+
+/* =========================
+   Broj slika: pali/gasi (data-count)
+   ========================= */
+.photo-stack[data-count="4"] .ps-item:nth-child(n+5){ display: none; }
+.photo-stack[data-count="6"] .ps-item:nth-child(n+7){ display: none; }
+/* data-count="8" prikazuje sve (ili samo ukloni atribut) */
+
+/* =========================
+   TABLET
+   ========================= */
+@media (max-width: 900px){
+  .photo-stack{
+    --overlapY: 85px;
+    --overlapX: 14px;
+    column-gap: 22px;
+    row-gap: 22px;
+  }
+}
+
+@media (max-width: 600px){
+  .photo-stack{
+    --overlapY: 65px;
+    --overlapX: 14px;
+    column-gap: 22px;
+    row-gap: 22px;
+  }
+}
+
+@media (max-width: 450px){
+    .photo-stack{
+        --overlapY: 45px;
+        --overlapX: 14px;
+        column-gap: 22px;
+        row-gap: 22px;
+    }
+    .photo-stack .ps-item{
+    
+        padding: 7px 7px 7px;
+  
+    }
+
+
+}
+
+/* =========================
+   PHONE: 1 kolona, i dalje overlap, hover/focus radi
+   ========================= */
+@media (max-width: 350px){
+  .photo-stack{
+    grid-template-columns: 1fr;
+    --overlapY: 70px;
+    --overlapX: 0px;
+  }
+
+  /* u 1 koloni: preklapanje važi od 2. elementa nadalje */
+  .photo-stack .ps-item:nth-child(n+3){ margin-top: 0; }
+  .photo-stack .ps-item:nth-child(n+2){
+    margin-top: calc(-1 * var(--overlapY));
+  }
+
+  /* u 1 koloni nema horizontalnog overlap-a */
+  .photo-stack .ps-item:nth-child(2n),
+  .photo-stack .ps-item:nth-child(2n+1){
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* =========================
+   TIMELINE (Naša priča)
+   ========================= */
+.timeline-section{
+    padding: 90px 0;
+    text-align: center;
+}
+
+.timeline-title{
+    font-family: "Playfair Display", serif;
+    font-size: 52px;
+    color: #705a48;
+    font-weight: 500;
+}
+
+.timeline-ornament{
+    width: 220px;
+    height: 30px;
+    margin: 18px auto 0;
+    opacity: .85;
+    background: url(assets/images/separatorCvet.webp) center/contain no-repeat;
+}
+
+/* sama linija */
+.timeline{
+    position: relative;
+    width: min(960px, 92%);
+    margin: 50px auto 0;
+    padding: 10px 0 10px;
+}
+
+.timeline::before{
+    content:"";
     position: absolute;
-    inset: 0;
-    background-image: url(../images/frame.webp);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    z-index: 2;
-    pointer-events: none;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 2px;
+    transform: translateX(-50%);
+    background: rgba(112,90,72,.22);
 }
+
+/* item */
+.t-item{
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    margin: 70px 0;
+}
+
+.t-item.left{ justify-content: flex-start; }
+.t-item.right{ justify-content: flex-end; }
+
+.t-content{
+    width: calc(50% - 72px);
+    text-align: left;
+    padding: 0 22px;
+}
+
+.t-item.left .t-content{
+    text-align: right;
+    padding-right: 48px;
+}
+
+.t-item.right .t-content{
+    text-align: left;
+    padding-left: 48px;
+}
+
+/* “heart” marker */
+.t-dot{
+    position: absolute;
+    left: 50%;
+    top: 6px;
+    transform: translateX(-50%);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #ab926c;
+    box-shadow: 0 16px 30px rgba(0,0,0,.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 5;
+}
+
+.t-dot i{
+    color: #fff;
+    font-size: 18px;
+}
+
+/* tipografija */
+.t-year{
+    font-family: "Playfair Display", serif;
+    font-size: 28px;
+    color: #ab926c;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.t-heading{
+    font-family: "Playfair Display", serif;
+    font-size: 22px;
+    color: #705a48;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.t-text{
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    color: #705a48;
+    line-height: 1.7;
+    font-weight: 300;
+}
+
+/* MOBILE: sve ide u jednu kolonu, linija levo */
+@media (max-width: 700px){
+    .timeline-title{ font-size: 44px; }
+
+    .timeline::before{
+        left: 22px;
+        transform: none;
+    }
+
+    .t-item{
+        justify-content: flex-start !important;
+        padding-left: 52px;
+    }
+
+    .t-dot{
+        left: -5px;
+        transform: none;
+    }
+
+    .t-content{
+        width: 100%;
+        text-align: left !important;
+        padding: 0 10px 0 18px !important;
+    }
+}
+
 .prozor {
     position: absolute;
     top: 14%;
@@ -159,12 +496,12 @@ ul {
     margin-top: 100px
 }
 
-#prica {
+/* #prica {
     width: 60%;
     margin: 100px auto;
     display: flex;
     justify-content: space-around
-}
+} */
 
 #pricaTekst {
     width: 40%;
@@ -656,9 +993,9 @@ footer ul li {
         width: 60%
     }
 
-    #prica {
+    /* #prica {
         width: 80%
-    }
+    } */
     #hederSlika {
         width:100%
     }
@@ -714,9 +1051,9 @@ footer ul li {
         margin-top: 10px
     }
 
-    #prica {
+    /* #prica {
         display: block
-    }
+    } */
 
     #pricaTekst {
         width: 60%;
