@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ana — Rođendanska pozivnica 🎉</title>
+
+  <meta name="description" content="Smart rođendanska pozivnica — Ana." />
+  <meta property="og:title" content="Ana — Rođendanska pozivnica" />
+  <meta property="og:description" content="Klikni na pečat i otvori pozivnicu." />
+  <meta property="og:type" content="website" />
+
+  <!-- AOS -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      /* Light / pastel theme */
+      --bg: #fff6fb;
+      --bg2:#f3fbff;
+      --ink: #1b1b26;
+      --muted: rgba(27,27,38,.66);
+
+      /* Pastel accents */
+      --p1: #ffb3d2;  /* blush */
+      --p2: #9ad9ff;  /* sky */
+      --p3: #ffe28a;  /* butter */
+      --p4: #b8f2d3;  /* mint */
+
+      /* Cards */
+      --paper: rgba(255,255,255,.92);
+      --paper2: rgba(255,255,255,.80);
+      --card-border: rgba(255, 179, 210, .35);
+      --card-border-soft: rgba(155, 215, 255, .28);
+
+      --shadow: 0 26px 70px rgba(14, 12, 20, .14);
+      --radius: 22px;
+      --radius2: 18px;
+      --max: 980px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+
+    body{
+      margin:0;
+      background:
+        radial-gradient(1000px 700px at 10% 10%, rgba(255,179,210,.35), transparent 55%),
+        radial-gradient(900px 650px at 90% 20%, rgba(154,217,255,.32), transparent 60%),
+        radial-gradient(1100px 900px at 60% 110%, rgba(255,226,138,.26), transparent 55%),
+        linear-gradient(180deg, var(--bg), var(--bg2));
+      color: var(--ink);
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      overflow-x:hidden;
+      background-attachment: fixed;
+    }
+
+    /* ===== Confetti overlays ===== */
+    .bg-confetti, .bg-soft{
+      position:fixed; inset:0;
+      pointer-events:none;
+      z-index:0;
+    }
+    .bg-soft{
+      background: radial-gradient(circle at 20% 25%, rgba(184,242,211,.20), transparent 30%),
+                  radial-gradient(circle at 80% 30%, rgba(255,179,210,.18), transparent 32%),
+                  radial-gradient(circle at 50% 80%, rgba(154,217,255,.16), transparent 35%);
+      opacity:.9;
+      filter: blur(1px);
+    }
+    .bg-confetti{
+      opacity:.20;
+      background:
+        radial-gradient(circle, rgba(255,179,210,.9) 1px, transparent 2px) 0 0/34px 34px,
+        radial-gradient(circle, rgba(154,217,255,.9) 1px, transparent 2px) 10px 16px/36px 36px,
+        radial-gradient(circle, rgba(255,226,138,.9) 1px, transparent 2px) 18px 8px/42px 42px;
+      mix-blend-mode: multiply;
+    }
+
+    /* ===== Gate (Envelope intro) ===== */
+    #gate{
+      position:fixed; inset:0;
+      display:grid; place-items:center;
+      padding:24px;
+      z-index:9999;
+      background:
+        radial-gradient(900px 650px at 50% 10%, rgba(255,179,210,.28), transparent 60%),
+        radial-gradient(900px 650px at 20% 80%, rgba(154,217,255,.22), transparent 55%),
+        radial-gradient(1200px 900px at 80% 60%, rgba(255,226,138,.16), transparent 55%),
+        rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      transition: opacity .55s ease, visibility .55s ease;
+    }
+    #gate.gone{opacity:0; visibility:hidden}
+
+    .gate-wrap{
+      width:min(720px, 100%);
+      perspective: 1300px;
+      position:relative;
+      text-align:center;
+    }
+
+    .envelope{
+      position:relative;
+      width:100%;
+      aspect-ratio: 16/10.5;
+      border-radius: 18px;
+      overflow:hidden; /* KLJUČ: ništa iznutra ne viri */
+      transform: translateZ(0);
+      filter: drop-shadow(0 30px 80px rgba(10,10,20,.25));
+      background: transparent;
+    }
+
+    .env-shadow{
+      position:absolute;
+      left:10%; right:10%;
+      bottom:-18px; height:34px;
+      background: radial-gradient(closest-side, rgba(0,0,0,.22), transparent 70%);
+      filter: blur(12px);
+      opacity:.55;
+      transform: translateZ(-1px);
+      z-index:0;
+    }
+
+    .env-back{
+      position:absolute; inset:0;
+      border-radius: 18px;
+      overflow:hidden;
+      background:
+        radial-gradient(900px 520px at 25% 25%, rgba(255,179,210,.30), transparent 60%),
+        radial-gradient(900px 620px at 85% 80%, rgba(154,217,255,.26), transparent 62%),
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.74));
+      border: 1px solid rgba(255,255,255,.7);
+      box-shadow: 0 18px 60px rgba(0,0,0,.12);
+      z-index:1;
+    }
+
+    /* Pocket (front) */
+    .env-pocket{
+      position:absolute; left:0; right:0; bottom:0;
+      height:62%;
+      border-radius: 0 0 18px 18px;
+      background:
+        radial-gradient(1100px 420px at 50% 0%, rgba(255,226,138,.30), transparent 55%),
+        linear-gradient(135deg, rgba(255,179,210,.55), rgba(154,217,255,.38));
+      border: 1px solid rgba(255,255,255,.55);
+      border-top: 0;
+      clip-path: polygon(0 0, 50% 40%, 100% 0, 100% 100%, 0 100%);
+      z-index: 6;
+      overflow:hidden;
+    }
+    .env-pocket::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.22), transparent 55%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,.18) 0 1px, transparent 1px 16px);
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    /* Flap */
+    .env-flap{
+      position:absolute; left:0; right:0; top:0;
+      height:62%;
+      transform-origin: top center;
+      transform: rotateX(0deg);
+      background:
+        radial-gradient(900px 420px at 50% 0%, rgba(255,226,138,.22), transparent 60%),
+        linear-gradient(135deg, rgba(255,255,255,.92), rgba(255,255,255,.70));
+      clip-path: polygon(0 0, 100% 0, 50% 78%);
+      border-radius: 18px 18px 0 0;
+      border: 1px solid rgba(255,255,255,.6);
+      border-bottom: 0;
+      z-index: 8;
+      will-change: transform;
+      overflow:hidden;
+    }
+    .env-flap::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(800px 420px at 50% 10%, rgba(255,255,255,.55), transparent 60%),
+        repeating-linear-gradient(45deg, rgba(255,179,210,.20) 0 1px, transparent 1px 18px);
+      opacity:.55;
+      pointer-events:none;
+    }
+
+    /* Letter (START: fully hidden) */
+    .env-letter{
+      position:absolute;
+      left:7%; right:7%;
+      bottom:10%;
+      height:78%;
+      border-radius: 20px;
+      background: linear-gradient(180deg, rgba(255,255,255,.98), rgba(255,255,255,.90));
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 14px 34px rgba(0,0,0,.12);
+      transform: translateY(10%) rotate(-.5deg);
+      opacity: 0;              /* KLJUČ: ne vidi se dok ne krene animacija */
+      z-index: 2;              /* ispod pocket-a dok ne izađe */
+      overflow:hidden;
+      will-change: transform, opacity;
+    }
+    .env-letter::before{
+      content:"";
+      position:absolute; inset:-40px;
+      background:
+        radial-gradient(900px 420px at 15% 20%, rgba(255,179,210,.22), transparent 60%),
+        radial-gradient(900px 520px at 85% 90%, rgba(154,217,255,.18), transparent 60%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .letter-inner{
+      position:absolute; inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding:22px 18px 16px;
+      color:#c46aa0;
+    }
+    .letter-top{ text-align:center; }
+    .mono{
+      display:inline-block;
+      padding:10px 14px;
+      border-radius: 999px;
+      border: 1px dashed rgba(0,0,0,.12);
+      background: rgba(255,255,255,.72);
+      font-weight:700;
+      letter-spacing:.12em;
+      font-size:.85rem;
+      color:#a45aa0;
+    }
+    .ltitle{
+      margin-top:12px;
+      font-family:"Playfair Display",serif;
+      font-weight:700;
+      letter-spacing:.02em;
+      font-size:1.15rem;
+      color:#1b1b26;
+    }
+    .letter-mid{ text-align:center; padding:10px 0; }
+    .names-mini{
+      font-family:"Playfair Display",serif;
+      font-weight:700;
+      font-size:1.45rem;
+      color:#1b1b26;
+    }
+    .date-mini{
+      margin-top:6px;
+      color: rgba(27,27,38,.70);
+      font-weight:600;
+    }
+    .letter-bottom{
+      text-align:center;
+      font-size:.92rem;
+      color: rgba(27,27,38,.68);
+      border-top: 1px solid rgba(0,0,0,.06);
+      padding-top:12px;
+    }
+
+    /* Seal button (above everything) */
+    .seal{
+      position:absolute;
+      left:50%;
+      top:41%;
+      transform: translate(-50%, -50%);
+      width:118px; height:118px;
+      border-radius:999px;
+      border:0;
+      cursor:pointer;
+      z-index: 30;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.40), transparent 45%),
+        linear-gradient(135deg, var(--p1), var(--p3));
+      box-shadow: 0 18px 45px rgba(0,0,0,.18);
+      display:grid; place-items:center;
+      transition: transform .18s ease, filter .18s ease;
+      outline:none;
+    }
+    .seal:hover{transform:translate(-50%,-50%) scale(1.03)}
+    .seal:active{transform:translate(-50%,-50%) scale(.99)}
+    .seal-topshine{
+      position:absolute; inset:0;
+      border-radius:999px;
+      background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.55), transparent 55%);
+      opacity:.9;
+      pointer-events:none;
+    }
+    .seal .mark{
+      width:78px; height:78px;
+      border-radius: 999px;
+      border: 1px dashed rgba(255,255,255,.92);
+      display:grid; place-items:center;
+      color: rgba(255,255,255,.95);
+      font-weight: 900;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size:.78rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,.18);
+    }
+
+    /* Crack effect */
+    .crack{position:absolute; inset:0; pointer-events:none; opacity:0;}
+    .crack::before, .crack::after{
+      content:"";
+      position:absolute; left:50%; top:18%;
+      width:2px; height:68%;
+      background: rgba(255,255,255,.85);
+      transform: translateX(-50%) rotate(12deg);
+    }
+    .crack::after{
+      top:28%;
+      height:58%;
+      transform: translateX(-50%) rotate(-10deg);
+      opacity:.75;
+    }
+
+    /* Split pieces (seal) */
+    .seal::before, .seal::after{
+      content:"";
+      position:absolute; inset:0;
+      border-radius:999px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,.28), transparent 45%),
+        linear-gradient(135deg, var(--p1), var(--p3));
+      box-shadow: inherit;
+      opacity:0;
+      pointer-events:none;
+    }
+    .seal::before{clip-path: polygon(0 0, 55% 0, 45% 100%, 0 100%);}
+    .seal::after{clip-path: polygon(55% 0, 100% 0, 100% 100%, 45% 100%);}
+
+    .gate-title{
+      margin:18px 0 0;
+      color: rgba(27,27,38,.82);
+      font-size: .95rem;
+      letter-spacing:.14em;
+      text-transform: uppercase;
+    }
+    .gate-sub{
+      margin:10px 0 0;
+      color: rgba(27,27,38,.58);
+      font-size: .95rem;
+    }
+
+    /* ===== Opening sequence ===== */
+    #gate.opening .seal{
+      pointer-events:none;
+      animation:
+        sealPop 320ms ease forwards,
+        sealHide 40ms ease 220ms forwards;
+    }
+    @keyframes sealPop{
+      0%{transform:translate(-50%,-50%) scale(1)}
+      65%{transform:translate(-50%,-50%) scale(1.12) rotate(2deg)}
+      100%{transform:translate(-50%,-50%) scale(1.02)}
+    }
+    @keyframes sealHide{
+      0%{opacity:1; transform: translate(-50%,-50%) scale(1.02); filter: blur(0);}
+      100%{opacity:0; transform: translate(-50%,-50%) scale(.82); filter: blur(1px);}
+    }
+    #gate.opening .crack{opacity:1; animation: crackFlash 520ms ease forwards}
+    @keyframes crackFlash{0%{opacity:0} 30%{opacity:1} 100%{opacity:0}}
+    #gate.opening .seal .mark{opacity:0; transition:opacity .12s ease}
+    #gate.opening .seal::before, #gate.opening .seal::after{opacity:1}
+    #gate.opening .seal::before{ animation: pieceLeft 680ms cubic-bezier(.2,.9,.2,1) forwards; }
+    #gate.opening .seal::after{  animation: pieceRight 680ms cubic-bezier(.2,.9,.2,1) forwards; }
+    @keyframes pieceLeft{0%{transform:translate(0,0) rotate(0); opacity:1} 100%{transform:translate(-38px, 12px) rotate(-10deg); opacity:0}}
+    @keyframes pieceRight{0%{transform:translate(0,0) rotate(0); opacity:1} 100%{transform:translate(38px, 12px) rotate(10deg); opacity:0}}
+
+    #gate.opening .env-flap{
+      animation: flapOpen 900ms cubic-bezier(.2,.9,.2,1) 140ms forwards;
+    }
+    @keyframes flapOpen{0%{transform: rotateX(0deg)} 100%{transform: rotateX(178deg)}}
+
+    #gate.opening .env-letter{
+      animation: letterOut 1100ms cubic-bezier(.15,.95,.15,1) 320ms forwards;
+    }
+    /* KLJUČ: počinje sa opacity 0 -> postaje 1 tek kad kreće izlazak */
+    @keyframes letterOut{
+      0%   { transform: translateY(10%) rotate(-.5deg); opacity:0; z-index:2; }
+      40%  { opacity:0; }
+      55%  { opacity:1; z-index:2; }
+      80%  { transform: translateY(-16%) rotate(0.2deg); opacity:1; z-index:2; }
+      100% { transform: translateY(-32%) rotate(0deg);  opacity:1; z-index:9; }
+    }
+
+    #gate.opening .envelope{
+      animation: envLift 1100ms cubic-bezier(.2,.9,.2,1) 160ms forwards;
+    }
+    @keyframes envLift{
+      0%{transform:translateY(0) scale(1)}
+      70%{transform:translateY(-10px) scale(1.015)}
+      100%{transform:translateY(-6px) scale(1.015)}
+    }
+
+    /* App */
+    #app{
+      opacity:0;
+      transform: translateY(10px);
+      transition: opacity .6s ease, transform .6s ease;
+      position:relative;
+      z-index:3;
+    }
+    #app.ready{opacity:1; transform:none}
+
+    .container{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+    }
+
+    /* Top nav */
+    .topbar{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(12px);
+      background: rgba(255,255,255,.74);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .topbar-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:14px;
+      padding:14px 0;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      color: var(--ink); text-decoration:none;
+    }
+    .brand .dot{
+      width:10px;height:10px;border-radius:999px;
+      background: linear-gradient(135deg,var(--p1),var(--p2));
+      box-shadow: 0 0 0 6px rgba(255,179,210,.20);
+    }
+    .brand b{font-family:"Playfair Display",serif; font-weight:700; letter-spacing:.02em}
+    .navlinks{display:flex; gap:10px; flex-wrap:wrap;}
+    .navlinks a{
+      color: rgba(27,27,38,.78);
+      text-decoration:none;
+      font-size:.92rem;
+      padding:8px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.07);
+      background: rgba(255,255,255,.55);
+      transition: transform .15s ease, background .15s ease;
+    }
+    .navlinks a:hover{background: rgba(255,255,255,.78); transform: translateY(-1px);}
+
+    /* Hero */
+    .hero{ padding:70px 0 36px; position:relative; }
+    .hero-card{
+      border-radius: var(--radius);
+      overflow:hidden;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,.06);
+      background:
+        radial-gradient(1200px 600px at 20% 20%, rgba(255,179,210,.22), transparent 55%),
+        radial-gradient(900px 520px at 80% 80%, rgba(154,217,255,.18), transparent 58%),
+        linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.75));
+    }
+    .hero-inner{display:grid; grid-template-columns: 1.05fr .95fr; gap:0;}
+    @media (max-width: 860px){ .hero-inner{grid-template-columns: 1fr} }
+
+    .hero-left{ padding:38px 34px; }
+    .kicker{
+      display:inline-flex; gap:10px; align-items:center;
+      color: rgba(27,27,38,.70);
+      font-size:.95rem;
+      letter-spacing:.12em;
+      text-transform: uppercase;
+    }
+    .kicker .line{width:44px;height:2px;background: linear-gradient(90deg,var(--p1),var(--p2)); border-radius:999px;}
+    .names{
+      font-family:"Playfair Display",serif;
+      font-size: clamp(2.1rem, 4vw, 3.2rem);
+      margin:16px 0 10px;
+      line-height:1.05;
+      letter-spacing:.01em;
+    }
+    .subtitle{
+      margin:0 0 22px;
+      color: rgba(27,27,38,.72);
+      font-size: 1.02rem;
+      line-height:1.55;
+    }
+
+    .hero-meta{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+      margin-top:20px;
+    }
+    @media (max-width: 560px){ .hero-meta{grid-template-columns:1fr} }
+    .pill{
+      border-radius: 18px;
+      padding:14px 14px;
+      border: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.68);
+    }
+    .pill .t{font-size:.78rem; text-transform:uppercase; letter-spacing:.12em; color: rgba(27,27,38,.60)}
+    .pill .v{margin-top:8px; font-weight:700}
+
+    .hero-right{
+      min-height: 360px;
+      position:relative;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(27,27,38,.35)),
+        url("assets/birthday.jpg");
+      background-size: cover;
+      background-position: center;
+    }
+    .hero-right::after{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(900px 520px at 50% 10%, rgba(255,226,138,.22), transparent 55%);
+      pointer-events:none;
+    }
+    .hero-badge{
+      position:absolute; left:18px; bottom:18px;
+      border-radius: 18px;
+      padding:14px 14px;
+      border: 1px solid rgba(255,255,255,.35);
+      background: rgba(255,255,255,.55);
+      backdrop-filter: blur(10px);
+      color: var(--ink);
+      max-width: 280px;
+    }
+    .hero-badge b{display:block; font-family:"Playfair Display",serif; font-size:1.15rem}
+    .hero-badge span{color: rgba(27,27,38,.72); font-size:.95rem}
+
+    /* Sections */
+    section{ padding: 44px 0; }
+
+    .section-card{
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,255,255,.82));
+      color: var(--ink);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 55px rgba(14,12,20,.12);
+      border: 1px solid rgba(0,0,0,.06);
+      overflow: hidden;
+      position: relative;
+    }
+    .section-card::before{
+      content:"";
+      position:absolute;
+      right:-120px; top:-120px;
+      width:280px; height:280px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,179,210,.25), transparent 62%);
+      opacity:.9;
+      pointer-events:none;
+    }
+
+    .section-head{ padding:26px 26px 0; }
+    .section-head h2{
+      margin:0;
+      font-family:"Playfair Display",serif;
+      font-size: 1.9rem;
+      letter-spacing:.01em;
+      position:relative;
+    }
+    .section-head h2::after{
+      content:"";
+      display:block;
+      width:72px;
+      height:3px;
+      margin-top:10px;
+      background: linear-gradient(90deg, var(--p1), var(--p2), var(--p3));
+      opacity:.9;
+      border-radius: 999px;
+    }
+    .section-head p{
+      margin:10px 0 0;
+      color: rgba(27,27,38,.70);
+      line-height:1.6;
+    }
+    .section-body{ padding:22px 26px 26px; }
+
+    .grid2{display:grid; grid-template-columns: 1fr 1fr; gap:16px;}
+    @media (max-width: 860px){ .grid2{grid-template-columns:1fr} }
+
+    .info{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.70);
+      padding:16px 16px;
+    }
+    .info .k{
+      font-size:.78rem;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+      color: rgba(27,27,38,.60);
+    }
+    .info .v{ margin-top:8px; font-weight: 700; line-height:1.45; }
+    .info .s{ margin-top:10px; color: rgba(27,27,38,.72); line-height:1.5; font-size:.98rem; }
+
+    /* Timeline */
+    .timeline{ display:grid; gap:10px; }
+    .slot{
+      display:flex; gap:12px; align-items:flex-start;
+      padding:14px 14px;
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.70);
+    }
+    .slot .time{ min-width: 78px; font-weight:800; color: rgba(27,27,38,.88); }
+    .slot .text b{display:block}
+    .slot .text span{display:block; color: rgba(27,27,38,.66); margin-top:3px}
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      border: 0;
+      padding: 12px 16px;
+      border-radius: 14px;
+      cursor:pointer;
+      text-decoration:none;
+      font-weight:700;
+      transition: transform .12s ease, filter .12s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px) scale(.99)}
+    .btn-accent{
+      color:#1b1b26;
+      background: linear-gradient(135deg, var(--p1), var(--p3));
+      box-shadow: 0 14px 28px rgba(255,179,210,.28);
+    }
+    .btn-ghost{
+      color: var(--ink);
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(0,0,0,.08);
+    }
+
+    /* RSVP */
+    .rsvp-wrap{display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items:stretch;}
+    @media (max-width: 860px){ .rsvp-wrap{grid-template-columns:1fr} }
+    .form{
+      border-radius: var(--radius2);
+      border: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.70);
+      padding:16px;
+    }
+    .field{display:grid; gap:8px; margin-bottom:12px}
+    .field label{font-size:.88rem; color: rgba(27,27,38,.72); font-weight:700}
+    .field input,.field select,.field textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(0,0,0,.12);
+      outline:none;
+      font: inherit;
+      background: rgba(255,255,255,.95);
+    }
+    .field textarea{min-height: 96px; resize: vertical}
+    .msg{ margin-top:12px; font-weight:700; color: rgba(27,27,38,.74); }
+
+    /* QR */
+    .qr-box{
+      display:flex; gap:16px; align-items:center; flex-wrap:wrap;
+    }
+    .qr-card{
+      border: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.75);
+      border-radius: 18px;
+      padding:14px;
+    }
+    #qrCode canvas, #qrCode img{
+      display:block;
+      border-radius: 12px;
+      background:#fff;
+    }
+
+    /* Footer */
+    footer{
+      padding: 26px 0 40px;
+      color: rgba(27,27,38,.66);
+      text-align:center;
+      font-size:.95rem;
+      position:relative;
+      z-index:3;
+    }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      #gate, #app, .env-flap, .env-letter, .envelope, .seal{transition:none !important; animation:none !important}
+    }
+
+    /* ===== GALLERY + LIGHTBOX (isti kao tvoj, malo svetlije) ===== */
+    .gallery-wrap{display:grid; grid-template-columns: repeat(3, 1fr); gap:18px;}
+    .g-item{
+      position:relative; border:0; padding:0; cursor:pointer;
+      border-radius: 20px; overflow:hidden; background:#000;
+      box-shadow: 0 18px 40px rgba(0,0,0,.14);
+      border: 1px solid rgba(0,0,0,.06);
+      transform: rotate(var(--r, -1deg)) translateZ(0);
+      transition: transform .35s ease, box-shadow .35s ease;
+    }
+    .g-item:nth-child(odd){ --r: -1.2deg; }
+    .g-item:nth-child(even){ --r: 1.1deg; }
+    .g-item:nth-child(3n){ --r: 0.6deg; }
+    .g-item:hover{transform: rotate(0deg) scale(1.035); box-shadow: 0 26px 60px rgba(0,0,0,.18);}
+    .g-item::after{
+      content:""; position:absolute; inset:0;
+      background:
+        radial-gradient(800px 400px at 30% 20%, rgba(255,179,210,.25), transparent 60%),
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.28));
+      opacity:.55; transition: opacity .25s ease; pointer-events:none;
+    }
+    .g-item:hover::after{opacity:.32}
+    .g-item img{width:100%; height:260px; object-fit:cover; display:block; transition: transform .4s ease;}
+    .g-item:hover img{transform: scale(1.08)}
+    .g-badge{
+      position:absolute; left:14px; bottom:14px;
+      padding:8px 12px; border-radius:999px;
+      font-size:.78rem; letter-spacing:.08em; color:#1b1b26;
+      background: rgba(255,255,255,.65);
+      border:1px solid rgba(0,0,0,.07);
+      backdrop-filter: blur(8px);
+    }
+    @media (max-width: 900px){ .gallery-wrap{grid-template-columns: repeat(2,1fr)} }
+    @media (max-width: 560px){ .gallery-wrap{grid-template-columns: 1fr} .g-item{transform:none} }
+
+    .lightbox{
+      position:fixed; inset:0;
+      display:none; place-items:center;
+      padding:18px; z-index:9998;
+      background: rgba(10,10,16,.65);
+      backdrop-filter: blur(10px);
+    }
+    .lightbox.open{display:grid}
+    .lb-card{
+      width:min(980px, 100%);
+      border-radius: 18px;
+      overflow:hidden;
+      box-shadow: 0 30px 90px rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.20);
+      background: rgba(255,255,255,.12);
+      position:relative;
+    }
+    .lb-img{
+      width:100%;
+      height:min(72vh, 680px);
+      object-fit:contain;
+      display:block;
+      background: rgba(0,0,0,.35);
+    }
+    .lb-cap{
+      padding:12px 14px;
+      color: rgba(255,255,255,.88);
+      font-size:.95rem;
+      border-top:1px solid rgba(255,255,255,.16);
+    }
+    .lb-close, .lb-prev, .lb-next{
+      position:absolute; top:12px;
+      width:44px;height:44px;
+      border-radius: 12px;
+      border:1px solid rgba(255,255,255,.22);
+      background: rgba(0,0,0,.25);
+      color:#fff; cursor:pointer;
+      display:grid;place-items:center;
+      font-size:20px;
+      backdrop-filter: blur(8px);
+    }
+    .lb-close{right:12px}
+    .lb-prev{left:12px; top:50%; transform: translateY(-50%)}
+    .lb-next{right:12px; top:50%; transform: translateY(-50%)}
+    .lb-close:hover, .lb-prev:hover, .lb-next:hover{background: rgba(0,0,0,.40);}
+  </style>
+</head>
+
+<body>
+  <div class="bg-soft" aria-hidden="true"></div>
+  <div class="bg-confetti" aria-hidden="true"></div>
+
+  <!-- ========== ENVELOPE GATE ========== -->
+  <div id="gate" role="dialog" aria-label="Uvod — koverta">
+    <div class="gate-wrap">
+      <div class="envelope" aria-hidden="true">
+        <div class="env-back"></div>
+
+        <div class="env-letter" aria-hidden="true">
+          <div class="letter-inner">
+            <div class="letter-top">
+              <div class="mono">A&nbsp;🎉&nbsp;21</div>
+              <div class="ltitle">Rođendanska pozivnica</div>
+            </div>
+            <div class="letter-mid">
+              <div class="names-mini">Ana</div>
+              <div class="date-mini">14.06.2026. • 19:00</div>
+            </div>
+            <div class="letter-bottom">Klik • Otvori • Slavimo</div>
+          </div>
+        </div>
+
+        <div class="env-pocket"></div>
+        <div class="env-flap"></div>
+
+        <button class="seal" id="sealBtn" type="button" aria-label="Otvori pozivnicu">
+          <span class="seal-topshine" aria-hidden="true"></span>
+          <span class="mark">PARTY</span>
+          <span class="crack" aria-hidden="true"></span>
+        </button>
+
+        <div class="env-shadow" aria-hidden="true"></div>
+      </div>
+
+      <p class="gate-title">POZIVNICA ZA ROĐENDAN 🎂</p>
+      <p class="gate-sub">Tap/click pečat u sredini</p>
+    </div>
+  </div>
+
+  <!-- ========== INVITATION APP ========== -->
+  <div id="app">
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="#top">
+          <span class="dot"></span>
+          <b>Ana • 21</b>
+        </a>
+        <nav class="navlinks" aria-label="Navigacija">
+          <a href="#program">Program</a>
+          <a href="#lokacija">Lokacija</a>
+          <a href="#rsvp">RSVP</a>
+          <a href="#upload">Upload slika</a>
+          <a href="#galerija">Galerija</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-card" data-aos="fade-up">
+            <div class="hero-inner">
+              <div class="hero-left">
+                <div class="kicker">
+                  <span class="line"></span>
+                  <span>Dođi da slavimo zajedno</span>
+                </div>
+
+                <h1 class="names">Ana • 21. rođendan 🎉</h1>
+                <p class="subtitle">
+                  Čeka te dobra muzika, torta, osmijesi i konfete. Ponesi energiju — ostalo je na meni!
+                </p>
+
+                <div class="hero-meta">
+                  <div class="pill" data-aos="fade-up" data-aos-delay="50">
+                    <div class="t">Datum</div>
+                    <div class="v">14.06.2026.</div>
+                  </div>
+                  <div class="pill" data-aos="fade-up" data-aos-delay="100">
+                    <div class="t">Vreme</div>
+                    <div class="v">19:00</div>
+                  </div>
+                  <div class="pill" data-aos="fade-up" data-aos-delay="150">
+                    <div class="t">Mesto</div>
+                    <div class="v">Lounge Bar “Aurora”, Beograd</div>
+                  </div>
+                </div>
+
+                <div style="margin-top:22px; display:flex; gap:10px; flex-wrap:wrap;">
+                  <a class="btn btn-accent" href="#rsvp">Potvrdi dolazak</a>
+                  <a class="btn btn-ghost" href="#upload">QR za slike</a>
+                  <button class="btn btn-ghost" id="replayBtn" type="button" title="Ponovo prikaži kovertu">
+                    Replay ✨
+                  </button>
+                </div>
+              </div>
+
+              <div class="hero-right" aria-label="Fotografija / pozadina">
+                <!-- Zameni: assets/birthday.jpg -->
+                <div class="hero-badge" data-aos="zoom-in" data-aos-delay="150">
+                  <b>Dress code: casual ✨</b>
+                  <span>Jedan klik — sve informacije na jednom mestu.</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROGRAM -->
+      <section id="program">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Program</h2>
+              <p>Okvirna satnica (prilagodi kako želiš).</p>
+            </div>
+            <div class="section-body">
+              <div class="timeline">
+                <div class="slot" data-aos="fade-up" data-aos-delay="50">
+                  <div class="time">19:00</div>
+                  <div class="text">
+                    <b>Dolazak & piće dobrodošlice</b>
+                    <span>Upoznaj se, nazdravimo i zagrijemo atmosferu.</span>
+                  </div>
+                </div>
+                <div class="slot" data-aos="fade-up" data-aos-delay="100">
+                  <div class="time">20:30</div>
+                  <div class="text">
+                    <b>Torta 🎂</b>
+                    <span>Make a wish moment.</span>
+                  </div>
+                </div>
+                <div class="slot" data-aos="fade-up" data-aos-delay="150">
+                  <div class="time">21:00</div>
+                  <div class="text">
+                    <b>Muzika & žurka</b>
+                    <span>DJ / plejlista — svejedno, samo da grmi.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- LOCATION -->
+      <section id="lokacija">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Lokacija</h2>
+              <p>Jednim klikom otvorite navigaciju.</p>
+            </div>
+            <div class="section-body">
+              <div class="grid2">
+                <div class="info" data-aos="fade-up" data-aos-delay="50">
+                  <div class="k">Adresa</div>
+                  <div class="v">Lounge Bar “Aurora”, Primjer 12, Beograd</div>
+                  <div class="s">
+                    <a class="btn btn-accent" style="margin-top:10px" target="_blank" rel="noopener"
+                      href="https://www.google.com/maps?q=Beograd">
+                      Otvori Google Maps
+                    </a>
+                  </div>
+                </div>
+
+                <div class="info" data-aos="fade-up" data-aos-delay="100">
+                  <div class="k">Napomena</div>
+                  <div class="v">Potvrdi dolazak</div>
+                  <div class="s">RSVP nam pomaže da organizujemo sto i piće.</div>
+                </div>
+              </div>
+
+              <div style="margin-top:16px;border-radius:18px;overflow:hidden;border:1px solid rgba(0,0,0,.08);" data-aos="fade-up" data-aos-delay="150">
+                <iframe
+                  title="Mapa"
+                  src="https://www.google.com/maps?q=Beograd&output=embed"
+                  width="100%" height="320" style="border:0;display:block;"
+                  loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RSVP -->
+      <section id="rsvp">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>RSVP</h2>
+              <p>Potvrdi dolazak (demo poruka — po želji povezujemo EmailJS).</p>
+            </div>
+            <div class="section-body">
+              <div class="rsvp-wrap">
+                <div class="form" data-aos="fade-up" data-aos-delay="50">
+                  <form id="rsvpForm" autocomplete="on">
+                    <div class="field">
+                      <label for="name">Ime i prezime</label>
+                      <input id="name" name="name" required placeholder="Upiši ime i prezime">
+                    </div>
+
+                    <div class="field">
+                      <label>Da li dolaziš?</label>
+                      <select name="attendance" required>
+                        <option value="Dolazim 🎉">Dolazim 🎉</option>
+                        <option value="Ne mogu 😢">Ne mogu 😢</option>
+                      </select>
+                    </div>
+
+                    <div class="field">
+                      <label>Koliko osoba dolazi?</label>
+                      <select name="guests" required>
+                        <option value="Ja">Ja</option>
+                        <option value="Ja +1">Ja +1</option>
+                        <option value="Ja +2">Ja +2</option>
+                        <option value="Ja +3">Ja +3</option>
+                      </select>
+                    </div>
+
+                    <div class="field">
+                      <label>Imena gostiju (ako dolaziš sa nekim)</label>
+                      <textarea name="guest_names" placeholder="Npr: Ana Petrović, Nikola Petrović"></textarea>
+                    </div>
+
+                    <button class="btn btn-accent" type="submit">Pošalji potvrdu</button>
+                    <div class="msg" id="rsvpMsg" aria-live="polite"></div>
+                  </form>
+                </div>
+
+                <div class="info" data-aos="fade-up" data-aos-delay="100">
+                  <div class="k">Kontakt</div>
+                  <div class="v">Piši/pozovi</div>
+                  <div class="s">
+                    <b>Telefon:</b> +381 60 123 456 <br>
+                    <b>Email:</b> invite@example.com <br><br>
+                    Rok za potvrdu: <b>01.06.2026.</b>
+                  </div>
+                </div>
+              </div>
+
+              <div style="margin-top:14px;color:rgba(27,27,38,.70);font-size:.95rem">
+                Tip: Ako želiš da RSVP stvarno šalje mail bez servera, ubaciću ti EmailJS (2–3 minuta posla).
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- UPLOAD (QR) -->
+      <section id="upload">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Upload slika 📸</h2>
+              <p>Skeniraj QR i ubaci slike/klipove sa žurke.</p>
+            </div>
+            <div class="section-body">
+              <div class="qr-box">
+                <div class="info" style="flex:1; min-width:260px">
+                  <div class="k">Link za upload</div>
+                  <div class="v">Google Drive / Form</div>
+                  <div class="s">
+                    Preporuka: koristi <b>Google Form (File upload)</b> ili <b>Drive File Request</b> (Workspace),
+                    jer običan “folder link” često ne dozvoljava upload.
+                    <br><br>
+                    <a class="btn btn-accent" id="uploadBtn" href="#" target="_blank" rel="noopener">Otvori upload</a>
+                  </div>
+                </div>
+
+                <div class="qr-card">
+                  <div class="k" style="margin-bottom:10px; font-size:.78rem; letter-spacing:.12em; text-transform:uppercase; color: rgba(27,27,38,.60);">
+                    QR kod
+                  </div>
+                  <div id="qrCode"></div>
+                </div>
+              </div>
+
+              <div style="margin-top:12px;color:rgba(27,27,38,.70);font-size:.95rem">
+                Tip: možeš dodati i tekst “Samo uploaduj — ništa se ne briše” ili “Hvala na uspomenama!”.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- GALLERY -->
+      <section id="galerija">
+        <div class="container">
+          <div class="section-card" data-aos="fade-up">
+            <div class="section-head">
+              <h2>Galerija</h2>
+              <p>Mali teaser (zameni svojim slikama).</p>
+            </div>
+
+            <div class="section-body">
+              <div class="gallery-wrap">
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Konfete ✨">
+                  <img src="https://images.unsplash.com/photo-1529634806980-85c3dd6d34ac?q=80&w=800&auto=format&fit=crop">
+                  <span class="g-badge">01</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Smijeh">
+                  <img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=800&auto=format&fit=crop">
+                  <span class="g-badge">02</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Torta 🎂">
+                  <img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?q=80&w=800&auto=format&fit=crop">
+                  <span class="g-badge">03</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Ekipa">
+                  <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop">
+                  <span class="g-badge">04</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Noćni vibe">
+                  <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=800&auto=format&fit=crop">
+                  <span class="g-badge">05</span>
+                </button>
+
+                <button class="g-item" type="button"
+                  data-full="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=1600&auto=format&fit=crop"
+                  data-cap="Uspomene ❤️">
+                  <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=800&auto=format&fit=crop">
+                  <span class="g-badge">06</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <div class="container">
+          <div>Vidimo se — <b>Ana</b> 💖</div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lb-card" role="dialog" aria-label="Galerija">
+      <button class="lb-close" id="lbClose" type="button" aria-label="Zatvori">✕</button>
+      <button class="lb-prev" id="lbPrev" type="button" aria-label="Prethodna">‹</button>
+      <button class="lb-next" id="lbNext" type="button" aria-label="Sledeća">›</button>
+
+      <img class="lb-img" id="lbImg" alt="Galerija">
+      <div class="lb-cap" id="lbCap"></div>
+    </div>
+  </div>
+
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+  <!-- QR generator (no server needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+  <script>
+    // ======== PASTE YOUR UPLOAD LINK HERE ========
+    // Idealno: Google Form (file upload) ili Drive File Request link (Workspace)
+    const DRIVE_UPLOAD_URL = "PASTE_GOOGLE_UPLOAD_LINK_HERE";
+
+    // ---------- Gate open ----------
+    const gate = document.getElementById('gate');
+    const app  = document.getElementById('app');
+    const seal = document.getElementById('sealBtn');
+    const replayBtn = document.getElementById('replayBtn');
+
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function openInvite(){
+      if (gate.classList.contains('opening')) return;
+
+      if (prefersReduced){
+        gate.classList.add('gone');
+        app.classList.add('ready');
+        return;
+      }
+
+      gate.classList.add('opening');
+
+      setTimeout(() => {
+        gate.classList.add('gone');
+        app.classList.add('ready');
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        AOS.refreshHard();
+      }, 1850);
+    }
+    seal.addEventListener('click', openInvite);
+
+    replayBtn?.addEventListener('click', () => {
+      gate.classList.remove('gone','opening');
+      app.classList.remove('ready');
+      window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+
+    // ---------- AOS init ----------
+    AOS.init({ duration: 700, once: true, offset: 60 });
+
+    // ---------- Smooth scroll ----------
+    document.querySelectorAll('a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        const id = a.getAttribute('href');
+        if(!id || id.length < 2) return;
+        const el = document.querySelector(id);
+        if(!el) return;
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+
+    // ---------- RSVP (demo) ----------
+    const rsvpForm = document.getElementById('rsvpForm');
+    const rsvpMsg  = document.getElementById('rsvpMsg');
+
+    rsvpForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const guests = rsvpForm.querySelector('[name="guests"]').value;
+      const guestNames = rsvpForm.querySelector('[name="guest_names"]');
+      if (guests === "Ja") guestNames.value = "";
+      rsvpMsg.textContent = "Potvrda je zabilježena (demo). ✅";
+      setTimeout(() => rsvpMsg.textContent = "", 4500);
+      rsvpForm.reset();
+    });
+
+    // ---------- QR + Upload button ----------
+    const uploadBtn = document.getElementById('uploadBtn');
+    if (uploadBtn) uploadBtn.href = DRIVE_UPLOAD_URL;
+
+    const qrWrap = document.getElementById('qrCode');
+    if (qrWrap) {
+      qrWrap.innerHTML = "";
+      new QRCode(qrWrap, {
+        text: DRIVE_UPLOAD_URL,
+        width: 220,
+        height: 220,
+        correctLevel: QRCode.CorrectLevel.M
+      });
+    }
+
+    // ---------- Gallery Lightbox ----------
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCap = document.getElementById('lbCap');
+    const lbClose = document.getElementById('lbClose');
+    const lbPrev = document.getElementById('lbPrev');
+    const lbNext = document.getElementById('lbNext');
+
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-wrap .g-item'));
+    let lbIndex = 0;
+
+    function openLightbox(i){
+      lbIndex = i;
+      const el = galleryItems[lbIndex];
+      lbImg.src = el.dataset.full || el.querySelector('img')?.src;
+      lbCap.textContent = el.dataset.cap || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden','true');
+      document.body.style.overflow = '';
+      setTimeout(()=>{ lbImg.src = ''; }, 150);
+    }
+    function navLightbox(dir){
+      if(!galleryItems.length) return;
+      lbIndex = (lbIndex + dir + galleryItems.length) % galleryItems.length;
+      openLightbox(lbIndex);
+    }
+    galleryItems.forEach((btn, i)=> btn.addEventListener('click', ()=>openLightbox(i)));
+    lbClose?.addEventListener('click', closeLightbox);
+    lb?.addEventListener('click', (e)=>{ if(e.target === lb) closeLightbox(); });
+    lbPrev?.addEventListener('click', ()=>navLightbox(-1));
+    lbNext?.addEventListener('click', ()=>navLightbox(1));
+    document.addEventListener('keydown', (e)=>{
+      if(!lb.classList.contains('open')) return;
+      if(e.key === 'Escape') closeLightbox();
+      if(e.key === 'ArrowLeft') navLightbox(-1);
+      if(e.key === 'ArrowRight') navLightbox(1);
+    });
+  </script>
+</body>
+</html>
