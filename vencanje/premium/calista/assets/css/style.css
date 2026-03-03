@@ -15,8 +15,8 @@ ul {
 }
 
 body {
-    background-color: #fff;
-    background: url(../images/pozadina.webp)
+    background-color: #fff9f1;
+    /* background: url(../images/pozadina.webp) */
 }
 
 p,h1,h2 {
@@ -69,7 +69,8 @@ p,h1,h2 {
     width: 700px;
     height: 275px;
     margin: auto;
-    position: relative
+    position: relative;
+    margin-top: 150px;
 }
 
 .prvoSlovo {
@@ -763,7 +764,13 @@ footer ul li {
         top: 25px
     }
 }
+@media (width < 600px) {
+    footer img{
+        width: 100%;
+        height: auto;
+    }
 
+}
 @media (max-width: 600px) {
     #potvrda .tekstPisan {
         font-size:35px
@@ -771,10 +778,6 @@ footer ul li {
 
     #ram {
         top: 20px
-    }
-
-    footer a img {
-        width: 200px
     }
 
     #potvrdaTekst {

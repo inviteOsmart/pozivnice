@@ -1026,10 +1026,6 @@ footer ul li {
         width: 100%
     }
 
-    footer a img {
-        width: 200px
-    }
-
     #potvrda {
         width: 65%
     }
@@ -1180,4 +1176,11 @@ footer ul li {
         margin-bottom: 40px;
         font-size: 30px
     }
+}
+@media (width < 600px) {
+    footer img{
+        width: 100%;
+        height: auto;
+    }
+
 }
