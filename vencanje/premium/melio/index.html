@@ -1374,7 +1374,7 @@
           <a href="#lokacija">Lokacija</a>
           <a href="#tajmer">Tajmer</a>
           <a href="#fotke">Fotke (QR)</a>
-          <a href="#podsjetnik">Podsjetnik</a>
+          <a href="#podsetnik">Podsetnik</a>
           <a href="#rsvp">Forma</a>
           <a href="#muzika">Muzika</a>
           <a href="#galerija">Naši trenuci</a>
@@ -1566,7 +1566,7 @@
           trigger="click"
           inline
           size="5"
-          label="Postavi podsjetnik"
+          label="Postavi podsetnik"
           styleLight="
             --btn-background: linear-gradient(135deg, var(--gold1), var(--gold2));
             --btn-hover-background: linear-gradient(135deg, #f0d08a, #c79745);
@@ -2200,12 +2200,12 @@
         "BEGIN:VALARM",
         "TRIGGER:-PT24H",
         "ACTION:DISPLAY",
-        "DESCRIPTION:" + escapeICS("Podsjetnik: " + EVENT.title + " sutra."),
+        "DESCRIPTION:" + escapeICS("Podsetnik: " + EVENT.title + " sutra."),
         "END:VALARM",
         "BEGIN:VALARM",
         "TRIGGER:-PT2H",
         "ACTION:DISPLAY",
-        "DESCRIPTION:" + escapeICS("Podsjetnik: " + EVENT.title + " za 2 sata."),
+        "DESCRIPTION:" + escapeICS("Podsetnik: " + EVENT.title + " za 2 sata."),
         "END:VALARM",
         "END:VEVENT",
         "END:VCALENDAR"

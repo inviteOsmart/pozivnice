@@ -713,6 +713,14 @@ footer ul li {
     }
 }
 
+@media (width < 600px) {
+    footer img{
+        width: 100%;
+        height: auto;
+    }
+
+}
+
 @media (max-width: 600px) {
     #naslovna {
         width:100%
@@ -775,10 +783,6 @@ footer ul li {
 
     .elementVreme {
         margin: 150px auto
-    }
-
-    footer a img {
-        width: 200px
     }
 
     .elementVreme h1 {

@@ -741,6 +741,14 @@ footer ul li {
     }
 }
 
+@media (width < 600px) {
+    footer img{
+        width: 100%;
+        height: auto;
+    }
+
+}
+
 @media (max-width: 600px) {
     #levoRuze {
         width:220px
@@ -810,10 +818,6 @@ footer ul li {
 
     #forma {
         padding: 60% 0
-    }
-
-    footer a img {
-        width: 200px
     }
 
     #separatorZlato {

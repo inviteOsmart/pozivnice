@@ -622,6 +622,14 @@ footer ul li {
     }
 }
 
+@media (width < 600px) {
+    footer img{
+        width: 100%;
+        height: auto;
+    }
+
+}
+
 @media (max-width: 600px) {
     .tekstPisan {
         font-size:50px
@@ -675,10 +683,6 @@ footer ul li {
 
     form {
         width: 80%
-    }
-
-    footer a img {
-        width: 200px
     }
 
     #tajmer .drugiListovi {
