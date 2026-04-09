@@ -201,8 +201,10 @@
       id="gateVideo"
       src="assets/video/black_envelope_vid.mp4"
       playsinline
+      webkit-playsinline
       preload="auto"
       muted
+      disablePictureInPicture
     ></video>
     <div class="klik-zona" onclick="pokreniVideo()"></div>
   </div>
@@ -783,11 +785,11 @@
     }
 
     // Skip button handler
-    document.getElementById('gateSkip')?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const video = document.getElementById('gateVideo');
-      if (video) video.pause();
-      openInvite();
+    const gateVideo = document.getElementById('gateVideo');
+
+    // iOS Safari won't show first frame unless you seek to 0 after load
+    gateVideo.addEventListener('loadedmetadata', () => {
+      gateVideo.currentTime = 0.001; // nudge to force first-frame render on iOS
     });
 
     // ---------- Audio / Player ----------
