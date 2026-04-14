@@ -27,151 +27,134 @@
 
   <style>
     /* ========== VIDEO GATE ========== */
-    #gate {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100vh;
-      height: 100dvh;
-      background:
-      radial-gradient(1200px 800px at 20% 10%, rgba(207,167,90,.18), transparent 55%),
-      radial-gradient(900px 650px at 80% 30%, rgba(225,192,122,.14), transparent 60%),
-      radial-gradient(1100px 900px at 50% 100%, rgba(255,255,255,.06), transparent 55%),
-      var(--bg);
-      z-index: 9999999;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      transition: opacity 0.8s ease, visibility 0.8s;
-      width: 100vw;
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-      position: fixed;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+    /* ========== VIDEO GATE ========== */
+#gate {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999999;
+  background: #000;
+  overflow: hidden;
+  transition: opacity 0.8s ease, visibility 0.8s;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    #gate.gone {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
+#gate.gone {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
 
-    #gateVideo {
-      width: 100% !important;
-      max-width: 490px !important;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-      width: 100vw !important;
-      height: 100dvh !important;
-      max-width: none !important;
-      object-fit: cover;
-      display: block;
-      max-width: 490px !important;
-      margin-left: auto;
-      margin-right: auto;
-      left: 0;
-      transform: translateZ(0);
-      -webkit-transform: translateZ(0);
-    }
+#gateVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  /* iOS GPU compositing fix */
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  /* Prevent iOS from showing black frame */
+  background: #000;
+}
 
-    .klik-zona {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: transparent;
-      /* border-radius: 50%; */
-      z-index: 10000000;
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      outline: none;
-    }
+.klik-zona {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10000000;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+  background: transparent;
+}
 
-    /* Play hint overlay — shown while paused */
-    #gateHint {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      transition: opacity 0.4s ease;
-    }
+#gateHint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  z-index: 10000001;
+}
 
-    #gateHint.hidden {
-      opacity: 0;
-    }
+#gateHint.hidden {
+  opacity: 0;
+}
 
-    .hint-ring {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.15);
-      backdrop-filter: blur(8px);
-      border: 2px solid rgba(255,255,255,0.5);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulse-ring 2s ease-in-out infinite;
-    }
+.hint-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 2px solid rgba(255,255,255,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse-ring 2s ease-in-out infinite;
+}
 
-    .hint-ring i {
-      font-size: 30px;
-      color: #fff;
-      margin-left: 4px; /* optical center for play icon */
-    }
+.hint-ring i {
+  font-size: 30px;
+  color: #fff;
+  margin-left: 4px;
+}
 
-    .hint-text {
-      margin-top: 16px;
-      color: rgba(255,255,255,0.85);
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+.hint-text {
+  margin-top: 16px;
+  color: rgba(255,255,255,0.85);
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-    @keyframes pulse-ring {
-      0%, 100% { transform: scale(1);   opacity: 1; }
-      50%       { transform: scale(1.1); opacity: 0.7; }
-    }
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1);   opacity: 1; }
+  50%       { transform: scale(1.1); opacity: 0.7; }
+}
 
-    /* Skip button — shown after video starts playing */
-    #gateSkip {
-      position: absolute;
-      bottom: 32px;
-      right: 32px;
-      background: rgba(255,255,255,0.12);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255,255,255,0.3);
-      color: #fff;
-      font-family: 'Inter', sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 10px 20px;
-      border-radius: 100px;
-      cursor: pointer;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s ease, background 0.2s ease;
-    }
+#gateSkip {
+  position: absolute;
+  bottom: 40px;
+  right: 24px;
+  /* extra padding for iOS safe area */
+  bottom: calc(32px + env(safe-area-inset-bottom));
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  border-radius: 100px;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, background 0.2s ease;
+  z-index: 10000002;
+}
 
-    #gateSkip.visible {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    #gateSkip:hover {
-      background: rgba(255,255,255,0.25);
-    }
+#gateSkip.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
   </style>
 </head>
 
@@ -732,36 +715,25 @@
     }
 
     // ---------- VIDEO GATE ----------
-    function pokreniVideo() {
-      const video   = document.getElementById('gateVideo');
-      const gate    = document.getElementById('gate');
-      const appEl   = document.getElementById('app');
-      const audio   = document.getElementById('bgAudio');
-      const muteBtn = document.getElementById('muteBtn');
+    const gateVideo = document.getElementById('gateVideo');
+    const gateEl    = document.getElementById('gate');
+    const gateHint  = document.getElementById('gateHint');
+    const gateSkip  = document.getElementById('gateSkip');
 
-      if (!video) return;
+    // iOS Safari: force first frame to render as soon as metadata loads
+    gateVideo.addEventListener('loadedmetadata', () => {
+      gateVideo.currentTime = 0.001;
+    });
 
-      // Prevent double-clicks
-      const klikZona = gate.querySelector('.klik-zona');
-      if (klikZona) klikZona.style.pointerEvents = 'none';
-
-      // Hide hint overlay if present
-      const hint = document.getElementById('gateHint');
-      if (hint) hint.classList.add('hidden');
-
-      // Show skip button
-      const skip = document.getElementById('gateSkip');
-      if (skip) skip.classList.add('visible');
-
-      video.play().then(() => {
-        // When video ends → open invitation
-        video.addEventListener('ended', openInvite, { once: true });
-
-      }).catch(() => {
-        // Fallback: video failed, open directly
-        openInvite();
-      });
+    // Also try immediately in case metadata already loaded
+    if (gateVideo.readyState >= 1) {
+      gateVideo.currentTime = 0.001;
     }
+
+    // On iOS, 'canplay' fires after seeking — use it to ensure frame is painted
+    gateVideo.addEventListener('canplay', () => {
+      gateVideo.currentTime = 0.001;
+    }, { once: true });
 
     function openInvite() {
       const gate    = document.getElementById('gate');
@@ -786,12 +758,42 @@
       }
     }
 
-    // Skip button handler
-    const gateVideo = document.getElementById('gateVideo');
+    function pokreniVideo() {
+      const video = document.getElementById('gateVideo');
+      if (!video) return;
 
-    // iOS Safari won't show first frame unless you seek to 0 after load
-    gateVideo.addEventListener('loadedmetadata', () => {
-      gateVideo.currentTime = 0.001; // nudge to force first-frame render on iOS
+      // Disable click zone to prevent double-trigger
+      const klikZona = gateEl.querySelector('.klik-zona');
+      if (klikZona) klikZona.style.pointerEvents = 'none';
+
+      // Hide hint, show skip
+      if (gateHint) gateHint.classList.add('hidden');
+      if (gateSkip) gateSkip.classList.add('visible');
+
+      // iOS requires unmuting inside user gesture for sound
+      // video is muted in HTML so autoplay works; keep it muted during playback
+      video.muted = true;
+
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          video.addEventListener('ended', openInvite, { once: true });
+        }).catch(() => {
+          // iOS blocked even muted play — open directly
+          openInvite();
+        });
+      } else {
+        // Older browsers: no promise returned
+        video.addEventListener('ended', openInvite, { once: true });
+      }
+    }
+
+    // Skip button
+    document.getElementById('gateSkip')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      gateVideo.pause();
+      openInvite();
     });
 
     // ---------- Audio / Player ----------
