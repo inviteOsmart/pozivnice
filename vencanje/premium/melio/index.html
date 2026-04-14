@@ -202,13 +202,15 @@
     <video
       id="gateVideo"
       src="assets/video/black_envelope_vid.mp4"
+      poster="assets/images/black_envelope_starting_frame.png"
       playsinline
       webkit-playsinline
+      x5-playsinline
       preload="auto"
       muted
       disablePictureInPicture
     ></video>
-    <div class="klik-zona"></div>
+    <div class="klik-zona" onclick="pokreniVideo()"></div>
   </div>
 
   <!-- ========== INVITATION APP ========== -->
@@ -732,20 +734,36 @@
     }
 
     // ---------- VIDEO GATE ----------
+    const gateVideo = document.getElementById('gateVideo');
+    const gateEl    = document.getElementById('gate');
+
+    // ── iOS first-frame fix ──────────────────────────────────────────────────────
+    // iOS Safari won't paint any frame until the element has buffered data.
+    // We must call .load() explicitly, then seek to 0.001 on 'loadeddata'
+    // (not 'loadedmetadata' — that fires before any frame is decoded).
+
+    function iosFirstFrameFix() {
+      gateVideo.currentTime = 0.001;
+    }
+
+    gateVideo.addEventListener('loadeddata',     iosFirstFrameFix, { once: true });
+    gateVideo.addEventListener('canplaythrough', iosFirstFrameFix, { once: true });
+
+    // Kick off buffering — iOS won't buffer at all without an explicit load()
+    // when preload="auto" is ignored (common in low-power mode)
+    gateVideo.load();
+
+    // ── Main gate logic ──────────────────────────────────────────────────────────
     function pokreniVideo() {
       const video   = document.getElementById('gateVideo');
       const gate    = document.getElementById('gate');
-      const appEl   = document.getElementById('app');
-      const audio   = document.getElementById('bgAudio');
-      const muteBtn = document.getElementById('muteBtn');
+      if (!video || !gate) return;
 
-      if (!video) return;
-
-      // Prevent double-clicks
+      // Prevent double-trigger
       const klikZona = gate.querySelector('.klik-zona');
       if (klikZona) klikZona.style.pointerEvents = 'none';
 
-      // Hide hint overlay if present
+      // Hide hint
       const hint = document.getElementById('gateHint');
       if (hint) hint.classList.add('hidden');
 
@@ -753,14 +771,25 @@
       const skip = document.getElementById('gateSkip');
       if (skip) skip.classList.add('visible');
 
-      video.play().then(() => {
-        // When video ends → open invitation
-        video.addEventListener('ended', openInvite, { once: true });
+      // Keep muted during gate — iOS only allows programmatic play on muted video
+      // Sound starts after gate closes (bgAudio), not from the gate video itself
+      video.muted = true;
 
-      }).catch(() => {
-        // Fallback: video failed, open directly
-        openInvite();
-      });
+      const playPromise = video.play();
+
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            video.addEventListener('ended', openInvite, { once: true });
+          })
+          .catch(() => {
+            // iOS blocked play entirely → skip straight to invitation
+            openInvite();
+          });
+      } else {
+        // Older Safari returns undefined from .play()
+        video.addEventListener('ended', openInvite, { once: true });
+      }
     }
 
     function openInvite() {
@@ -769,29 +798,36 @@
       const audio   = document.getElementById('bgAudio');
       const muteBtn = document.getElementById('muteBtn');
 
+      // Stop gate video cleanly
+      if (gateVideo) {
+        gateVideo.pause();
+        gateVideo.removeEventListener('ended', openInvite);
+      }
+
       gate.classList.add('gone');
       appEl.classList.add('ready');
       document.body.style.overflow = '';
       window.scrollTo({ top: 0, behavior: 'auto' });
       AOS.refreshHard();
 
+      // Start background music — this runs inside a user-gesture chain so iOS allows it
       if (audio) {
         audio.muted = false;
+        audio.volume = 0.85;
         audio.play().catch(e => console.log("Greška pri puštanju:", e));
       }
+
       if (muteBtn) {
         muteBtn.style.display = 'block';
         syncMuteUI();
         syncPlayUI();
       }
     }
-    pokreniVideo();
-    // Skip button handler
-    const gateVideo = document.getElementById('gateVideo');
 
-    // iOS Safari won't show first frame unless you seek to 0 after load
-    gateVideo.addEventListener('loadedmetadata', () => {
-      gateVideo.currentTime = 0.001; // nudge to force first-frame render on iOS
+    // Skip button
+    document.getElementById('gateSkip')?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openInvite();
     });
 
     // ---------- Audio / Player ----------
